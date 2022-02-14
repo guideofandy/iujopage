@@ -25,7 +25,7 @@ const Header = () => {
           {headerData().map((element,key) => <HeaderLinks key={key} element={element}/>)}
         </div>
         <div className={styles.menu} onClick={handleSlidebar}>
-          <AiOutlineMenu color='white' size={"3rem"} />
+          <AiOutlineMenu color='white' size={"2rem"} />
         </div>
       </header>
       <Slidebar handleState={handleSlidebar} state={slidebar} />

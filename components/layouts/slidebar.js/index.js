@@ -13,9 +13,9 @@ const Slidebar = ({ handleState, state }) => {
       <header className={styles.headerSlidebar}>
         {state ?
           <div onClick={handleState} className={ShowButton}>
-            <AiOutlineMenu color='white' size={"3rem"} />
+            <AiOutlineMenu color='white' size={"2rem"} />
           </div> :
-          <BsArrowBarRight color='white' size={"3rem"} />
+          <BsArrowBarRight color='white' size={"2rem"} />
         }
       </header>
       {slidebarData().map((element, key) => <SlidebarElement key={key} element={element} />)}
