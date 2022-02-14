@@ -1,10 +1,12 @@
 import styles from '../../styles/Header.module.css';
 import Image from 'next/image'
-import { AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineMenu } from 'react-icons/ai';
+import {BsArrowBarLeft} from 'react-icons/bs';
 import Link from 'next/link';
 import { useState } from 'react'
 import Slidebar from './slidebar.js';
-
+import headerData from '../Data/headerData';
+import HeaderLinks from './headerLinks';
 const Header = () => {
 
   const [slidebar, setSlidebar] = useState(false);
@@ -28,22 +30,15 @@ const Header = () => {
             </div>
           </Link>
           <div className={styles.links}>
-            <Link href="/carreras">
-              <a href="">SIGEA</a>
-            </Link>
-            <Link href="/carreras">
-              <a href="">NOTICIAS</a>
-            </Link>
-            <Link href="/carreras">
-              <a href="">CARRERAS</a>
-            </Link>
+            {headerData().map((element, key) => <HeaderLinks hey={key} element={element} />)}
           </div>
 
         </div>
-        {slidebar ||
+        {!slidebar ?
           <div onClick={handleSlidebar}>
             <AiOutlineMenu color='white' size={"3rem"} />
-          </div>
+          </div> : 
+          <BsArrowBarLeft color='white' size={"3rem"}/> 
         }
       </header>
       <Slidebar handleState={handleSlidebar} state={slidebar} />

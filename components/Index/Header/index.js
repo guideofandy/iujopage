@@ -4,6 +4,8 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Link from 'next/link';
 import { useState } from "react"
 import Slidebar from '../../layouts/slidebar.js';
+import headerData from '../../Data/headerData';
+import HeaderLinks from '../../layouts/headerLinks';
 
 const Header = () => {
 
@@ -20,11 +22,7 @@ const Header = () => {
           <Image src={'/img/principal.png'} width={833} height={261} alt={"Logo de La institución"} />
         </div>
         <div className={styles.Links}>
-          <a href='http://190.120.252.155:49153/sigea/index.php'>SIGEA</a>
-          <a>NOTICIAS</a>
-          <Link href="/carreras">
-            <a>CARRERAS</a>
-          </Link>
+          {headerData().map((element,key) => <HeaderLinks key={key} element={element}/>)}
         </div>
         <div className={styles.menu} onClick={handleSlidebar}>
           <AiOutlineMenu color='white' size={"3rem"} />

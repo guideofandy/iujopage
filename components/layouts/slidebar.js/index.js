@@ -1,5 +1,6 @@
 import styles from "../../../styles/Header.module.css";
 import { AiOutlineMenu } from "react-icons/ai";
+import { BsArrowBarRight } from "react-icons/bs";
 import slidebarData from "./slidebarData";
 import SlidebarElement from "./SlidebarElement.js";
 
@@ -10,10 +11,11 @@ const Slidebar = ({ handleState, state }) => {
   return (
     <aside className={SlidebarState}>
       <header className={styles.headerSlidebar}>
-        {state &&
+        {state ?
           <div onClick={handleState} className={ShowButton}>
             <AiOutlineMenu color='white' size={"3rem"} />
-          </div>
+          </div> :
+          <BsArrowBarRight color='white' size={"3rem"} />
         }
       </header>
       {slidebarData().map((element, key) => <SlidebarElement key={key} element={element} />)}
