@@ -30,7 +30,7 @@ const Header = () => {
             </div>
           </Link>
           <div className={styles.links}>
-            {headerData().map((element, key) => <HeaderLinks hey={key} element={element} />)}
+            {headerData().map((element, key) => <HeaderLinks key={key} element={element} />)}
           </div>
 
         </div>
