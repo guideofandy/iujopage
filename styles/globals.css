@@ -23,3 +23,15 @@ a {
 .main{
   width: 100%;
 }
+
+.container{
+  margin-top: 6rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 6rem);
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
