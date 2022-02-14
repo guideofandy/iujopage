@@ -10,7 +10,7 @@ const IndexPost = () => {
           <Image src={"/img/maria.svg"} width={512} height={512} alt={"Jose Maria Velaz"} />
         </div>
         <div className={styles.postText}>
-          <h1>"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum, vitae"</h1>
+          <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum, vitae</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, deserunt qui. Porro blanditiis explicabo nam eum nesciunt? Cumque, rerum amet?</p>
           <Button title={"Saber más"} />
         </div>
