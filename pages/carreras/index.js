@@ -1,9 +1,5 @@
-import React from 'react'
-
-const Carreras = () => {
+export default function Carreras() {
   return (
     <div>Carreras</div>
   )
 }
-
-export default Carreras
