@@ -1,0 +1,35 @@
+.card{
+  position: relative;
+  height: 300px;
+  width: 100%;
+  min-width: 150px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.image{
+  width: 100%;
+  height: 65%;
+  overflow: hidden;
+  object-fit: cover;
+  position: relative;
+}
+
+.title{
+  margin-left: 1rem;
+  align-self: left;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.showMore{
+  letter-spacing: 0.8px;
+  margin-right: 1rem;
+  align-self: flex-end;
+  justify-content: flex-end;
+  text-align: right;
+  border-bottom: 1px solid #212121ee;
+}

@@ -1,39 +1,25 @@
 import styles from "../styles/Index.module.css";
-import Image from 'next/image';
-import { AiOutlineMenu } from "react-icons/ai";
-import Button from "../components/Button";
+import IndexPost from "../components/Index/IndexPost";
+import Header from "../components/Index/Header";
+import { BsFillArrowDownCircleFill } from 'react-icons/bs'
+import Services from "../components/Index/Services";
+import News from "../components/Index/News";
 
 export default function Home() {
   return (
     <>
       <section className={styles.mainPage}>
         <div className={styles.dataPage}>
-          <header className={styles.header}>
-            <div className={styles.headerImage}>
-              <Image src={'/img/principal.png'} width={833} height={261} alt={"Logo de La institución"} />
-            </div>
-            <div className={styles.Links}>
-              <a>SIGEA</a>
-              <a>BOLETIN INFORMATIVO</a>
-              <a>RADIO</a>
-            </div>
-            <div className={styles.menu}>
-              <AiOutlineMenu color='white' size={"3rem"} />
-            </div>
-          </header>
-          <div className={styles.post}>
-            <div className={styles.postFlex}>
-              <h1>"Unidos Haciendo vida universitaria"</h1>
-              <div className={styles.postImg}>
-                <Image src={"/img/maria.svg"} width={512} height={512} alt={"Jose Maria Velaz"} />
-              </div>
-            </div>
+          <Header />
+          <IndexPost />
+          <div className={styles.showMore}>
+            <BsFillArrowDownCircleFill className={styles.arrow} />
+            <p>Has scroll para ver más información</p>
           </div>
-          <footer className={styles.footer}>
-            <a>Conoce mas acerca del IUJO</a>
-          </footer>
         </div>
       </section>
+      <News/>
+      <Services />
     </>
   )
 }

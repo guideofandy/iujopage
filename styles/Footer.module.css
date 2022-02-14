@@ -1,0 +1,38 @@
+.footer {
+  background-color: #212121;
+  width: 100%;
+  padding: 2rem;
+  min-height: 15rem;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.centered {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3rem;
+  align-items: center;
+  text-align: center;
+}
+
+.ol{
+  list-style: none;
+  padding: 0;
+  color: white;
+}
+.derechos{
+  color: white;
+}
+
+.imgFooter {
+  width: 10rem;
+  max-width: 10rem;
+  margin-left: 2rem;
+}
+@media only screen and (max-width: 600px) {
+  .centered {
+    grid-template-columns: 1fr;
+    grid-gap: 0.5rem;
+  }
+}

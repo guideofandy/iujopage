@@ -15,7 +15,6 @@ const Layouts = ({ children }) => {
       </Head>
 
       {route.asPath === "/" || <Header />}
-      
       <main className="main">
         {children}
       </main>
