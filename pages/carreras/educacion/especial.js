@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import EspecialData from "../../../components/Data/EspecialData";
+import EspecialData from "../../../components/Data/Careers/EspecialData";
 
 const Especial = () => {
 

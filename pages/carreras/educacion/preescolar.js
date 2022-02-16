@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import PreescolarData from "../../../components/Data/PreescolarData";
+import PreescolarData from "../../../components/Data/Careers/PreescolarData";
 
 const Preescolar = () => {
 

@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import ContaduriaData from "../../../components/Data/ContaduriaData";
+import ContaduriaData from "../../../components/Data/Careers/ContaduriaData";
 
 const Contaduria = () => {
 

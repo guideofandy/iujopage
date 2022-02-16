@@ -20,6 +20,7 @@ const Post = () => {
         </p>
       </section>
       <footer className={styles.footer}>
+        <a>Ver mas</a>
         <a>Compartir</a>
       </footer>
     </div>

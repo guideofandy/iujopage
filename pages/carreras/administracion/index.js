@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import AdministracionData from "../../../components/Data/AdministracionData";
+import AdministracionData from "../../../components/Data/Careers/AdministracionData";
 
 const Administracion = () => {
 

@@ -1,0 +1,42 @@
+.content {
+  position: relative;
+  display: grid;
+  width: 90%;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-left: 1px solid #212121;
+  border-right: 1px solid #212121;
+}
+
+.none {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .filters {
+    display: none;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .posts {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+  }
+}

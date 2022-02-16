@@ -6,15 +6,20 @@ const headerData = () => {
       externalLink: true
     },
     {
-      title: "NOTICIAS",
+      title: "Noticias",
       path: "/noticias",
       externalLink: false
     },
     {
-      title: "CARRERAS",
+      title: "Carreras",
       path: "/carreras",
       externalLink: false
     },
+    {
+      title: "Aula virtual",
+      path: "https://aulabqto.iujoac.org.ve/",
+      externalLink: true
+    }
   ])
 }
 

@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import InformaticaData from "../../../components/Data/InformaticaData";
+import InformaticaData from "../../../components/Data/Careers/InformaticaData";
 
 const Informatica = () => {
 

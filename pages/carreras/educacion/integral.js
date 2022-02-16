@@ -1,5 +1,5 @@
 import Careers from "../../../components/Careers";
-import IntegralData from "../../../components/Data/IntegralData";
+import IntegralData from "../../../components/Data/Careers/IntegralData";
 
 const Integral = () => {
 
