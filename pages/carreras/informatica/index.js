@@ -1,16 +1,19 @@
-import styles from "./Informatica.module.css";
+import Careers from "../../../components/Careers";
+import InformaticaData from "../../../components/Data/InformaticaData";
 
 const Informatica = () => {
-  return (
-    <div className="container">
-      <header className={styles.header}>
-        <div className={styles.headerText}>
-          <h2>TSU en INFORMÁTICA</h2>
-          <span>Instituto Universitario Jesús Obrero</span>
-        </div>
 
-      </header>
-    </div>
+  const { career, profile, profileList, skills, pensumURL } = InformaticaData();
+
+  return (
+    <Careers
+      color="#0d47a1"
+      career={career}
+      profile={profile}
+      profileList={profileList.map((element, key) => <li key={key}>{element}</li>)}
+      skills={skills.map((element, key) => <li key={key}>{element}</li>)}
+      pensum={pensumURL}
+    />
   )
 }
 

@@ -1,13 +1,17 @@
 @font-face {
-  font-family: Roboto;
-  src: url("../public/fonts/Roboto-Regular.ttf") format("truetype");
+  font-family: Louis George Cafe;
+  src: url("../public/fonts/Louis\ George\ Cafe.ttf") format("truetype");
   }
+@font-face {
+  font-family: SourceSansPro;
+  src: url("../public/fonts/SourceSansPro-Regular.ttf") format("truetype");
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family:  SourceSansPro ,Louis George Cafe, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 

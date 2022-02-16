@@ -3,7 +3,7 @@ import { GiElectricalResistance, GiElectric, GiGearHammer, GiKidSlide, GiSpectac
 import { MdAccountTree, MdListAlt } from "react-icons/md";
 import styles from "../BoxCarrer/BoxCarrer.module.css";
 
-const carrerData = () => {
+const careerData = () => {
   return ([
     {
       title: 'Informática',
@@ -13,11 +13,13 @@ const carrerData = () => {
     },
     {
       title: 'Electronica',
+      path: '/carreras/electronica',
       icon: <GiElectricalResistance color='white' size={"3rem"} />,
       color: styles.gray,
     },
     {
       title: 'Electrotecnia',
+      path: '/carreras/electrotecnia',
       icon: <GiElectric color='white' size={"3rem"} />,
       color: styles.gray,
     },
@@ -55,4 +57,4 @@ const carrerData = () => {
   ])
 }
 
-export default carrerData
+export default careerData
