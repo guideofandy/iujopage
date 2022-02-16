@@ -36,9 +36,9 @@ const Header = () => {
         </div>
         {!slidebar ?
           <div onClick={handleSlidebar}>
-            <AiOutlineMenu color='white' size={"2rem"} />
+            <AiOutlineMenu cursor="pointer" color='white' size={"2rem"} />
           </div> : 
-          <BsArrowBarLeft color='white' size={"2rem"}/> 
+          <BsArrowBarLeft cursor="pointer" color='white' size={"2rem"}/> 
         }
       </header>
       <Slidebar handleState={handleSlidebar} state={slidebar} />

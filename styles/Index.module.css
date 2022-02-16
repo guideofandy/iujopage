@@ -1,3 +1,26 @@
+.Message{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-height: 4rem;
+  background-color: #212121;
+  color: white;
+  gap: 0.5rem;
+  font-size: 22px;
+  padding: 1rem;
+}
+
+.MessageText{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.MessageText > span{
+  padding-bottom: 3px;
+}
+
 .mainPage {
   position: relative;
   background: #212121;

@@ -25,31 +25,37 @@ const careerData = () => {
     },
     {
       title: 'Administración',
+      path: '/carreras/administracion',
       icon: <MdAccountTree color='white' size={"3rem"} />,
       color: styles.red,
     },
     {
       title: 'Contaduria',
+      path: '/carreras/contaduria',
       icon: <MdListAlt color='white' size={"3rem"} />,
       color: styles.red,
     },
     {
       title: 'Mecanica',
+      path: '/carreras/mecanica',
       icon: <GiGearHammer color='white' size={"3rem"} />,
       color: styles.yellow,
     },
     {
       title: 'Educación Preescolar',
+      path: '/carreras/educacion/preescolar',
       icon: <GiKidSlide color='white' size={"3rem"} />,
       color: styles.green,
     },
     {
       title: 'Educación Integral',
+      path: '/carreras/educacion/integral',
       icon: <AiOutlineRead color='white' size={"3rem"} />,
       color: styles.green,
     },
     {
       title: 'Educación Especial',
+      path: '/carreras/educacion/especial',
       icon: <GiSpectacleLenses color='white' size={"3rem"} />,
       color: styles.green,
     },
