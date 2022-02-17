@@ -1,4 +1,4 @@
-.post{
+.post {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@
   padding: 1rem;
 }
 
-.header{
+.header {
   width: 90%;
   height: 15%;
   display: flex;
@@ -18,42 +18,55 @@
   align-items: center;
 }
 
-.headerImg{
+.headerImg {
   width: 2rem;
   margin-right: 0.5rem;
 }
-.headerText{
+.headerText {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.headerText > h5{
+.headerText > h5 {
   margin: 0;
   padding: 0;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.8px;
 }
-.headerText > span{
+.headerText > span {
   margin: 0;
   padding: 0;
   font-size: 13px;
 }
-.body{
+.body {
   width: 90%;
   height: 85%;
+  overflow: hidden;
+}
+
+.aling {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.aling:first-child {
+  padding-right: 0.5rem;
+  border-right: 1px solid #212121;
 }
 
 .body > h4 {
   letter-spacing: 1.1px;
 }
 
-
-.footer{
+.footer {
   width: 90%;
   height: 15%;
-  border-top: 1px solid #212121 ;
+  border-top: 1px solid #212121;
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 }

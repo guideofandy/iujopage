@@ -1,5 +1,8 @@
 import styles from './Post.module.css';
 import Image from 'next/image';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { BiShare } from 'react-icons/bi';
+import Link from 'next/link';
 
 const Post = ({ element }) => {
 
@@ -23,8 +26,16 @@ const Post = ({ element }) => {
         </p>
       </section>
       <footer className={styles.footer}>
-        <a>Ver mas</a>
-        <a>Compartir</a>
+        <Link href="/noticias">
+          <div className={styles.aling}>
+            <AiOutlinePlus color='#212121' />
+            <a>Ver mas</a>
+          </div>
+        </Link>
+        <div className={styles.aling}>
+          <BiShare color='#212121' />
+          <a>Compartir</a>
+        </div>
       </footer>
     </div>
   )
