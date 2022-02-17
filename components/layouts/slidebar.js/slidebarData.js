@@ -7,7 +7,7 @@ const slidebarData = () => {
   return ([
     {
       title: "SIGEA",
-      path: "/",
+      path: "http://190.120.252.155:49153/sigea/index.php",
       externalLink: true,
       icon: <CgNotes color='white' size={"2rem"} />,
     },

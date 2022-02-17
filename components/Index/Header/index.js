@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import styles from '../../../styles/Index.module.css'
 import { AiOutlineMenu } from "react-icons/ai";
-import Link from 'next/link';
 import { useState } from "react"
 import Slidebar from '../../layouts/slidebar.js';
 import headerData from '../../Data/headerData';

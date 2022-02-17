@@ -1,7 +1,7 @@
 const EspecialData = () => {
   return (
     {
-      career: `TSU EN Educación EspecialELECTRÓNICA`,
+      career: `TSU EN Educación Especial`,
       profile: `El docente egresado del Instituto Universitario Jesús Obrero, ha sido impregnado por la pedagogía Ignaciana, comprometidos en formar profesionales íntegros identificados y conocedores del quehacer educativo, dotados de los conocimientos y herramientas requeridos para desarrollar la noble tarea de formar un ser humano autónomo y transformador.`,
       profileList: [
         `Un egresado en Educación Especial podrá plantear, implementar y evaluar proyectos pedagógicos y de aula para las poblaciones con discapacidad, en condiciones diversas.`,

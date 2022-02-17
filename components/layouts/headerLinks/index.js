@@ -6,7 +6,7 @@ const HeaderLinks = ({ element }) => {
 
   if (externalLink) {
     return (
-      <a href={path}>{title}</a>
+      <a target="_blank" href={path}>{title}</a>
     )
   } else {
     return (

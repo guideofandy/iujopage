@@ -2,7 +2,7 @@ const headerData = () => {
   return ([
     {
       title: "SIGEA",
-      path: "/",
+      path: "http://190.120.252.155:49153/sigea/index.php",
       externalLink: true
     },
     {
