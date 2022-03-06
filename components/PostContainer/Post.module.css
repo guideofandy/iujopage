@@ -6,7 +6,7 @@
   border-radius: 5px;
   padding: 1rem;
   border: 1px solid #21212130;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .header{
@@ -14,7 +14,7 @@
   height: 5rem;
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #212121;
+  border-bottom: 1px solid #21212180;
   align-items: center;
 }
 
@@ -52,7 +52,7 @@
 .footer{
   width: 90%;
   height: 4rem;
-  border-top: 1px solid #212121 ;
+  border-top: 1px solid #21212180 ;
   display: flex;
   align-items: center;
 }

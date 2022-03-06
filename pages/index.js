@@ -7,10 +7,7 @@ import News from "../components/Index/News";
 import Button from "../components/Button";
 
 export default function Home() {
-
   const Register = true;
-
-
   return (
     <>
       {Register &&
@@ -36,3 +33,5 @@ export default function Home() {
     </>
   )
 }
+
+

@@ -25,7 +25,7 @@ const slidebarData = () => {
     },
     {
       title: "SERVICIOS",
-      path: "/",
+      path: "/servicios",
       externalLink: false,
       icon: <MdDesignServices color='white' size={"2rem"} />,
     }

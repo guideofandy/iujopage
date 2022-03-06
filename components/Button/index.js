@@ -14,8 +14,6 @@ const Button = ({ title, path = "", eventClick }) => {
     }
 
   }
-
-  console.log(router)
   return (
     <button onClick={handleClick} className={styles.button}>
       {title}
