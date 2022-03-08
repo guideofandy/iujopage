@@ -27,10 +27,12 @@ const Post = ({ element }) => {
       </section>
       <footer className={styles.footer}>
         <Link href="/noticias">
-          <div className={styles.aling}>
-            <AiOutlinePlus color='#212121' />
-            <a>Ver mas</a>
-          </div>
+          <a>
+            <div className={styles.aling}>
+              <AiOutlinePlus color='#212121' />
+              <p>Ver mas</p>
+            </div>
+          </a>
         </Link>
         <div className={styles.aling}>
           <BiShare color='#212121' />

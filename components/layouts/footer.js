@@ -18,16 +18,20 @@ const Footer = () => {
         </section>
         <section>
           <ul className={styles.ol}>
-            <Link href="/carreras" ><li><a href="">Carreras</a></li></Link>
-            <Link href="/noticias" ><li><a href="">Noticias</a></li></Link>
-            <Link href="/servicios" ><li><a href="">Servicios</a></li></Link>
-            <Link href="/test" ><li><a href="">Test</a></li></Link>
+            <li><Link href="/carreras" ><a>Carreras</a></Link></li>
+            <li><Link href="/noticias" ><a>Noticias</a></Link></li>
+            <li><Link href="/servicios" ><a>Servicios</a></Link></li>
+            <li><Link href="/test" ><a>Test</a></Link></li>
           </ul>
         </section>
         <section>
           <ul className={styles.ol}>
-            <Link href="/dashboard" ><li><a href="">Dashboard</a></li></Link>
-            <Link href="/login" ><li><a href="">Iniciar Sesion</a></li></Link>
+            <li>
+              <Link href="/dashboard" ><a>Dashboard</a></Link>
+            </li>
+            <li>
+              <Link href="/login" ><a>Iniciar Sesion</a></Link>
+            </li>
           </ul>
         </section>
       </div>

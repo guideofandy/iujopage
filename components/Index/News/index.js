@@ -10,12 +10,14 @@ const News = ({ list }) => {
       <div className={styles.posts}>
         {list.map(element => <Post key={element.id} element={element} />)}
         <Link href="/noticias">
-          <div className={styles.post}>
-            <div className={styles.centered}>
-              <AiOutlinePlus className={styles.plus} />
-              Ver mas
+          <a>
+            <div className={styles.post}>
+              <div className={styles.centered}>
+                <AiOutlinePlus className={styles.plus} />
+                Ver mas
+              </div>
             </div>
-          </div>
+          </a>
         </Link>
       </div>
     </section>
