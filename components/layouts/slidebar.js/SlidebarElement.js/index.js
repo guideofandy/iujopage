@@ -4,7 +4,7 @@ import Link from "next/link"
 const SlidebarElement = ({ element, event }) => {
   if (element.externalLink) {
     return (
-      <a onClick={event} target="_blank" href={element.path}>
+      <a onClick={event} target="_blank" rel="noreferrer" href={element.path}>
         <div className={styles.SlideElement}>
           {element.icon}
           <span>
