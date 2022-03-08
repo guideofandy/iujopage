@@ -1,10 +1,10 @@
 import styles from "../../../../styles/Header.module.css";
 import Link from "next/link"
 
-const SlidebarElement = ({ element }) => {
+const SlidebarElement = ({ element, event }) => {
   if (element.externalLink) {
     return (
-      <a target="_blank" href={element.path}>
+      <a onClick={event} target="_blank" href={element.path}>
         <div className={styles.SlideElement}>
           {element.icon}
           <span>
@@ -15,7 +15,7 @@ const SlidebarElement = ({ element }) => {
   } else {
     return (
       <Link href={element.path}>
-        <a>
+        <a onClick={event}>
           <div className={styles.SlideElement}>
             {element.icon}
             < span >

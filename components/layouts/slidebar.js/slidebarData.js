@@ -1,7 +1,7 @@
 import { CgNotes } from 'react-icons/cg';
 import { FaUniversity } from 'react-icons/fa';
 import { SiGoogleclassroom } from 'react-icons/si';
-import { MdDesignServices } from 'react-icons/md';
+import { MdDesignServices, MdOutlinePostAdd } from 'react-icons/md';
 
 const slidebarData = () => {
   return ([
@@ -18,17 +18,24 @@ const slidebarData = () => {
       icon: <FaUniversity color='white' size={"2rem"} />,
     },
     {
+      title: "SERVICIOS",
+      path: "/servicios",
+      externalLink: false,
+      icon: <MdDesignServices color='white' size={"2rem"} />,
+    },
+    {
+      title: "NOTICIAS",
+      path: "/noticias",
+      externalLink: false,
+      icon: <MdOutlinePostAdd color='white' size={"2rem"} />,
+    },
+    {
       title: "AULA VIRTUAL",
       path: "https://aulabqto.iujoac.org.ve/",
       externalLink: true,
       icon: <SiGoogleclassroom color='white' size={"2rem"} />,
     },
-    {
-      title: "SERVICIOS",
-      path: "/servicios",
-      externalLink: false,
-      icon: <MdDesignServices color='white' size={"2rem"} />,
-    }
+
   ])
 }
 

@@ -1,12 +1,11 @@
 import PostContainer from "../../components/PostContainer";
 import styles from "../../styles/Noticias.module.css";
-import PostContent from "../../components/Data/Post/PostContent";
-import { useState } from "react";
 import FilterButton from "../../components/FilterButton";
 import { AutorType, CareerType } from "../../components/Data/Post/filtersType";
+import { getPosts } from "../../db/Controllers/PostController";
+import Button from "../../components/Button";
 
-const Noticias = () => {
-
+const Noticias = ({ data }) => {
   return (
     <div className="container">
       <div className={styles.content}>
@@ -28,9 +27,19 @@ const Noticias = () => {
             {CareerType().map((element, key) => <FilterButton key={key} element={element} />)}
           </div>
         </div>
+        <div className={styles.filtersResponsive}>
+          <select className={styles.select}>
+            <option className={styles.option} value="">Filtros</option>
+            <option disabled="disabled" value="">Servicios</option>
+            {AutorType().map((element, key) => <option className={styles.option}  key={key} value={element.type}>{element.name}</option>)}
+            <option disabled="disabled" value="">Carreras</option>
+            {CareerType().map((element, key) => <option className={styles.option} key={key} value={element.type}>{element.name}</option>)}
+          </select>
+          <Button title="Buscar" />
+        </div>
 
         <div className={styles.posts}>
-          {PostContent().map((element, key) => <PostContainer key={key} element={element} />)}
+          {data.map((element, key) => <PostContainer key={key} element={element} />)}
         </div>
         <div className={styles.none}>
 
@@ -41,3 +50,8 @@ const Noticias = () => {
 }
 
 export default Noticias
+
+export async function getStaticProps() {
+  const data = await getPosts();
+  return { props: data }
+}

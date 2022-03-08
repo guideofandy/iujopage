@@ -1,25 +1,26 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import db from "../db";
+class Posts extends Model {
+}
 
-const Posts = db.define('Posts', {
-  // Model attributes are defined here
+Posts.init({
   type: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(10),
   },
   title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  autor: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING(25),
+    allowNull: false,
   },
   content: {
     type: DataTypes.TEXT,
     allowNull: false
   },
+  image: {
+    type: DataTypes.BLOB('long'),
+    allowNull: true
+  }
 }, {
-  timestamp: true,
+  sequelize: db,
 });
 
 export default Posts;

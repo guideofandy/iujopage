@@ -7,7 +7,7 @@
 }
 
 .filters {
-  position:relative;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   margin-top: 1rem;
 }
 
-.filterAutor{
+.filterAutor {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -27,17 +27,45 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
+}
+
+.filtersResponsive {
+  display: none;
 }
 
 .none {
   display: none;
 }
 
+.select {
+  background-color: transparent;
+  border: 0px solid transparent;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 22px;
+}
+
+.option {
+  color: #212121;
+}
+
+
 @media only screen and (max-width: 800px) {
   .filters {
     display: none;
+  }
+
+  .filtersResponsive {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #212121;
+    padding: 0.5rem;
+    border-radius: 10px;
+    gap: 0.3rem;
   }
 
   .content {

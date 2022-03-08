@@ -1,0 +1,22 @@
+.Message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-height: 2rem;
+  background-color: #922f2f;
+  color: white;
+  gap: 0.5rem;
+  font-size: 22px;
+  padding: 1rem;
+}
+
+.MessageText {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.MessageText > span {
+  padding-bottom: 3px;
+}

@@ -15,7 +15,7 @@ const Post = ({ element }) => {
           <Image src={"/img/fya.png"} alt={"IUJO"} width={355} height={355} />
         </div>
         <div className={styles.headerText}>
-          <h5>{autor}</h5>
+          <h5>{autor.name}</h5>
           <span>{date}</span>
         </div>
       </header>

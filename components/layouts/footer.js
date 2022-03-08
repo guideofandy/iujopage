@@ -1,5 +1,6 @@
 import styles from '../../styles/Footer.module.css';
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -17,20 +18,16 @@ const Footer = () => {
         </section>
         <section>
           <ul className={styles.ol}>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
+            <Link href="/carreras" ><li><a href="">Carreras</a></li></Link>
+            <Link href="/noticias" ><li><a href="">Noticias</a></li></Link>
+            <Link href="/servicios" ><li><a href="">Servicios</a></li></Link>
+            <Link href="/test" ><li><a href="">Test</a></li></Link>
           </ul>
         </section>
         <section>
           <ul className={styles.ol}>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
-            <li>link</li>
+            <Link href="/dashboard" ><li><a href="">Dashboard</a></li></Link>
+            <Link href="/login" ><li><a href="">Iniciar Sesion</a></li></Link>
           </ul>
         </section>
       </div>

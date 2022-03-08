@@ -13,10 +13,18 @@
   cursor: pointer;
 }
 
-
-
 .button:hover {
   border: 1px solid transparent;
   color: #212121;
   background-color: white;
+}
+
+.black {
+  color: #212121;
+  border: 1px solid #212121;
+}
+
+.black:hover {
+  background-color: #212121ee;
+  color: white;
 }

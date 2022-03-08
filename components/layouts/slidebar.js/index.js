@@ -18,7 +18,7 @@ const Slidebar = ({ handleState, state }) => {
           <BsArrowBarRight cursor="pointer" color='white' size={"2rem"} />
         }
       </header>
-      {slidebarData().map((element, key) => <SlidebarElement key={key} element={element} />)}
+      {slidebarData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)}
     </aside>);
 };
 

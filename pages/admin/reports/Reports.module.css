@@ -1,0 +1,10 @@
+.content {
+  width: 90%;
+  min-height: 40vh;
+  background-color: #212121;
+  border-radius: 10px;
+}
+
+.container {
+  justify-content: center;
+}

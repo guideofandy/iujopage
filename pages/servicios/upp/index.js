@@ -1,9 +1,15 @@
 import ServicesTemplete from "../../../components/ServicesTemplete"
+import { getPosts } from "../../../db/Controllers/PostController"
 
-const UPP = () => {
+const UPP = ({ data }) => {
   return (
-    <ServicesTemplete />
+    <ServicesTemplete list={data} />
   )
 }
 
 export default UPP
+
+export async function getStaticProps() {
+  const data = await getPosts();
+  return { props: data }
+}

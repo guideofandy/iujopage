@@ -5,8 +5,9 @@ import { BsFillArrowDownCircleFill, BsArrowRightShort } from 'react-icons/bs'
 import Services from "../components/Index/Services";
 import News from "../components/Index/News";
 import Button from "../components/Button";
+import { getTwoPosts } from '../db/Controllers/PostController'
 
-export default function Home() {
+export default function Home({ data }) {
   const Register = true;
   return (
     <>
@@ -28,10 +29,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <News />
+      <News list={data} />
       <Services />
     </>
   )
 }
 
+export async function getStaticProps() {
+  const data = await getTwoPosts();
+  return { props: {data : data.data} }
+}
 

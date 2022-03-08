@@ -1,12 +1,16 @@
 import React from 'react'
-import { getPosts } from '../../db/Controllers/PostController'
+import MessageTop from '../../components/MessageTop'
+import { sync } from '../../db/relations'
 
 const Test = ({ data }) => {
-  console.log(data)
-  return (
 
+
+  return (
     <div className="container">
-      {!!data && data.map((el, key) => <p key={key}>{el.title}</p>)}
+
+      {!!data && !!data.message && <MessageTop message={data.message} /> && !!data.data && data.data.map((el, key) => <p key={key}>{el.title}</p>)}
+
+
       Test
     </div>
   )
@@ -14,8 +18,8 @@ const Test = ({ data }) => {
 
 export default Test
 
-export async function getServerSideProps() {
-  const data = await getPosts();
-  return { props: { data } }
+export async function getStaticProps() {
+  sync();
+  return { props: { data: [] } }
 }
 
