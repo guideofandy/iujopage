@@ -3,7 +3,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { BsArrowBarRight } from "react-icons/bs";
 import { BiLogOut } from 'react-icons/bi';
 import SlidebarData from "./slidebarData";
-import SlidebarElement from "./SlidebarElement.js";
+import SlidebarElement from "./SlidebarElement/index.js";
 import useAuth from "../../../hooks/useAuth";
 
 const Slidebar = ({ handleState, state }) => {
