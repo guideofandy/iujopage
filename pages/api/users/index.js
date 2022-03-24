@@ -6,7 +6,11 @@ export default async function hanlder(req, res) {
       return res.status(200).json([]);
     case "POST":
       const response = await CreateUser(req.body);
-      return res.status(200).json(response.message);
+      if (response.error === undefined) {
+        return res.status(200).json({ message: "User created successfully" });
+      } else {
+        return res.status(response.error).json({ message: response.message });
+      }
     default:
       return res.status(200).json([]);
   }

@@ -1,21 +1,35 @@
 import Button from "../../components/Button";
 import styles from "./Login.module.css";
 import Image from "next/image"
+import axios from "axios";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+
+  const auth = useAuth();
+
+  const [user, setUser] = useState({ username: "", password: "" });
+  const handleLogin = (event) => {
+    event.preventDefault();
+    axios.post('/api/login', user)
+      .then(({ data }) => auth.logIn(data))
+      .catch(e => console.log(e.response));
+  }
+
   return (
     <div className={`container ${styles.container}`}>
       <div className={styles.content}>
         <div className={styles.image}>
           <Image src="/img/controlestudio.jpg" layout={'fill'} priority objectFit="cover" alt={"Personal Iujo"} />
         </div>
-        <div className={styles.login}>
+        <form onSubmit={handleLogin} className={styles.login}>
           <div className={styles.center}>
-            <input placeholder={"Nombre de Usuario"} type="text" />
-            <input placeholder={"Contraseña"} type="text" />
+            <input placeholder={"Nombre de Usuario"} onChange={({ target }) => setUser({ ...user, username: target.value })} type="text" />
+            <input placeholder={"Contraseña"} onChange={({ target }) => setUser({ ...user, password: target.value })} type="password" />
           </div>
-          <Button title="Iniciar Session" />
-        </div>
+          <Button type="submit" title="Iniciar Session" />
+        </form>
       </div>
     </div>
   )

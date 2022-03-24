@@ -12,7 +12,7 @@ const Dashboard = ({ data }) => {
   const dataFetch = () => {
     axios.get('/api/posts/')
       .then((response) => {
-        setPostsList(response.data.data)
+        setPostsList(response.data)
       })
   }
 
@@ -23,7 +23,7 @@ const Dashboard = ({ data }) => {
         </div>
         <div className={styles.posts}>
           <TextAreaPost update={dataFetch} />
-          {postsList.map((element, key) => <PostContainer key={key} update={dataFetch} role="admin" element={element} />)}
+          {!!postsList && postsList.map((element, key) => <PostContainer key={key} update={dataFetch} role="admin" element={element} />)}
         </div>
         <div className={styles.none}>
         </div>
@@ -34,7 +34,7 @@ const Dashboard = ({ data }) => {
 
 export default Dashboard
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data = await getPosts();
-  return { props: data }
+  return { props: { data } };
 }

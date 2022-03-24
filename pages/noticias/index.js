@@ -31,7 +31,7 @@ const Noticias = ({ data }) => {
           <select className={styles.select}>
             <option className={styles.option} value="">Filtros</option>
             <option disabled="disabled" value="">Servicios</option>
-            {AutorType().map((element, key) => <option className={styles.option}  key={key} value={element.type}>{element.name}</option>)}
+            {AutorType().map((element, key) => <option className={styles.option} key={key} value={element.type}>{element.name}</option>)}
             <option disabled="disabled" value="">Carreras</option>
             {CareerType().map((element, key) => <option className={styles.option} key={key} value={element.type}>{element.name}</option>)}
           </select>
@@ -39,7 +39,7 @@ const Noticias = ({ data }) => {
         </div>
 
         <div className={styles.posts}>
-          {data.map((element, key) => <PostContainer key={key} element={element} />)}
+          {!!data && data.map((element, key) => <PostContainer key={key} element={element} />)}
         </div>
         <div className={styles.none}>
 
@@ -51,7 +51,7 @@ const Noticias = ({ data }) => {
 
 export default Noticias
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data = await getPosts();
-  return { props: data }
+  return { props: { data } };
 }

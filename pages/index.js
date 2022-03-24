@@ -35,8 +35,8 @@ export default function Home({ data }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data = await getTwoPosts();
-  return { props: {data : data.data} }
+  return { props: { data } }
 }
 
