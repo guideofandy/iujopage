@@ -4,9 +4,9 @@ import isObjEmpty from '../helpers/isObjEmpty';
 import Cookies from 'js-cookie'
 import ProtectedLinks from "../helpers/ProtectedLinks";
 
-const secret = process.env.SECRET;
-
 export function middleware(req) {
+
+  const secret = process.env.SECRET;
   const url = req.nextUrl.clone()
   const cookies = req.cookies
 
