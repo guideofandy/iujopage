@@ -1,10 +1,13 @@
 import db from "./db";
 import Posts from "./Models/Posts";
-import Users from "./Models/Users"
+import Users from "./Models/Users";
+import Tags from "./Models/Tags";
 import setSeed from "./seeds/index"
 
-Users.hasMany(Posts, { as: 'post', foreignKey: { name: 'autorId', allowNull: false } })
+Users.hasMany(Posts, { as: 'post', foreignKey: { name: 'autorId', allowNull: false } });
 Posts.belongsTo(Users, { as: 'autor' });
+Posts.hasMany(Tags, { as: 'tag', foreignKey: { name: 'postId', allowNull: false }, onDelete: "cascade" });
+Tags.belongsTo(Posts, { as: 'post', onDelete: "cascade"});
 
 export const sync = async () => {
   try {

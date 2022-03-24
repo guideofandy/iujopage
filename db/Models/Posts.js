@@ -20,6 +20,7 @@ Posts.init({
     allowNull: true
   }
 }, {
+  
   sequelize: db,
 });
 
