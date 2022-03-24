@@ -6,9 +6,12 @@ import axios from 'axios';
 
 const TextAreaPost = ({ update }) => {
 
-  const [data, setData] = useState({ autorId: "1", type: "Boletin", content: "", title: "" })
+  const initialState = { autorId: "1", type: "Boletin", content: "", title: "", tag: []}
+
+  const [data, setData] = useState(initialState)
   const textArea = useRef();
   const inputTitle = useRef();
+  const inputTags = useRef();
 
   const handleText = () => {
     setData({ ...data, content: textArea.current.value });
@@ -17,12 +20,27 @@ const TextAreaPost = ({ update }) => {
     setData({ ...data, title: inputTitle.current.value });
   }
 
+  const handleTags = async () => {
+    const Tags = inputTags.current.value.split(',');
+    const TagsClean = await Tags.map(el => el.trim());
+    const TagsFilter = await TagsClean.filter(el => el !== '');
+    const TagsFailed = await TagsFilter.find(el => el.length > 15 ? true : false);
+    if (TagsFailed !== undefined) {
+      inputTags.current.className = styles.inputTag + ' ' + styles.error;
+    } else {
+      inputTags.current.className = styles.inputTag;
+    }
+    const convertedTags = await TagsFilter.map(el => { return { name: el } })
+    setData({ ...data, tag: convertedTags, tagInput: inputTags.current.value })
+  }
+
   const HandleSubmit = () => {
     axios.post("/api/posts/", data)
       .then((response) => {
-        console.log(response);
+        console.log(response)
         update();
-        setData({ autorId: "1", type: "Boletin", content: "", title: "" })
+        setData(initialState);
+        inputTags.current.value = ''
       })
   }
 
@@ -38,7 +56,8 @@ const TextAreaPost = ({ update }) => {
       />
       <div className={styles.footer}>
         <div className={styles.elements}>
-          <FiImage color="#212121" size={"1.5rem"}/>
+          <FiImage color="#212121" size={"1.5rem"} />
+          <input onChange={handleTags} ref={inputTags} placeholder="Etiquetas" className={styles.inputTag} type="text" />
         </div>
         <div className={styles.send}>
           <Button eventClick={HandleSubmit} title="Enviar" color="black" />

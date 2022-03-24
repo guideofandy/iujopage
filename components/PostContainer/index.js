@@ -4,15 +4,11 @@ import { MdDelete } from 'react-icons/md';
 import { BiShare } from 'react-icons/bi';
 import { AiFillEdit } from 'react-icons/ai'
 import axios from 'axios';
+import splitText from '../../helpers/splitText';
 
 const PostContainer = ({ element, update, role = "standard" }) => {
 
-  const splitText = (string) => {
-    if (typeof string == 'string') {
-      return string.split(/\r?\n/);
-    }
-  }
-  const { autor, title, updatedAt, content, id } = element;
+  const { autor, title, updatedAt, content, id, tag } = element;
   const text = splitText(content)
 
   const handleDelete = () => {
@@ -36,14 +32,19 @@ const PostContainer = ({ element, update, role = "standard" }) => {
       </header>
       <section className={styles.body}>
         <h4>{title}</h4>
-        {text.map((el, key) => <p key={key}>{el}</p>)}
+        {!!text && text.map((el, key) => <p key={key}>{el}</p>)}
       </section>
       <footer className={styles.footer}>
-        <a>Compartir <BiShare color='#212121' /></a>
-        {role === "admin" && <>
-          <a onClick={handleEdit}>Editar <AiFillEdit color={"#212121"} /></a>
-          <a onClick={handleDelete}>Eliminar <MdDelete color={"#922f2f"} /></a>
-        </>}
+        <div className={styles.share}>
+          <a>Compartir <BiShare color='#212121' /></a>
+          {role === "admin" && <>
+            <a onClick={handleEdit}>Editar <AiFillEdit color={"#212121"} /></a>
+            <a onClick={handleDelete}>Eliminar <MdDelete color={"#922f2f"} /></a>
+          </>}
+        </div>
+        <div className={styles.tags}>
+          {!!tag && tag.map(({ name }, key) => <p key={key}>{name}</p>)}
+        </div>
       </footer>
     </div>
   )
