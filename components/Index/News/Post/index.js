@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BiShare } from 'react-icons/bi';
 import Link from 'next/link';
+import splitText from '../../../../helpers/splitText';
 
 const Post = ({ element }) => {
 
   const { title, autor, date, content } = element;
+  const text = splitText(content)
 
   return (
     <div className={styles.post}>
@@ -21,9 +23,7 @@ const Post = ({ element }) => {
       </header>
       <section className={styles.body}>
         <h4>{title}</h4>
-        <p>
-          {content}
-        </p>
+        {!!text && text.map((el, key) => <p key={key}>{el}</p>)}
       </section>
       <footer className={styles.footer}>
         <Link href="/noticias">

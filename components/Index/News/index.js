@@ -8,7 +8,7 @@ const News = ({ list }) => {
     <section className={styles.information}>
       <h2>Noticias</h2>
       <div className={styles.posts}>
-        {list.map(element => <Post key={element.id} element={element} />)}
+        {!!list && list.map(element => <Post key={element.id} element={element} />)}
         <Link href="/noticias">
           <a>
             <div className={styles.post}>
