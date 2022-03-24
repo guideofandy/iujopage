@@ -28,3 +28,22 @@
   background-color: #212121ee;
   color: white;
 }
+
+.red {
+  border: 1px solid #78281F;
+  color: #78281F;
+}
+
+.red:hover {
+  background-color: #78281Fee;
+  color: white;
+}
+
+.green {
+  border: 1px solid #1B5E20;
+  color: #1B5E20;
+}
+.green:hover {
+  background-color: #1B5E20ee;
+  color: white;
+}

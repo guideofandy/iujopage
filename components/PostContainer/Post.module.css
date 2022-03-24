@@ -3,15 +3,16 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 100%;
+  padding: 2rem 3rem 1rem 3rem;
   border-radius: 5px;
-  padding: 1rem;
   border: 1px solid #21212130;
   margin-top: 1rem;
 }
 
 .header {
-  width: 90%;
-  height: 5rem;
+  width: 100%;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #21212180;
@@ -41,7 +42,7 @@
   font-size: 13px;
 }
 .body {
-  width: 90%;
+  width: 100%;
   overflow-wrap: break-word;
 }
 
@@ -49,15 +50,35 @@
   letter-spacing: 1.1px;
 }
 
-.footer {
-  width: 90%;
-  height: 4rem;
-  border-top: 1px solid #21212180;
+.share {
+  padding-top: 1rem;
   display: flex;
-  align-items: center;
   gap: 1rem;
 }
-.footer > a {
+.tags {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  gap: 0.3rem;
+}
+.tags > p {
+  margin-bottom: 0;
+  margin-top: 0.3rem;
+  padding: 5px 8px 5px 8px;
+  border-radius: 7px;
+  background-color: #CB4335;
+  color: white;
+}
+
+.footer {
+  width: 100%;
+  border-top: 1px solid #21212180;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.share > a {
   display: flex;
   align-items: center;
   gap: 5px;

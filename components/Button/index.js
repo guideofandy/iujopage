@@ -1,13 +1,17 @@
 import styles from "./Button.module.css"
 import { useRouter } from "next/router";
 
-const Button = ({ title, path = "", eventClick, color = "white" }) => {
+const Button = ({ title, path = "", eventClick, color = "white", type }) => {
 
   const CustomColor = () => {
     if (color === "black") {
       return styles.button + " " + styles.black;
+    } else if (color === 'red') {
+      return styles.button + " " + styles.red;
+    } else if (color === 'green'){
+      return styles.button + " " + styles.green;
     }
-    return styles.button
+      return styles.button
   }
 
   const router = useRouter();
@@ -22,7 +26,7 @@ const Button = ({ title, path = "", eventClick, color = "white" }) => {
 
   }
   return (
-    <button onClick={handleClick} className={CustomColor()}>
+    <button onClick={handleClick} type={type} className={CustomColor()}>
       {title}
     </button>);
 };
