@@ -7,7 +7,7 @@ import { AiFillHome } from 'react-icons/ai';
 import useAuth from '../../../hooks/useAuth';
 import { useState, useEffect } from 'react'
 
-const slidebarData = () => {
+const SlidebarData = () => {
 
   const listAdmin = [
     {
@@ -72,10 +72,10 @@ const slidebarData = () => {
     } else {
       setList(listAdmin)
     }
-  }, [user])
+  }, [user, listAdmin, listDefault])
 
 
   return (list)
 }
 
-export default slidebarData
+export default SlidebarData

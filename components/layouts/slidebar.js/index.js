@@ -2,7 +2,7 @@ import styles from "../../../styles/Header.module.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsArrowBarRight } from "react-icons/bs";
 import { BiLogOut } from 'react-icons/bi';
-import slidebarData from "./slidebarData";
+import SlidebarData from "./slidebarData";
 import SlidebarElement from "./SlidebarElement.js";
 import useAuth from "../../../hooks/useAuth";
 
@@ -22,7 +22,7 @@ const Slidebar = ({ handleState, state }) => {
           <BsArrowBarRight cursor="pointer" color='white' size={"2rem"} />
         }
       </header>
-      {slidebarData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)}
+      {SlidebarData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)}
       {!!user &&
         <div onClick={logOut} className={styles.SlideElement}>
           <div className={styles.SlideElement}>

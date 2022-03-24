@@ -4,19 +4,10 @@ import Reports from "../../components/Admin/Reports";
 import BackUp from "../../components/Admin/BackUp";
 import Users from "../../components/Admin/Users";
 import useAuth from "../../hooks/useAuth";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Admin = ({ pre }) => {
 
-  const router = useRouter();
   const { user } = useAuth();
-
-  useEffect(() => {
-    if (user === null) {
-      router.push('/')
-    }
-  }, [user])
 
   return (
     <div className='container'>
