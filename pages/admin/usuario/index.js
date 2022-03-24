@@ -11,6 +11,9 @@ const Usuario = () => {
   const handleName = (e) => {
     setData({ ...data, name: e.target.value })
   }
+  const handleUsername = (e) => {
+    setData({ ...data, username: e.target.value })
+  }
 
   const handlePassword = (e) => {
     setData({ ...data, password: e.target.value })
@@ -26,20 +29,19 @@ const Usuario = () => {
   }
 
   return (
-    <div className="container">
-      <div className={`container ${styles.container}`}>
-        <form onSubmit={handleSubmit} className={styles.content}>
-          <div className={styles.login}>
-            <div className={styles.center}>
-              <h3>Crear usuario</h3>
-              <input autoComplete="off" onChange={handleName} placeholder="Name" type="text" />
-              <input autoComplete="off" onChange={handlePassword} placeholder="Password" type="password" />
-              <input autoComplete="off" onChange={handleEmail} placeholder="Email" type="email" />
-            </div>
-            <Button title="enviar" type="submit" />
+    <div className={`container ${styles.container}`}>
+      <form onSubmit={handleSubmit} className={styles.content}>
+        <div className={styles.login}>
+          <div className={styles.center}>
+            <h3>Crear usuario</h3>
+            <input autoComplete="off" onChange={handleName} placeholder="Name" type="text" />
+            <input autoComplete="off" onChange={handleUsername} placeholder="username" type="text" />
+            <input autoComplete="off" onChange={handlePassword} placeholder="Password" type="password" />
+            <input autoComplete="off" onChange={handleEmail} placeholder="Email" type="email" />
           </div>
-        </form>
-      </div>
+          <Button title="enviar" type="submit" />
+        </div>
+      </form>
     </div>
   )
 }
