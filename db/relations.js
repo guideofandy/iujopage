@@ -6,8 +6,8 @@ import setSeed from "./seeds/index"
 
 Users.hasMany(Posts, { as: 'post', foreignKey: { name: 'autorId', allowNull: false } });
 Posts.belongsTo(Users, { as: 'autor' });
-Posts.hasMany(Tags, { as: 'tag', foreignKey: { name: 'postId', allowNull: false }, onDelete: "cascade" });
-Tags.belongsTo(Posts, { as: 'post', onDelete: "cascade"});
+Posts.hasMany(Tags, { as: 'tag', foreignKey: { name: 'postId', allowNull: false } });
+Tags.belongsTo(Posts, { as: 'post', onDelete: "cascade" });
 
 export const sync = async () => {
   try {

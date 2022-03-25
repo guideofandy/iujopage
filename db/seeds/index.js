@@ -5,7 +5,7 @@ import Tags from "../Models/Tags";
 const setSeed = () => {
   Users.create({
     id: '1',
-    name: 'Administración',
+    name: 'IUJO',
     role: true,
     username: 'admin',
     password: '$2a$08$cE60xmOvLYKfx5yGLYHNM.uzi/FZ7mjZSCfoDnRnf2J.p5yjZ2rvy',
@@ -41,12 +41,12 @@ const setSeed = () => {
 
   Tags.create({
     name: "Informatica",
-    postId: '1'
+    postId: 1
   })
 
   Tags.create({
     name: "UPP",
-    postId: '1'
+    postId: 1
   })
 
 }

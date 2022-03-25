@@ -8,7 +8,8 @@ import Button from "../components/Button";
 import { getTwoPosts } from '../db/Controllers/PostController'
 
 export default function Home({ data }) {
-  const Register = true;
+  const { list, preInscripcion } = data;
+  const Register = preInscripcion;
   return (
     <>
       {Register &&
@@ -29,7 +30,7 @@ export default function Home({ data }) {
           </div>
         </div>
       </section>
-      <News list={data} />
+      <News list={list} />
       <Services />
     </>
   )
@@ -37,6 +38,6 @@ export default function Home({ data }) {
 
 export async function getServerSideProps() {
   const data = await getTwoPosts();
-  return { props: { data } }
+  return { props: { data: { list: data, preInscripcion: process.env.PREINSCRIPCION } } }
 }
 

@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
     if (user !== null) {
       try {
         Cookies.set('user', JSON.stringify(user));
+        Cookies.set('sessionJWT', user.token);
         if (Cookies.get('user') === 'null') {
           const cookies = Cookies.get('user');
           const verifyCookie = JSON.parse(cookies);
@@ -26,6 +27,7 @@ const AuthProvider = ({ children }) => {
       }
     } else {
       Cookies.remove('user');
+      Cookies.remove('sessionJWT');
     }
   }, [user]);
 
@@ -40,6 +42,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     Cookies.remove('user');
+    Cookies.remove('sessionJWT');
     setUser(null);
     router.push("/")
   }

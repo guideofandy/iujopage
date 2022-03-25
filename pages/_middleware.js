@@ -1,52 +1,37 @@
-import { verify } from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import isObjEmpty from '../helpers/isObjEmpty';
-import Cookies from 'js-cookie'
 import ProtectedLinks from "../helpers/ProtectedLinks";
+import { jwtVerify } from 'jose'
 
-export function middleware(req) {
+export const middleware = async (req) => {
 
   const secret = process.env.SECRET;
   const url = req.nextUrl.clone()
-  const cookies = req.cookies
+  const { cookies } = req
+  const { sessionJWT } = cookies;
 
   if (url.pathname === '/login') {
-    if (!isObjEmpty(cookies) && cookies !== null && cookies !== undefined) {
-      const { user } = cookies;
-      const userObject = JSON.parse(user);
-      if (typeof (userObject) === 'object') {
-        try {
-          verify(userObject.token, secret);
-          return NextResponse.redirect(new URL('/dashboard', url.origin))
-        } catch (e) {
-          Cookies.remove('user');
-          return NextResponse.next();
-        }
+    try {
+      await jwtVerify(sessionJWT, new TextEncoder().encode(secret));
+      return NextResponse.redirect(new URL('/dashboard', url.origin))
+    } catch (e) {
+      if (e.message === 'invalid token') {
+        return NextResponse.redirect(new URL('/logout', url.origin))
       }
     }
   }
 
   if (ProtectedLinks().find(el => url.pathname.includes(el))) {
-    if (!isObjEmpty(cookies) && cookies !== null && cookies !== undefined) {
-      const { user } = cookies;
-      const userObject = JSON.parse(user);
-      if (typeof (userObject) === 'object') {
-        if (userObject.token === undefined) {
-          return NextResponse.redirect(new URL('/login', url.origin))
-        }
-        try {
-          verify(userObject.token, secret);
-          return NextResponse.next()
-        } catch (e) {
-          Cookies.remove('user');
-          return NextResponse.redirect(new URL('/login', url.origin))
-        }
-      } else {
-        console.log('NO EJECUTADO')
+    try {
+      const { sessionJWT } = cookies;
+      if (sessionJWT === undefined) {
+        return NextResponse.redirect(new URL('/login', url.origin))
+      }
+      await jwtVerify(sessionJWT, new TextEncoder().encode(secret));
+    } catch (e) {
+      if (e.message !== 'invalid token') {
+        return NextResponse.redirect(new URL('/logout', url.origin))
       }
     }
-    return NextResponse.redirect(new URL('/login', url.origin))
-  } else {
-    return NextResponse.next()
   }
+  return NextResponse.next()
 }

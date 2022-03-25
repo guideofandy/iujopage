@@ -32,6 +32,44 @@
   justify-content: space-between;
 }
 
+.formUpdate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftPosition {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.inputForm {
+  height: 2rem;
+  font-size: 18px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #212121;
+}
+
+.inputForm:focus{
+  outline: 0;
+}
+.lineInput {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
 @media only screen and (max-width: 680px) {
   .content {
     max-width: 95%;
