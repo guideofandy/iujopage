@@ -3,11 +3,13 @@ import { FiImage } from 'react-icons/fi'
 import Button from '../Button';
 import styles from './TextAreaPost.module.css';
 import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
 
 const TextAreaPost = ({ update }) => {
 
-  const initialState = { autorId: "1", type: "Boletin", content: "", title: "", tag: []}
+  const initialState = { type: "Boletin", content: "", title: "", tag: [] }
 
+  const { user } = useAuth();
   const [data, setData] = useState(initialState)
   const textArea = useRef();
   const inputTitle = useRef();
@@ -35,13 +37,17 @@ const TextAreaPost = ({ update }) => {
   }
 
   const HandleSubmit = () => {
-    axios.post("/api/posts/", data)
-      .then((response) => {
-        console.log(response)
+    const config = {
+      headers: {
+        Authorization: `Bareer ${user.token}`
+      }
+    }
+    axios.post("/api/posts/", data, config)
+      .then(() => {
         update();
         setData(initialState);
         inputTags.current.value = ''
-      })
+      }).catch(e => console.log(e.response))
   }
 
   return (

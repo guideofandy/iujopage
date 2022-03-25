@@ -13,7 +13,7 @@ const Slidebar = ({ handleState, state }) => {
   const SlidebarState = state ? styles.slidebar + " " + styles.active : styles.slidebar;
   const ShowButton = state ? styles.active : styles.inactive;
   return (
-    <aside className={SlidebarState}>
+    <div className={SlidebarState}>
       <header className={styles.headerSlidebar}>
         {state ?
           <div onClick={handleState} className={ShowButton}>
@@ -33,7 +33,7 @@ const Slidebar = ({ handleState, state }) => {
           </div >
         </div>
       }
-    </aside>);
+    </div>);
 };
 
 export default Slidebar;

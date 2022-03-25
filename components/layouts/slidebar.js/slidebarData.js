@@ -5,7 +5,6 @@ import { MdDesignServices, MdOutlinePostAdd } from 'react-icons/md';
 import { RiSettings4Fill } from 'react-icons/ri'
 import { AiFillHome } from 'react-icons/ai';
 import useAuth from '../../../hooks/useAuth';
-import { useState, useEffect } from 'react'
 
 const SlidebarData = () => {
 
@@ -63,19 +62,12 @@ const SlidebarData = () => {
     },
   ]
 
-  const [list, setList] = useState(listDefault);
   const { user } = useAuth();
-
-  useEffect(() => {
-    if (!user) {
-      setList(listDefault);
-    } else {
-      setList(listAdmin)
-    }
-  }, [user, listAdmin, listDefault])
-
-
-  return (list)
+  if (!!user) {
+    return listAdmin;
+  } else {
+    return listDefault
+  }
 }
 
 export default SlidebarData

@@ -1,16 +1,24 @@
 import PostContainer from "../../components/PostContainer";
 import styles from "../../styles/Noticias.module.css";
 import TextAreaPost from "../../components/TextAreaPost";
-import { getPosts } from "../../db/Controllers/PostController";
+import { getPostsMine } from "../../db/Controllers/PostController";
 import { useState } from 'react'
 import axios from "axios";
+import { verify } from "jsonwebtoken";
+import useAuth from '../../hooks/useAuth';
 
 const Dashboard = ({ data }) => {
 
   const [postsList, setPostsList] = useState(data);
+  const { user } = useAuth();
 
   const dataFetch = () => {
-    axios.get('/api/posts/')
+    const config = {
+      headers: {
+        authorization: `Bareer ${user.token}`
+      }
+    }
+    axios.get('/api/posts/', config)
       .then((response) => {
         setPostsList(response.data)
       })
@@ -34,7 +42,18 @@ const Dashboard = ({ data }) => {
 
 export default Dashboard
 
-export async function getServerSideProps() {
-  const data = await getPosts();
+export async function getServerSideProps(request) {
+  const { req } = request;
+  const { user } = req.cookies;
+  const parse = JSON.parse(user)
+  if (typeof (parse) === 'object') {
+    try {
+      const userAuthorization = verify(parse.token, process.env.SECRET)
+      const data = await getPostsMine(userAuthorization.id);
+      return { props: { data } }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return { props: { data } };
 }

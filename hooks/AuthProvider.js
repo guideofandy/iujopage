@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
           }
         }
       } catch (e) {
-        console.log('Aqui')
         setUser(null);
       }
     } else {

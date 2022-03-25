@@ -23,6 +23,16 @@ export const getTwoPosts = async () => {
   }
 }
 
+export const getPostsMine = async (id) => {
+  try {
+    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"] }], order: [['createdAt', 'DESC']], where: { autorId: id } });
+    const content = await JSON.parse(JSON.stringify(posts));
+    return content;
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}
+
 export const CreatePost = async (data) => {
   const { title, content, autorId, type, tag } = data;
   let tags = tag;
