@@ -14,8 +14,11 @@ export const sync = async () => {
     await db.sync({ force: true }).then(() => {
       console.log('Connection has been established successfully.');
       setSeed();
+      sequelize.close()
+      return { status: true, message: "Connection has been established successfully." };
     })
   } catch (error) {
     console.error('Unable to connect to the database:', error);
+    return { status: false, message: "Unable to connect to the database." };
   }
 }
