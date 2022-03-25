@@ -31,7 +31,9 @@ const Admin = ({ pre }) => {
 
 export default Admin
 
-export async function getStaticProps() {
+
+
+export async function getServerSideProps() {
   const data = { pre: process.env.PREINSCRIPCION }
   return { props: data }
 }
