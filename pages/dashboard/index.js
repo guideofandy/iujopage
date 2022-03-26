@@ -44,16 +44,16 @@ export default Dashboard
 
 export async function getServerSideProps(request) {
   const { req } = request;
-  const { user } = req.cookies;
-  const parse = JSON.parse(user)
-  if (typeof (parse) === 'object') {
+  const { sessionJWT } = req.cookies;
+  if (sessionJWT !== undefined) {
     try {
-      const userAuthorization = verify(parse.token, process.env.SECRET)
+      const userAuthorization = verify(sessionJWT, process.env.SECRET)
       const data = await getPostsMine(userAuthorization.id);
       return { props: { data } }
     } catch (err) {
       console.log(err)
     }
   }
-  return { props: { data } };
+
+  return { props: { data: [] } };
 }
