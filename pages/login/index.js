@@ -7,13 +7,13 @@ import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
 
-  const auth = useAuth();
+  const { logIn } = useAuth();
 
   const [user, setUser] = useState({ username: "", password: "" });
   const handleLogin = (event) => {
     event.preventDefault();
     axios.post('/api/login', user)
-      .then(({ data }) => auth.logIn(data))
+      .then(({ data }) => { console.log(data); logIn(data) })
       .catch(e => console.log(e.response));
   }
 
