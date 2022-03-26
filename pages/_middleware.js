@@ -10,19 +10,20 @@ export const middleware = async (req) => {
   const { sessionJWT } = cookies;
 
   if (url.pathname === '/login') {
-    try {
-      await jwtVerify(sessionJWT, new TextEncoder().encode(secret));
-      return NextResponse.redirect(new URL('/dashboard', url.origin))
-    } catch (e) {
-      if (e.message === 'invalid token') {
-        return NextResponse.redirect(new URL('/logout', url.origin))
+    if (sessionJWT !== undefined) {
+      try {
+        await jwtVerify(sessionJWT, new TextEncoder().encode(secret));
+        return NextResponse.redirect(new URL('/dashboard', url.origin))
+      } catch (e) {
+        if (e.message === 'invalid token') {
+          return NextResponse.redirect(new URL('/logout', url.origin))
+        }
       }
     }
   }
 
   if (ProtectedLinks().find(el => url.pathname.includes(el))) {
     try {
-      const { sessionJWT } = cookies;
       if (sessionJWT === undefined) {
         return NextResponse.redirect(new URL('/login', url.origin))
       }
