@@ -29,7 +29,7 @@ export const middleware = async (req) => {
       }
       await jwtVerify(sessionJWT, new TextEncoder().encode(secret));
     } catch (e) {
-      if (e.message !== 'invalid token') {
+      if (e.message === 'invalid token') {
         return NextResponse.redirect(new URL('/logout', url.origin))
       }
     }

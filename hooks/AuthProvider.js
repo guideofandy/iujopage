@@ -37,6 +37,8 @@ const AuthProvider = ({ children }) => {
 
   const logIn = (data) => {
     setUser(data);
+    Cookies.set('user', JSON.stringify(data));
+    Cookies.set('sessionJWT', data.token);
     router.push('/dashboard')
   }
 
