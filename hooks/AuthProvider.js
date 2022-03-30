@@ -12,18 +12,26 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (user !== null) {
-      try {
-        Cookies.set('user', JSON.stringify(user));
-        Cookies.set('sessionJWT', user.token);
-        if (Cookies.get('user') === 'null') {
-          const cookies = Cookies.get('user');
-          const verifyCookie = JSON.parse(cookies);
-          if (typeof (verifyCookie) !== 'object' || verifyCookie === null) {
-            setUser(null);
+      if (typeof user === 'object') {
+        try {
+          Cookies.set('user', JSON.stringify(user));
+          Cookies.set('sessionJWT', user.token);
+          if (Cookies.get('user') === 'null') {
+            const cookies = Cookies.get('user');
+            const verifyCookie = JSON.parse(cookies);
+            if (typeof (verifyCookie) !== 'object' || verifyCookie === null) {
+              setUser(null);
+            }
           }
+        } catch (e) {
+          setUser(null);
         }
-      } catch (e) {
-        setUser(null);
+      } else if (typeof user === 'string') {
+        try {
+          const verifyCookie = JSON.parse(user);
+          setUser(verifyCookie)
+        } catch (e) {
+        }
       }
     } else {
       Cookies.remove('user');

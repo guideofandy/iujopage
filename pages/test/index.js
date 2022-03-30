@@ -1,12 +1,17 @@
 import React from 'react'
 import MessageTop from '../../components/MessageTop'
-import { sync } from '../../db/relations'
+import { useEffect } from 'react'
+import PostTemplete from '../../components/Reports/PostsTemplete'
 
-const Test = ({ data }) => {
+const Test = () => {
+
+  useEffect(() => { 
+    PostTemplete();
+  }, [])
 
   return (
     <div className="container">
-      {!data.status && !!data.message && <MessageTop message={data.message} /> && !!data.data && data.data.map((el, key) => <p key={key}>{el.title}</p>)}
+      {/* {(!!data && data.status === false) && <MessageTop message={data.message} />} */}
       Test
     </div>
   )
@@ -15,7 +20,7 @@ const Test = ({ data }) => {
 export default Test
 
 export async function getServerSideProps() {
-  const data = await sync();
-  return { props: { data: data } }
+  /* const data = await sync(); */
+  return { props: { data: null } }
 }
 

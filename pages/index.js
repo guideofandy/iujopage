@@ -6,13 +6,14 @@ import Services from "../components/Index/Services";
 import News from "../components/Index/News";
 import Button from "../components/Button";
 import { getTwoPosts } from '../db/Controllers/PostController'
+import Map from "../components/Map";
 
 export default function Home({ data }) {
   const { list, preInscripcion } = data;
   const Register = preInscripcion;
   return (
     <>
-      {Register &&
+      {Register === true &&
         <div className={styles.Message}>
           <div className={styles.MessageText}>
             <span>Pre inscripciones abiertas</span>
@@ -32,6 +33,7 @@ export default function Home({ data }) {
       </section>
       <News list={list} />
       <Services />
+      <Map />
     </>
   )
 }

@@ -7,7 +7,7 @@ import splitText from '../../../../helpers/splitText';
 
 const Post = ({ element }) => {
 
-  const { title, autor, date, content } = element;
+  const { title, autor, date, content, updatedAt } = element;
   const text = splitText(content)
 
   return (
@@ -18,7 +18,7 @@ const Post = ({ element }) => {
         </div>
         <div className={styles.headerText}>
           <h5>{autor.name}</h5>
-          <span>{date}</span>
+          <span>{updatedAt.slice(0,10)}</span>
         </div>
       </header>
       <section className={styles.body}>

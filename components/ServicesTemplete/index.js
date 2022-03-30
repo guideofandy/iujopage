@@ -1,8 +1,8 @@
 import styles from './ServicesTemplete.module.css';
 import UPP from '../Data/Services/UPP';
+import PostContainer from '../PostContainer';
 
-
-const ServicesTemplete = () => {
+const ServicesTemplete = ({ data }) => {
 
   const { email, phone, name, coordinator, description } = UPP();
 
@@ -20,7 +20,7 @@ const ServicesTemplete = () => {
         </div>
         <div className={styles.gridItem}>
           <div className={styles.posts}>
-            
+            {!!data && data.map((element, key) => <PostContainer key={key} element={element} />)}
           </div>
         </div>
       </div>

@@ -4,11 +4,8 @@ class Posts extends Model {
 }
 
 Posts.init({
-  type: {
-    type: DataTypes.STRING(10),
-  },
   title: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   content: {

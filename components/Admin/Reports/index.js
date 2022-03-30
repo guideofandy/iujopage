@@ -1,6 +1,8 @@
 import styles from '../../../pages/admin/admin.module.css';
 import Button from '../../Button';
 import useActive from '../../../hooks/useActive';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import PostTemplete from '../../Reports/PostsTemplete';
 
 const Reports = () => {
 
@@ -12,7 +14,7 @@ const Reports = () => {
         <p>Reportes</p>
         <div className={styles.buttons}>
           {active ?
-            <Button eventClick={handleActiveChange} color="black" title="Cerrar" />
+            <AiOutlineCloseCircle color="black" size="2rem" onClick={handleActiveChange} />
             : <Button eventClick={handleActiveChange} color="black" title="Abrir" />}
         </div>
       </header>
@@ -21,9 +23,8 @@ const Reports = () => {
           <div className={styles.lineInput} >
             <select className={styles.inputForm} placeholder="Repetir Contraseña" type="password">
               <option>Usuarios</option>
-              <option>pre-inscripciones</option>
             </select>
-            <Button color={'green'} title={'Generar'} />
+            <Button eventClick={PostTemplete} color={'green'} title={'Generar'} />
           </div>
         </div>
       </div>

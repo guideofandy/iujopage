@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     axios.post('/api/login', user)
-      .then(({ data }) => { console.log(data); logIn(data) })
+      .then(({ data }) => logIn(data))
       .catch(e => console.log(e.response));
   }
 

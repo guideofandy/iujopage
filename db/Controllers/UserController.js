@@ -1,10 +1,22 @@
 require("dotenv").config();
 import Users from "../Models/Users";
+import Posts from "../Models/Posts";
 import addMessage from "../../helpers/addMessage";
 const bcryptjs = require("bcryptjs");
 import jwt from 'jsonwebtoken';
 import parseFetch from "../../helpers/parseFetch";
+const { Sequelize } = require('sequelize');
+require("../relations")
 
+export const getUsers = async () => {
+  try {
+    const users = await Users.findAll();
+    const content = await JSON.parse(JSON.stringify(users));
+    return content;
+  } catch (e) {
+    return addMessage(e.message, 404);
+  }
+}
 
 export const CreateUser = async (data) => {
   try {
@@ -46,6 +58,26 @@ export const Login = async (data) => {
     } else {
       return addMessage("Usuario o Contraseña incorrecta.", 404);
     }
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}
+
+export const getUsersPostsReports = async () => {
+  try {
+    const response = await Users.findAll({ attributes: ['id', 'name', 'email'], include: { model: Posts, as: 'post', attributes: ['autorId'] } })
+    const content = await JSON.parse(JSON.stringify(response));
+    return content;
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}
+
+export const getUsersCount = async () => {
+  try {
+    const posts = await Users.count();
+    const content = await JSON.parse(JSON.stringify(posts));
+    return content;
   } catch (error) {
     return addMessage(error.message, 404);
   }

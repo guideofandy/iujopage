@@ -70,3 +70,13 @@ export const DeletePost = async (id) => {
     return addMessage(error.message, 404);
   }
 }
+
+export const getPostCount = async () => {
+  try {
+    const posts = await Posts.count();
+    const content = await JSON.parse(JSON.stringify(posts));
+    return content;
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}

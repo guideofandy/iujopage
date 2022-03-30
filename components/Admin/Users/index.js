@@ -4,6 +4,7 @@ import Usuarios from './Usuarios/index';
 import useActive from '../../../hooks/useActive';
 import CreateUser from './CreateUser';
 import { useState } from 'react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Users = () => {
 
@@ -24,7 +25,7 @@ const Users = () => {
             <>
               {mode ? <Button eventClick={() => setMode(false)} color="black" title="Actualizar" />
                 : <Button eventClick={() => setMode(true)} color="green" title="Nuevo" />}
-              <Button eventClick={handleActiveChange} color="red" title="Cerrar" />
+              <AiOutlineCloseCircle color="black" size="2rem" onClick={handleActiveChange} />
             </>
             : <>
               <Button eventClick={() => handleModeChange(false)} color="black" title="Actualizar" />

@@ -27,7 +27,7 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/users/', data).then((response) => console.log(response));
+    axios.post('/api/users/', data).then((response) => console.log(response)).catch();
   }
 
   return (

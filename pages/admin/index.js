@@ -16,7 +16,7 @@ const Admin = ({ pre }) => {
         <div className={styles.option}>
           <header className={styles.headerOption}>
             <p>Pre-inscripciones</p>
-            {pre === 'true' ? <button>ACTIVO</button> : <button>INACTIVO</button>}
+            {pre === 'true' ? <button className={styles.buttonActive}>ACTIVO</button> : <button className={styles.buttonInactive}>INACTIVO</button>}
           </header>
         </div>
         {!!user && !!user.role && <>

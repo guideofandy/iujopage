@@ -1,6 +1,7 @@
 import styles from '../../../pages/admin/admin.module.css';
 import useActive from '../../../hooks/useActive';
 import Button from '../../Button';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Account = () => {
 
@@ -11,7 +12,7 @@ const Account = () => {
       <header className={styles.headerOption}>
         <p>Cuenta</p>
         {active ?
-          <Button eventClick={handleActiveChange} color="black" title="Cerrar" />
+          <AiOutlineCloseCircle color="black" size="2rem" onClick={handleActiveChange} />
           : <Button eventClick={handleActiveChange} color="black" title="Actualizar" />}
 
       </header>

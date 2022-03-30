@@ -30,6 +30,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .formUpdate {
@@ -68,6 +70,22 @@
 .buttons {
   display: flex;
   gap: 10px;
+}
+
+.buttonActive {
+  border: 0;
+  border-radius: 5px;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  background-color: #1B5E20;
+  color: white;
+}
+
+.buttonInactive {
+  border: 0;
+  border-radius: 5px;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  background-color: #78281F;
+  color: white;
 }
 
 @media only screen and (max-width: 680px) {

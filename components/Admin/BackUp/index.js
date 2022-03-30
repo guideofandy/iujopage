@@ -1,6 +1,7 @@
 import styles from '../../../pages/admin/admin.module.css';
 import useActive from '../../../hooks/useActive';
 import Button from '../../Button'
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const BackUp = () => {
 
@@ -11,7 +12,7 @@ const BackUp = () => {
       <header className={styles.headerOption}>
         <p>BackUp</p>
         {active ?
-          <Button eventClick={handleActiveChange} color="black" title="Cerrar" />
+          <AiOutlineCloseCircle color="black" size="2rem" onClick={handleActiveChange} />
           : <Button eventClick={handleActiveChange} color="green" title="Respaldar" />}
       </header>
       <div className={styles.bodyOption}>

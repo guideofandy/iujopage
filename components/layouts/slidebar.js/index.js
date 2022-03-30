@@ -2,7 +2,8 @@ import styles from "../../../styles/Header.module.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsArrowBarRight } from "react-icons/bs";
 import { BiLogOut } from 'react-icons/bi';
-import SlidebarData from "./slidebarData";
+import adminData from "./adminData";
+import defaultData from "./defaultData";
 import SlidebarElement from "./SlidebarElement/index.js";
 import useAuth from "../../../hooks/useAuth";
 
@@ -22,16 +23,20 @@ const Slidebar = ({ handleState, state }) => {
           <BsArrowBarRight cursor="pointer" color='white' size={"2rem"} />
         }
       </header>
-      {SlidebarData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)}
-      {!!user &&
-        <div onClick={logOut} className={styles.SlideElement}>
-          <div className={styles.SlideElement}>
-            <BiLogOut color='white' size={"2rem"} />
-            < span >
-              Logout
-            </span >
-          </div >
-        </div>
+
+      {!!user && typeof user === 'object' ?
+        <>
+          {adminData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)}
+          <div onClick={logOut} className={styles.SlideElement}>
+            <div className={styles.SlideElement}>
+              <BiLogOut color='white' size={"2rem"} />
+              < span >
+                Logout
+              </span >
+            </div >
+          </div>
+        </> :
+        defaultData().map((element, key) => <SlidebarElement event={handleState} key={key} element={element} />)
       }
     </div>);
 };
