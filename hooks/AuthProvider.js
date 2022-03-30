@@ -47,14 +47,14 @@ const AuthProvider = ({ children }) => {
     setUser(data);
     Cookies.set('user', JSON.stringify(data));
     Cookies.set('sessionJWT', data.token);
-    router.push('/dashboard')
+    router.reload()
   }
 
   const logOut = () => {
     Cookies.remove('user');
     Cookies.remove('sessionJWT');
     setUser(null);
-    router.push("/")
+    router.reload()
   }
 
   const contextValue = {
