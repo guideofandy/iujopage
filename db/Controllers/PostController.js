@@ -80,3 +80,20 @@ export const getPostCount = async () => {
     return addMessage(error.message, 404);
   }
 }
+
+export const getPostFilters = async (data) => {
+
+  const { filters } = data;
+  try {
+    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"], where: { name: filters } }], order: [['createdAt', 'DESC']] });
+    const content = await JSON.parse(JSON.stringify(posts));
+    const newContent = content.sort((a, b) => {
+      if (a.tag.length > b.tag.length) return -1;
+      if (a.tag.length < b.tag.length) return 1;
+      return 0;
+    });
+    return newContent;
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}

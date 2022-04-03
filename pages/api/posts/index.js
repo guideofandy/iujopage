@@ -37,7 +37,7 @@ export default async function hanlder(req, res) {
           response.status(401).json({ message: e.message });
         }
       }
-      return res.status(200).json({ message: "Hola" })
+      return res.status(400).json({ message: "Not found" })
 
     default:
       return res.status(200).json(getPosts());

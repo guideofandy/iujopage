@@ -1,13 +1,20 @@
 import styles from './FilterButton.module.css';
 import { useState } from 'react';
 
-const FilterButton = ({ element }) => {
+const FilterButton = ({ element, action }) => {
+
+  const { addFilter, deleteFilter } = action;
 
   const [active, setActive] = useState(styles.optionAutor);
 
   const handleActive = () => {
-
-    active === styles.optionAutor ? setActive(styles.optionAutor + ' ' + styles.active) : setActive(styles.optionAutor)
+    if (active === styles.optionAutor) {
+      setActive(styles.optionAutor + ' ' + styles.active)
+      addFilter(element.name);
+    } else {
+      setActive(styles.optionAutor)
+      deleteFilter(element.name);
+    }
   }
 
   return (
