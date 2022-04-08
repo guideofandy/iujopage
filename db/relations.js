@@ -3,6 +3,8 @@ import Posts from "./Models/Posts";
 import Users from "./Models/Users";
 import Tags from "./Models/Tags";
 import setSeed from "./seeds/index"
+import Careers from "./Models/Careers";
+import Services from "./Models/Services";
 
 Users.hasMany(Posts, { as: 'post', foreignKey: { name: 'autorId', allowNull: false } });
 Posts.belongsTo(Users, { as: 'autor' });

@@ -4,6 +4,7 @@ import Button from '../Button';
 import styles from './TextAreaPost.module.css';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
+import AutocompleteInput from '../AutocompleteInput';
 
 const TextAreaPost = ({ update }) => {
 
@@ -13,7 +14,6 @@ const TextAreaPost = ({ update }) => {
   const [data, setData] = useState(initialState)
   const textArea = useRef();
   const inputTitle = useRef();
-  const inputTags = useRef();
 
   const handleText = () => {
     setData({ ...data, content: textArea.current.value });
@@ -22,18 +22,8 @@ const TextAreaPost = ({ update }) => {
     setData({ ...data, title: inputTitle.current.value });
   }
 
-  const handleTags = async () => {
-    const Tags = inputTags.current.value.split(',');
-    const TagsClean = await Tags.map(el => el.trim());
-    const TagsFilter = await TagsClean.filter(el => el !== '');
-    const TagsFailed = await TagsFilter.find(el => el.length > 15 ? true : false);
-    if (TagsFailed !== undefined) {
-      inputTags.current.className = styles.inputTag + ' ' + styles.error;
-    } else {
-      inputTags.current.className = styles.inputTag;
-    }
-    const convertedTags = await TagsFilter.map(el => { return { name: el } })
-    setData({ ...data, tag: convertedTags, tagInput: inputTags.current.value })
+  const setTags = (tags) => {
+    setData({ ...data, tag: tags });
   }
 
   const HandleSubmit = () => {
@@ -63,10 +53,10 @@ const TextAreaPost = ({ update }) => {
       <div className={styles.footer}>
         <div className={styles.elements}>
           <FiImage color="#212121" size={"1.5rem"} />
-          <input onChange={handleTags} ref={inputTags} placeholder="Etiquetas" className={styles.inputTag} type="text" />
+          <AutocompleteInput setTags={setTags}/>
         </div>
         <div className={styles.send}>
-          <Button eventClick={HandleSubmit} title="Enviar" color="black" />
+          <Button eventClick={HandleSubmit} title="Publicar" color="black" />
         </div>
       </div>
     </div>

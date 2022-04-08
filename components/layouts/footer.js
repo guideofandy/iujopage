@@ -21,11 +21,12 @@ const Footer = () => {
             <li><Link href="/carreras" ><a>Carreras</a></Link></li>
             <li><Link href="/noticias" ><a>Noticias</a></Link></li>
             <li><Link href="/servicios" ><a>Servicios</a></Link></li>
-            <li><Link href="/test" ><a>Test</a></Link></li>
           </ul>
         </section>
         <section>
           <ul className={styles.ol}>
+            <li>Development</li>
+            <li><Link href="/test" ><a>Test</a></Link></li>
             <li>
               <Link href="/dashboard" ><a>Dashboard</a></Link>
             </li>

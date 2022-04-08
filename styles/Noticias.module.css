@@ -53,8 +53,13 @@
   color: #212121;
 }
 
+.noPosts {
+  font-size: 2rem;
+  word-wrap: break-word;
 
-@media only screen and (max-width: 800px) {
+}
+
+@media only screen and (max-width: 900px) {
   .filters {
     display: none;
   }

@@ -23,7 +23,7 @@ export const getTwoPosts = async () => {
   }
 }
 
-export const getPostsMine = async (id) => {
+export const getPostsByAutor = async (id) => {
   try {
     const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"] }], order: [['createdAt', 'DESC']], where: { autorId: id } });
     const content = await JSON.parse(JSON.stringify(posts));

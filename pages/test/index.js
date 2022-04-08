@@ -1,3 +1,5 @@
+import { sync } from "../../db/relations";
+
 const Test = () => {
 
   return (
@@ -10,7 +12,7 @@ const Test = () => {
 export default Test
 
 export async function getServerSideProps() {
-  /* const data = await sync(); */
+  const data = await sync();
   return { props: { data: null } }
 }
 

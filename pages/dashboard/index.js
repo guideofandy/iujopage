@@ -1,28 +1,16 @@
 import PostContainer from "../../components/PostContainer";
 import styles from "../../styles/Noticias.module.css";
 import TextAreaPost from "../../components/TextAreaPost";
-import { getPostsMine } from "../../db/Controllers/PostController";
+import { getPostsByAutor } from "../../db/Controllers/PostController";
 import { useState } from 'react'
 import axios from "axios";
 import { verify } from "jsonwebtoken";
-import useAuth from '../../hooks/useAuth';
+import usePosts from '../../hooks/usePosts';
 
 const Dashboard = ({ data }) => {
 
-  const [postsList, setPostsList] = useState(data);
-  const { user } = useAuth();
-
-  const dataFetch = () => {
-    const config = {
-      headers: {
-        authorization: `Bareer ${user.token}`
-      }
-    }
-    axios.get('/api/posts/', config)
-      .then((response) => {
-        setPostsList(response.data)
-      })
-  }
+  const {dataList, id} = data;
+  const { posts , getPostsByAutor } = usePosts(dataList);
 
   return (
     <div className="container">
@@ -30,8 +18,8 @@ const Dashboard = ({ data }) => {
         <div className={styles.filters}>
         </div>
         <div className={styles.posts}>
-          <TextAreaPost update={dataFetch} />
-          {!!postsList && postsList.map((element, key) => <PostContainer key={key} update={dataFetch} role="admin" element={element} />)}
+          <TextAreaPost update={() => getPostsByAutor(id)} />
+          {(!!posts && posts.length > 0) && posts.map((element, key) => <PostContainer key={key} update={() => getPostsByAutor(id)} role="admin" element={element} />)}
         </div>
         <div className={styles.none}>
         </div>
@@ -48,8 +36,8 @@ export async function getServerSideProps(request) {
   if (sessionJWT !== undefined) {
     try {
       const userAuthorization = verify(sessionJWT, process.env.SECRET)
-      const data = await getPostsMine(userAuthorization.id);
-      return { props: { data } }
+      const data = await getPostsByAutor(userAuthorization.id);
+      return { props: { data : { dataList : data, id: userAuthorization.id} } }
     } catch (err) {
       console.log(err)
     }
