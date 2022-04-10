@@ -1,29 +1,34 @@
-import { useRef, useState } from 'react'
-import { FiImage } from 'react-icons/fi'
+import {useRef, useState} from 'react'
+import ImagePost from '../ImagePost'
 import Button from '../Button';
 import styles from './TextAreaPost.module.css';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import AutocompleteInput from '../AutocompleteInput';
 
-const TextAreaPost = ({ update }) => {
+const TextAreaPost = ({update}) => {
 
-  const initialState = { type: "Boletin", content: "", title: "", tag: [] }
+  const initialState = {type: "Boletin", content: "", title: "", tag: []}
 
-  const { user } = useAuth();
+  const {user} = useAuth();
   const [data, setData] = useState(initialState)
   const textArea = useRef();
   const inputTitle = useRef();
+  const inputImage = useRef();
 
   const handleText = () => {
-    setData({ ...data, content: textArea.current.value });
+    setData({...data, content: textArea.current.value});
   }
   const handleTitle = () => {
-    setData({ ...data, title: inputTitle.current.value });
+    setData({...data, title: inputTitle.current.value});
   }
 
   const setTags = (tags) => {
-    setData({ ...data, tag: tags });
+    setData({...data, tag: tags});
+  }
+
+  const setImage = (value) => {
+    setData({...data, image: value});
   }
 
   const HandleSubmit = () => {
@@ -52,8 +57,8 @@ const TextAreaPost = ({ update }) => {
       />
       <div className={styles.footer}>
         <div className={styles.elements}>
-          <FiImage color="#212121" size={"1.5rem"} />
-          <AutocompleteInput setTags={setTags}/>
+          <ImagePost setImage={setImage} />
+          <AutocompleteInput setTags={setTags} />
         </div>
         <div className={styles.send}>
           <Button eventClick={HandleSubmit} title="Publicar" color="black" />

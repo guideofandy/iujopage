@@ -6,16 +6,27 @@ require("../relations")
 
 export const getPosts = async () => {
   try {
-    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"] }], order: [['createdAt', 'DESC']] });
+    const posts = await Posts.findAll({include: [{model: Users, as: 'autor', attributes: ["name"]}, {model: Tags, as: "tag", attributes: ["name"]}], order: [['createdAt', 'DESC']]});
     const content = await JSON.parse(JSON.stringify(posts));
     return content;
   } catch (error) {
     return addMessage(error.message, 404);
   }
 }
+
+export const getPost = async (id) => {
+  try {
+    const post = await Posts.findOne({where: {id}, include: [{model: Users, as: 'autor', attributes: ["name"]}, {model: Tags, as: "tag", attributes: ["name"]}]});
+    const content = await JSON.parse(JSON.stringify(post));
+    return content;
+  } catch (error) {
+    return addMessage(error.message, 404);
+  }
+}
+
 export const getTwoPosts = async () => {
   try {
-    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"] }], limit: 2, order: [['createdAt', 'DESC']] });
+    const posts = await Posts.findAll({include: [{model: Users, as: 'autor', attributes: ["name"]}, {model: Tags, as: "tag", attributes: ["name"]}], limit: 2, order: [['createdAt', 'DESC']]});
     const content = await JSON.parse(JSON.stringify(posts));
     return content;
   } catch (error) {
@@ -25,7 +36,7 @@ export const getTwoPosts = async () => {
 
 export const getPostsByAutor = async (id) => {
   try {
-    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"] }], order: [['createdAt', 'DESC']], where: { autorId: id } });
+    const posts = await Posts.findAll({include: [{model: Users, as: 'autor', attributes: ["name"]}, {model: Tags, as: "tag", attributes: ["name"]}], order: [['createdAt', 'DESC']], where: {autorId: id}});
     const content = await JSON.parse(JSON.stringify(posts));
     return content;
   } catch (error) {
@@ -34,7 +45,7 @@ export const getPostsByAutor = async (id) => {
 }
 
 export const CreatePost = async (data) => {
-  const { title, content, autorId, type, tag } = data;
+  const {title, image, content, autorId, type, tag} = data;
   let tags = tag;
   if (tag.length === 1) {
     tags = tag[0];
@@ -45,6 +56,7 @@ export const CreatePost = async (data) => {
       content,
       autorId,
       type,
+      image,
       createdAt: new Date(),
       updatedAt: new Date(),
       tag: tags
@@ -63,7 +75,7 @@ export const CreatePost = async (data) => {
 
 export const DeletePost = async (id) => {
   try {
-    const post = await Posts.destroy({ where: { id: id } })
+    const post = await Posts.destroy({where: {id: id}})
     const parse = await JSON.parse(JSON.stringify(post));
     return parse
   } catch (error) {
@@ -83,9 +95,9 @@ export const getPostCount = async () => {
 
 export const getPostFilters = async (data) => {
 
-  const { filters } = data;
+  const {filters} = data;
   try {
-    const posts = await Posts.findAll({ include: [{ model: Users, as: 'autor', attributes: ["name"] }, { model: Tags, as: "tag", attributes: ["name"], where: { name: filters } }], order: [['createdAt', 'DESC']] });
+    const posts = await Posts.findAll({include: [{model: Users, as: 'autor', attributes: ["name"]}, {model: Tags, as: "tag", attributes: ["name"], where: {name: filters}}], order: [['createdAt', 'DESC']]});
     const content = await JSON.parse(JSON.stringify(posts));
     const newContent = content.sort((a, b) => {
       if (a.tag.length > b.tag.length) return -1;

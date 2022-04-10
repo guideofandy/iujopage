@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import {DataTypes, Model} from 'sequelize';
 import db from "../db";
 class Posts extends Model {
 }
@@ -13,11 +13,11 @@ Posts.init({
     allowNull: false
   },
   image: {
-    type: DataTypes.BLOB('long'),
+    type: DataTypes.TEXT('long'),
     allowNull: true
   }
 }, {
-  
+
   sequelize: db,
 });
 

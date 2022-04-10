@@ -1,17 +1,23 @@
-import { getPosts, DeletePost } from "../../../db/Controllers/PostController"
+import {DeletePost, getPost} from "../../../db/Controllers/PostController";
 
 export default async function hanlder(req, res) {
+  const {postId} = req.query;
+
   switch (req.method) {
     case "GET":
+      if (postId !== "") {
+        const post = await getPost(postId);
+        return res.status(200).json(post);
+      }
       return res.status(200).json("Data");
     case "DELETE":
       const response = await DeletePost(req.query.postId);
       if (response.error === undefined) {
-        return res.status(200).json({ message: 'Post deleted successfully' });
+        return res.status(200).json({message: "Post deleted successfully"});
       } else {
-        return res.status(response.error).json({ message: response.message });
+        return res.status(response.error).json({message: response.message});
       }
     default:
-      return res.status(200).json(getPosts());
+      return res.status(200).json([]);
   }
 }
