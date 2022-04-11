@@ -32,7 +32,7 @@ const PostContainer = ({element, update, role = "standard"}) => {
       <section className={styles.body}>
         <h4>{title}</h4>
         {!!text && text.map((el, key) => <p key={key}>{el}</p>)}
-        {!!image && <img src={image} className={styles.imagePost} />}
+        {!!image && <img src={image} alt={"Image"} className={styles.imagePost} />}
       </section>
       <footer className={styles.footer}>
         <div className={styles.share}>
