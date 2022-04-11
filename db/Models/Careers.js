@@ -1,5 +1,5 @@
 import db from '../db';
-import { DataTypes , Model } from 'sequelize';
+import {DataTypes, Model} from 'sequelize';
 
 class Careers extends Model {
 }
@@ -9,24 +9,33 @@ Careers.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  color: {
-    type : DataTypes.INTEGER(6),
+  career: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
+  path: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  color: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  icon: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  profile: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  profile : {
-    type : DataTypes.TEXT,
+  pensumURL: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  skills : {
-    type : DataTypes.TEXT,
-    allowNull: false,
-  }
 }, {
   sequelize: db,
+  timestamps: false,
 });
 
 export default Careers;

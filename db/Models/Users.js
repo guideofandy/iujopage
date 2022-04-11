@@ -1,7 +1,7 @@
-import { DataTypes, Model } from 'sequelize';
+import {DataTypes, Model} from 'sequelize';
 import db from "../db";
 
-class Users extends Model { }
+class Users extends Model {}
 
 Users.init({
   id: {
@@ -32,7 +32,12 @@ Users.init({
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true,
-  }
+  },
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
 }, {
   timestamps: true,
   sequelize: db,

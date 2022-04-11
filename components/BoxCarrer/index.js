@@ -1,20 +1,18 @@
-import styles from './BoxCarrer.module.css';
-import Link from 'next/link';
+import styles from "./BoxCarrer.module.css";
+import Link from "next/link";
+import getIcon from "../../helpers/getIcon";
+import getColors from "../../helpers/getColors";
 
-const BoxCarrer = ({ element }) => {
-  const { title, icon, color, path } = element;
-  if (!!path) return (
-    <Link href={path}>
-      <a className={styles.block + " " + color}>
-        {icon}
-        {title}
+const BoxCarrer = ({element}) => {
+  const {name, icon, color, path} = element;
+  return (
+    <Link href={`/carreras/${path}`}>
+      <a className={styles.block + " " + getColors(color)}>
+        {getIcon(icon)}
+        {name}
       </a>
     </Link>
-  )
-  return (<a className={styles.block + " " + color}>
-    {icon}
-    {title}
-  </a>)
-}
+  );
+};
 
-export default BoxCarrer
+export default BoxCarrer;

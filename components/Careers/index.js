@@ -1,17 +1,17 @@
 import Button from "../Button";
 import styles from "./Careers.module.css";
 
-const Careers = ({ career, profile, profileList, skills, color, pensum}) => {
+const Careers = ({career, profile, profileList, skills, color, pensum}) => {
   return (
     <div style={{}} className="container">
-      <header style={{ backgroundColor: color }} className={styles.header}>
+      <header className={styles.header + " " + color}>
         <div className={styles.headerText}>
           <h2>{career}</h2>
           <span>Instituto Universitario Jesús Obrero</span>
         </div>
       </header>
       <div className={styles.showPensum}>
-        <Button path={pensum} title="Descargar pensum"/>
+        <Button path={pensum} title="Descargar pensum" />
       </div>
       <div className={styles.section}>
         <h3 className={styles.headerSectionText}>PERFIL DEL EGRESADO</h3>

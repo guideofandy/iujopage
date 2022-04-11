@@ -1,6 +1,8 @@
 import Posts from "../Models/Posts";
 import Users from "../Models/Users";
 import Tags from "../Models/Tags";
+import CareersSeed from "./CareersSeed";
+import ServicesSeed from "./ServicesSeed";
 
 const setSeed = () => {
   Users.create({
@@ -38,7 +40,7 @@ const setSeed = () => {
       as: 'tag'
     }]
   })
-  
+
   Posts.create({
     id: 2,
     title: "Lorem ip",
@@ -47,7 +49,8 @@ const setSeed = () => {
     created_at: new Date(),
     updated_at: new Date()
   })
-
+  ServicesSeed();
+  CareersSeed();
 }
 
 export default setSeed;
