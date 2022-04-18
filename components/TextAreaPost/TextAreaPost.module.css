@@ -36,6 +36,34 @@
   border: 0px none transparent;
 }
 
+.previewImage {
+  position: relative;
+  border-radius:10px;
+  width: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  object-fit: cover;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.closeImage{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1;
+  padding: 0.2rem;
+  background-color: #21212190;
+}
+
+.closeImage:hover {
+  background-color: #212121dd;
+}
+
 .footer {
   width: 100%;
   display: flex;

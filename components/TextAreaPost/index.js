@@ -1,71 +1,111 @@
-import {useRef, useState} from 'react'
-import ImagePost from '../ImagePost'
-import Button from '../Button';
-import styles from './TextAreaPost.module.css';
-import axios from 'axios';
-import useAuth from '../../hooks/useAuth';
-import AutocompleteInput from '../AutocompleteInput';
+import {useRef, useState} from "react";
+import ImagePost from "../ImagePost";
+import Button from "../Button";
+import styles from "./TextAreaPost.module.css";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+import AutocompleteInput from "../AutocompleteInput";
+import Message from "../Message";
+import Image from "next/image";
+import {AiOutlineClose} from "react-icons/ai";
 
 const TextAreaPost = ({update}) => {
-
-  const initialState = {type: "Boletin", content: "", title: "", tag: []}
-
+  const initialState = {content: "", title: "", tag: []};
+  const [title, setTitle] = useState(initialState.title);
+  const [content, setContent] = useState(initialState.content);
+  const [tag, setTag] = useState(initialState.tag);
+  const [image, setImage] = useState(null);
   const {user} = useAuth();
-  const [data, setData] = useState(initialState)
-  const textArea = useRef();
-  const inputTitle = useRef();
-  const inputImage = useRef();
+  const [error, setError] = useState("");
+  const inputTags = useRef();
 
-  const handleText = () => {
-    setData({...data, content: textArea.current.value});
-  }
-  const handleTitle = () => {
-    setData({...data, title: inputTitle.current.value});
-  }
+  const handleText = ({target}) => {
+    setContent(target.value);
+  };
+  const handleTitle = ({target}) => {
+    if (target.value.length > 50) {
+      setError("El titulo no puede contener mas de 50 caracteres");
+    } else {
+      setError("");
+      setTitle(target.value);
+    }
+  };
 
-  const setTags = (tags) => {
-    setData({...data, tag: tags});
-  }
+  const handleTags = (tags) => {
+    setTag(tags);
+  };
 
-  const setImage = (value) => {
-    setData({...data, image: value});
-  }
+  const handleImage = (value) => {
+    setImage(value);
+  };
 
   const HandleSubmit = () => {
-    const config = {
-      headers: {
-        Authorization: `Bareer ${user.token}`
-      }
+    if (title.length > 0 && content.length > 0) {
+      const config = {
+        headers: {
+          Authorization: `Bareer ${user.token}`,
+        },
+      };
+      axios
+        .post("/api/posts/", {title, content, tag, image}, config)
+        .then(() => {
+          update();
+          setError("");
+          setContent("");
+          setTitle("");
+          setTag([]);
+          setImage(null);
+          inputTags.current.value = "";
+        })
+        .catch((e) => console.log(e.response));
+    } else {
+      setError("El titulo y el contenido no pueden estar vacios");
     }
-    axios.post("/api/posts/", data, config)
-      .then(() => {
-        update();
-        setData(initialState);
-        inputTags.current.value = ''
-      }).catch(e => console.log(e.response))
-  }
+  };
 
   return (
     <div className={styles.newPost}>
-      <input ref={inputTitle} onChange={handleTitle} type="text" placeholder="Titulo" value={data.title} />
+      {error !== "" && <Message message={error} />}
+      <input
+        onChange={handleTitle}
+        type="text"
+        placeholder="Titulo"
+        value={title}
+      />
       <textarea
         className={styles.textarea}
-        ref={textArea}
-        value={data.content}
+        value={content}
         onChange={handleText}
         placeholder={"¿Que hay de nuevo en el Instituto?"}
       />
+      {image && (
+        <div className={styles.previewImage}>
+          <AiOutlineClose
+            onClick={() => setImage(null)}
+            className={styles.closeImage}
+            size={"2rem"}
+            color={"white"}
+          />
+          <Image
+            src={image}
+            layout="fill"
+            objectFit={"cover"}
+            alt={"Preview"}
+          />
+        </div>
+      )}
+
       <div className={styles.footer}>
         <div className={styles.elements}>
-          <ImagePost setImage={setImage} />
-          <AutocompleteInput setTags={setTags} />
+          <ImagePost setImage={handleImage} />
+          <AutocompleteInput inputTags={inputTags} setTags={handleTags} />
         </div>
         <div className={styles.send}>
           <Button eventClick={HandleSubmit} title="Publicar" color="black" />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TextAreaPost
+export default TextAreaPost;

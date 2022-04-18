@@ -11,12 +11,6 @@ const ImagePost = ({setImage}) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onprogress = (e) => {
-          if (e.lengthComputable) {
-            const percentLoaded = Math.round((e.loaded / e.total) * 100);
-            console.log(percentLoaded);
-          }
-        };
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
       });
@@ -26,10 +20,12 @@ const ImagePost = ({setImage}) => {
   };
 
   const handleImage = (e) => {
-    const file = e.target.files[0];
-    convertImageToBase64(file).then((data) => {
-      setImage(data);
-    });
+    if (e.target.files.length === 1) {
+      const file = e.target.files[0];
+      convertImageToBase64(file).then((data) => {
+        setImage(data);
+      });
+    }
   };
 
   return <input type="file" className={styles.input} onChange={handleImage} />;

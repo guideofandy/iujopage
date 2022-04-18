@@ -1,10 +1,10 @@
 import styles from "../../styles/Noticias.module.css";
 import Button from "../Button";
-import { AutorType } from "../Data/Post/filtersType";
-import { CareerType } from "../Data/Post/filtersType";
+import {AutorType} from "../Data/Post/filtersType";
+import {CareerType} from "../Data/Post/filtersType";
 import FilterButton from "../FilterButton";
 
-const FiltersContainer = ({ action }) => {
+const FiltersContainer = ({action, autors, careers}) => {
   return (<>
     <div className={styles.filters}>
       <h3>
@@ -15,13 +15,13 @@ const FiltersContainer = ({ action }) => {
         Buscar por Autor
       </h3>
       <div className={styles.filterAutor}>
-        {AutorType().map((element, key) => <FilterButton key={key} action={action} element={element} />)}
+        {autors.map((element, key) => <FilterButton key={key} action={action} element={element} />)}
       </div>
       <h3>
         Buscar por carrera
       </h3>
       <div className={styles.filterAutor}>
-        {CareerType().map((element, key) => <FilterButton key={key} action={action} element={element} />)}
+        {careers.map((element, key) => <FilterButton key={key} action={action} element={element} />)}
       </div>
     </div>
     <div className={styles.filtersResponsive}>

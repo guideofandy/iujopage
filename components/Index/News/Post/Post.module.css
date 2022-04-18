@@ -57,7 +57,6 @@
 }
 .aling:first-child {
   padding-right: 0.5rem;
-  border-right: 1px solid #212121;
 }
 
 .body > h4 {
@@ -65,6 +64,9 @@
 }
 
 .footer {
+  -webkit-box-shadow: 0px 10px 13px -7px #FFFFFF,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px -30px 60px 0px #FFFFFF, 0px 5px 15px 5px rgba(0, 0, 0, 0);
   width: 90%;
   height: 15%;
   border-top: 1px solid #212121;

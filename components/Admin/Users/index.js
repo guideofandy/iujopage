@@ -1,46 +1,41 @@
-import styles from '../../../pages/admin/admin.module.css';
-import Button from '../../Button';
-import Usuarios from './Usuarios/index';
-import useActive from '../../../hooks/useActive';
-import CreateUser from './CreateUser';
-import { useState } from 'react';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import styles from "../../../pages/admin/admin.module.css";
+import Usuarios from "./Usuarios/index";
+import CreateUser from "./CreateUser";
+import {useState} from "react";
+import Button from "../../Button";
 
-const Users = () => {
-
-  const { active, handleActiveChange } = useActive();
-  const [mode, setMode] = useState(null)
-
-  const handleModeChange = (data) => {
-    handleActiveChange()
-    setMode(data)
-  }
+const Users = ({data}) => {
+  const [show, setShow] = useState(false);
 
   return (
-    <div className={styles.option}>
-      <header className={styles.headerOption}>
-        <p>Usuarios</p>
-        <div className={styles.buttons}>
-          {active ?
-            <>
-              {mode ? <Button eventClick={() => setMode(false)} color="black" title="Actualizar" />
-                : <Button eventClick={() => setMode(true)} color="green" title="Nuevo" />}
-              <AiOutlineCloseCircle color="black" size="2rem" onClick={handleActiveChange} />
-            </>
-            : <>
-              <Button eventClick={() => handleModeChange(false)} color="black" title="Actualizar" />
-              <Button eventClick={() => handleModeChange(true)} color="green" title="Nuevo" />
-            </>}
-
-        </div>
+    <>
+      <header className={styles.headerBody}>
+        <h2>Usuarios</h2>
+        <span>(Creacion y administracion de usuarios)</span>
       </header>
-      <div className={active ? `${styles.bodyOption} ${styles.active}` : styles.bodyOption}>
-        <div className={styles.formUpdate}>
-          {mode ? <CreateUser /> : <Usuarios />}
+      <h4 className={styles.subtitle}>Crear Usuarios</h4>
+      <span>
+        Este usuario podra crear y administrar las publicaciones de este
+        realice, pero no tendra acceso a opciones de Administrador como:
+        Usuarios, Carreras o Servicios.
+      </span>
+      {show ? (
+        <div className={styles.boxBody}>
+          <Button color="red" title="-" eventClick={() => setShow(false)} />
+          <CreateUser />
         </div>
-      </div>
-    </div>
-  )
-}
+      ) : (
+        <div className={styles.boxBody}>
+          <Button color="green" title="+" eventClick={() => setShow(true)} />
+        </div>
+      )}
+      <h4 className={styles.subtitle}>Administrar Usuarios</h4>
+      <span>
+        Puede editar los datos y habilitar o desabilitar usuarios creados.
+      </span>
+      <Usuarios data={data} />
+    </>
+  );
+};
 
-export default Users
+export default Users;

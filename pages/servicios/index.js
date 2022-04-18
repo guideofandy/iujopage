@@ -2,9 +2,8 @@ import Services from "../../components/Index/Services"
 import {getServices} from "../../db/Controllers/ServiceController"
 
 const Servicios = ({data}) => {
-  console.log(data)
   return (
-    <Services />
+    <Services data={data} />
   )
 }
 

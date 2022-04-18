@@ -5,12 +5,12 @@ import addMessage from "../../helpers/addMessage";
 const bcryptjs = require("bcryptjs");
 import jwt from 'jsonwebtoken';
 import parseFetch from "../../helpers/parseFetch";
-const { Sequelize } = require('sequelize');
+const {Sequelize} = require('sequelize');
 require("../relations")
 
 export const getUsers = async () => {
   try {
-    const users = await Users.findAll();
+    const users = await Users.findAll({attributes: ['id', 'name', 'email', 'username', 'status']});
     const content = await JSON.parse(JSON.stringify(users));
     return content;
   } catch (e) {
@@ -20,7 +20,7 @@ export const getUsers = async () => {
 
 export const CreateUser = async (data) => {
   try {
-    const { name, username, password, email } = data;
+    const {name, username, password, email} = data;
     const passwordHash = await bcryptjs.hash(password.trim(), 8);
     const newData = {
       name: name.trim(),
@@ -40,8 +40,8 @@ export const CreateUser = async (data) => {
 
 export const Login = async (data) => {
   try {
-    const { username, password } = data;
-    const User = await Users.findOne({ where: { username: username } });
+    const {username, password} = data;
+    const User = await Users.findOne({where: {username: username}});
     if (!!User) {
       const parse = await parseFetch(User);
       const verify = await bcryptjs.compare(password, parse.password)
@@ -49,9 +49,10 @@ export const Login = async (data) => {
         const userForToken = {
           id: parse.id,
           username: parse.username,
+          role: parse.role,
         }
         const token = jwt.sign(userForToken, process.env.SECRET)
-        return { name: parse.name, token: token, role: parse.role };
+        return {name: parse.name, token}
       } else {
         return addMessage("Usuario o Contraseña incorrecta.", 404);
       }
@@ -65,7 +66,7 @@ export const Login = async (data) => {
 
 export const getUsersPostsReports = async () => {
   try {
-    const response = await Users.findAll({ attributes: ['id', 'name', 'email'], include: { model: Posts, as: 'post', attributes: ['autorId'] } })
+    const response = await Users.findAll({attributes: ['id', 'name', 'email'], include: {model: Posts, as: 'post', attributes: ['autorId']}})
     const content = await JSON.parse(JSON.stringify(response));
     return content;
   } catch (error) {

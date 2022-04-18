@@ -9,6 +9,7 @@ import splitText from "../../helpers/splitText";
 const PostContainer = ({element, update, role = "standard"}) => {
   const {autor, title, updatedAt, content, id, tag, image} = element;
   const text = splitText(content);
+  console.log(image);
 
   const handleDelete = () => {
     axios.delete(`/api/posts/${id}`).then(() => {
@@ -32,7 +33,17 @@ const PostContainer = ({element, update, role = "standard"}) => {
       <section className={styles.body}>
         <h4>{title}</h4>
         {!!text && text.map((el, key) => <p key={key}>{el}</p>)}
-        {!!image && <img src={image} alt={"Image"} className={styles.imagePost} />}
+        {!!image && (
+          <div className={styles.imagePost}>
+            <Image
+              src={image}
+              layout={"fill"}
+              priority
+              objectFit="cover"
+              alt={title}
+            />
+          </div>
+        )}
       </section>
       <footer className={styles.footer}>
         <div className={styles.share}>

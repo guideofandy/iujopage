@@ -1,0 +1,41 @@
+.popup {
+	position: fixed;
+	background: #F2F3F4EE ;
+	top: 1rem;
+	width: 80%;
+	height: 95vh;
+	z-index: 99999999999999;
+	border-radius: 15px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.title{
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	position: absolute;
+	top: 0;
+}
+
+.container {
+	padding-top: 3rem;
+	position: relative;
+	overflow: scroll;
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.close {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	font-size: 2rem;
+	cursor: pointer;
+}

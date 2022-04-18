@@ -11,5 +11,5 @@ export default Test;
 
 export async function getServerSideProps() {
   await sync();
-  return { props: { data: null } };
+  return {props: {data: null}};
 }

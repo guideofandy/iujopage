@@ -36,7 +36,7 @@ const CareersSeed = () => {
   );
 
   Careers.create({
-    name: "ELECTRÓNICA",
+    name: "Electrónica",
     career: "TSU EN ELECTRÓNICA",
     path: "electronica",
     color: "GRAY",

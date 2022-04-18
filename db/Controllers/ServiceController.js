@@ -11,7 +11,7 @@ export const getServices = async () => {
     }
 };
 
-export const getServieByPath = async (path) => {
+export const getServiceByPath = async (path) => {
     try {
         const service = await Services.findOne({where: {path}});
         const content = await JSON.parse(JSON.stringify(service));

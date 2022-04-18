@@ -1,15 +1,16 @@
 import styles from "../styles/Index.module.css";
 import IndexPost from "../components/Index/IndexPost";
 import Header from "../components/Index/Header";
-import { BsFillArrowDownCircleFill, BsArrowRightShort } from 'react-icons/bs'
+import {BsFillArrowDownCircleFill, BsArrowRightShort} from 'react-icons/bs'
 import Services from "../components/Index/Services";
 import News from "../components/Index/News";
 import Button from "../components/Button";
-import { getTwoPosts } from '../db/Controllers/PostController'
+import {getTwoPosts} from '../db/Controllers/PostController'
 import Map from "../components/Map";
+import {getServices} from "../db/Controllers/ServiceController";
 
-export default function Home({ data }) {
-  const { list, preInscripcion } = data;
+export default function Home({data}) {
+  const {list, preInscripcion, services} = data;
   const Register = preInscripcion;
   return (
     <>
@@ -32,14 +33,15 @@ export default function Home({ data }) {
         </div>
       </section>
       <News list={list} />
-      <Services />
+      <Services data={services} />
       <Map />
     </>
   )
 }
 
 export async function getServerSideProps() {
-  const data = await getTwoPosts();
-  return { props: { data: { list: data, preInscripcion: process.env.PREINSCRIPCION } } }
+  const services = await getServices();
+  const list = await getTwoPosts();
+  return {props: {data: {list, services, preInscripcion: process.env.PREINSCRIPCION}}}
 }
 

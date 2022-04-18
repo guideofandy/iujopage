@@ -57,7 +57,7 @@
   color: white;
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1180px) {
   .posts {
     grid-template-columns: 1fr;
   }

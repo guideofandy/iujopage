@@ -1,11 +1,10 @@
-import {getPostByAutor} from "../../../db/Controllers/PostController";
+import {getDataCareers} from "../../../db/Controllers/CareerController";
 
 export default async function hanlder(req, res) {
   switch (req.method) {
     case "GET":
-      return res.status(200).send(req.method);
+      return res.status(200).send(await getDataCareers());
     default:
-      const {ss} = req.body
       return res.status(200).json(req.body);
   }
 }

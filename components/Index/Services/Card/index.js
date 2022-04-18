@@ -2,17 +2,19 @@ import styles from './Card.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Card = ({ title, path, route = "/servicios" }) => {
+const Card = ({element}) => {
+
+  const {name, image, path} = element;
+
   return (
     <div className={styles.card}>
       <div className={styles.image}>
-        <Image src={path} layout={'fill'} priority objectFit="cover" alt={title} />
+        <Image src={image} layout={'fill'} priority objectFit="cover" alt={name} />
       </div>
-      <h4 className={styles.title}>{title}</h4>
-      <Link href={route}>
+      <h4 className={styles.title}>{name}</h4>
+      <Link href={`/servicios/${path}`}>
         <a className={styles.showMore}>Ver mas</a>
       </Link>
-
     </div>
   )
 }

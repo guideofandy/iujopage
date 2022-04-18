@@ -1,9 +1,6 @@
 import styles from '../TextAreaPost/TextAreaPost.module.css';
-import {useRef} from 'react';
 
-const AutocompleteInput = ({setTags}) => {
-
-  const inputTags = useRef();
+const AutocompleteInput = ({setTags, inputTags}) => {
 
   const handleTags = async () => {
     const Tags = inputTags.current.value.split(',');

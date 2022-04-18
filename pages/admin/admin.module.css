@@ -1,95 +1,209 @@
 .content {
-  margin-top: 1rem;
-  width: 100%;
-  max-width: 40rem;
-  min-height: 40vh;
-  display: flex;
-  flex-direction: column;
+	max-width: 90%;
+	width: 90%;
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	margin-top: 2rem;
+	gap: 1rem;
 }
 
-.option {
-  margin: 1rem 0 0 0;
-  border-radius: 10px;
-  background-color: #21212110;
-  width: 100%;
-  padding: 1rem 0.5rem 1rem 0.5rem;
-  display: flex;
-  flex-direction: column;
+.body {
+	border: 1px solid #21212140;
+	border-radius: 5px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width:100%;
 }
 
-.bodyOption {
-  display: none;
+.headerBody{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 1rem;
 }
 
-.active {
-  display: flex;
+.headerBody >h2{
+	color: #212121;
+	margin: 0;
+	font-size: 2rem;
 }
 
-.headerOption {
-  display: flex;
-  flex-direction: row;
+.headerBody > span {
+	color: #212121dd;
+	margin: 0;
+}
+
+.subtitle {
+	border-top: 1px solid #21212140;
+	margin: 0;
+	margin-top: 1rem;
+	width: 100%;
+	padding-top: 1rem;
+	font-size: 1.2rem;
+}
+.autorHeader{
+	color: #21212190;
+}
+
+.lineInput{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: space-between;
+	margin-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.itemTableData{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.itemTableData > p {
+	margin: 0;
+}
+
+.itemTableData > p > span {
+	font-weight: bold;
+}
+
+.itemTableButtons{
+	display:flex ;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: flex-end;
+	gap: 1rem;
+	height:100%;
+	width:100%;
+}
+
+.messageEdit{
+	padding-bottom: 1rem;
+}
+
+.input{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	margin-top: 1rem;
+}
+.input > span{
+	font-size:0.95rem;
+	color: #212121dd;
+}
+
+.doubleInput {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	flex-wrap: wrap;
+	margin-top: 1rem;
+}
+
+.table{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	margin-top: 1rem;
+}
+
+.table > .itemTable:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+.itemTable {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
   align-items: center;
-  justify-content: space-between;
-  margin-right: 1rem;
-  margin-left: 1rem;
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 10px;
 }
 
-.formUpdate {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.editTable{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0.5rem 0 0.5rem 0;
 }
 
-.leftPosition {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.options {
+	width: 100%;
+	height: auto;	
+	padding: 0;
 }
 
-.inputForm {
-  height: 2rem;
-  font-size: 18px;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-bottom: 1px solid #212121;
+.options > ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
-.inputForm:focus{
-  outline: 0;
-}
-.lineInput {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  flex-wrap: wrap;
+.list{
+	overflow: hidden;
+	border-radius: 10px;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
+.itemList {
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
+	background-color: #f1f1f1;
+	word-wrap: break-word;
+	padding: 0.5rem 0.8rem 0.5rem 1rem;
 }
 
-.buttonActive {
-  border: 0;
-  border-radius: 5px;
-  padding: 0.3rem 1rem 0.3rem 1rem;
-  background-color: #1B5E20;
-  color: white;
+.activeOption {
+	background-color: #212121;
+	color: white;
+}
+.buttonSlide{
+	display: flex;
+	flex-direction: row;
+	width: 2.5rem;
+	height: 1.5rem;
+	background-color: #212121;
+	border-radius: 50px;
+	align-items: center;
+	justify-content: flex-start;
 }
 
-.buttonInactive {
-  border: 0;
-  border-radius: 5px;
-  padding: 0.3rem 1rem 0.3rem 1rem;
-  background-color: #78281F;
-  color: white;
+.activeButton{
+	background-color: green;
+	justify-content: flex-end;
 }
 
-@media only screen and (max-width: 680px) {
-  .content {
-    max-width: 95%;
-  }
+.buttonSlideClick{
+	margin: 0 5px;
+	display: flex;
+	background-color: white;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
 }
+
+.boxBody{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	margin-top:1rem
+}
+
+
+@media screen and (max-width: 800px) {
+	.content {
+		grid-template-columns: 1fr;
+	}
+}
+

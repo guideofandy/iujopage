@@ -47,3 +47,12 @@
   background-color: #1B5E20ee;
   color: white;
 }
+
+.orange {
+  border: 1px solid #D84315;
+  color: #D84315;
+}
+.orange:hover {
+  background-color: #D84315ee;
+  color: white;
+}
