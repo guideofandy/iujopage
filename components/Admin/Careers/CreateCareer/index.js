@@ -1,39 +1,38 @@
 import InputText from "../../../InputText";
 import Button from "../../../Button";
 import styles from "../../../../pages/admin/admin.module.css";
-import {useState} from "react";
+import useCareers from "../../../../hooks/useCareers";
+import Colors from "../../../Colors"; import Icons from "../../../Icons";
+
 
 const CreateCareer = () => {
-	const [skills, setSkills] = useState([{name: "Fumar porros"}, {name: "Alquilar cigarros"}]);
-	const [profiles, setProfiles] = useState([{name: "Fumar porros"}, {name: "Alquilar cigarros"}]);
-	const [skillsInput, setSkillsInput] = useState("");
-	const [profilesInput, setProfilesInput] = useState("");
-
-	const handleSkills = ({target}) => {
-		setSkillsInput(target.value);
-	}
-
-	const handleProfiles = ({target}) => {
-		setProfilesInput(target.value);
-	}
-
-	const addSkill = () => {
-		setSkills([...skills, {name: skillsInput}]);
-	}
-
-	const addProfile = () => {
-		setProfiles([...profiles, {name: profilesInput}]);
-	}
-
-	const deleteSkill = (index) => {
-		const newSkills = skills.filter((skill, i) => i !== index);
-		setSkills(newSkills);
-	}
-
-	const deleteProfile = (index) => {
-		const newProfiles = profiles.filter((profile, i) => i !== index);
-		setProfiles(newProfiles);
-	}
+	const {
+		handleName,
+		name,
+		handleTitle,
+		title,
+		handlePath,
+		path,
+		handleProfile,
+		profile,
+		handlePensumURL,
+		pensumURL,
+		handleSubmit,
+		handleProfiles,
+		handleSkills,
+		profilesInput,
+		skillsInput,
+		deleteProfile,
+		addProfile,
+		addSkill,
+		deleteSkill,
+		skills,
+		profiles,
+		color,
+		setColor,
+		icon,
+		setIcon,
+	} = useCareers();
 
 	return (
 		<>
@@ -41,6 +40,8 @@ const CreateCareer = () => {
 				<InputText
 					className={styles.inputForm}
 					placeholder="Nombre de la carrera"
+					onChange={handleName}
+					value={name}
 					type="text"
 				/>
 				<span>(Este nombre aparecera en las listas)</span>
@@ -48,7 +49,9 @@ const CreateCareer = () => {
 			<div className={styles.input}>
 				<InputText
 					className={styles.inputForm}
-					placeholder="titulo"
+					placeholder="Título"
+					onChange={handleTitle}
+					value={title}
 					type="text"
 				/>
 				<span>
@@ -56,44 +59,105 @@ const CreateCareer = () => {
 				</span>
 			</div>
 			<div className={styles.input}>
-				<InputText placeholder="Ruta URL" type="text" />
+				<Colors color={color} callback={setColor} />
+				<span>
+					(Este color sera el que aparecera en la lista de carreras)
+				</span>
+			</div>
+			<div className={styles.input}>
+				<Icons icon={icon} callback={setIcon} />
+				<span>
+					(Este icono sera el que aparecera en la lista de carreras)
+				</span>
+			</div>
+			<div className={styles.input}>
+				<InputText placeholder="Ruta URL" type="text" onChange={handlePath} value={path} />
 				<span>
 					(Esta sera la ruta posterior a carreras/[ruta url] ejemplo:
 					carreras/informatica), no agregar "/"
 				</span>
 			</div>
 			<div className={styles.input}>
-				<InputText type="textarea" placeholder="Perfil del egresado" />
+				<InputText
+					placeholder={'Pensum URL'}
+					type="text"
+					onChange={handlePensumURL}
+					value={pensumURL}
+				/>
+				<span>
+					Este se mostrara debajo del titulo de la carrera, debe ser un URL para dirijir a el pensum
+				</span>
+			</div>
+			<div className={styles.input}>
+				<InputText type="textarea" placeholder="Perfil del egresado" onChange={handleProfile} value={profile} />
 				<span>(Esta contraseña será usada para iniciar sesión)</span>
 			</div>
 			<div className={styles.lineInput}>
 				<div className={styles.input}>
-					<InputText type="text" placeholder="Perfiles del egresado" onChange={handleProfiles} />
-					<span>(Esta lista aparecera debajo de el perfil del egresado) debe darle click a "+" por cada perfil que agregue</span>
+					<InputText
+						type="text"
+						placeholder="Perfiles del egresado"
+						onChange={handleProfiles}
+						value={profilesInput}
+					/>
+					<span>
+						(Esta lista aparecera debajo de el perfil del egresado) debe darle
+						click a "+" por cada perfil que agregue
+					</span>
 				</div>
-				<Button title="+" color="green" eventClick={addProfile} />
+				<Button
+					title="+"
+					color="green"
+					eventClick={(e) => {
+						addProfile(e);
+						handleProfiles({target: {value: ""}});
+					}}
+				/>
 			</div>
-			{profiles.map((el, key) => (
-				<div key={key} className={styles.lineInput}>
-					<span>{el.name}</span>
-					<Button title="-" color="red" eventClick={() => deleteProfile(key)} />
-				</div>
-			))}
+			{
+				profiles.map((el, key) => (
+					<div key={key} className={styles.lineInput}>
+						<span>{el.name}</span>
+						<Button title="-" color="red" eventClick={() => deleteProfile(key)} />
+					</div>
+				))
+			}
 			<div className={styles.lineInput}>
 				<div className={styles.input}>
-					<InputText type="text" onChange={handleSkills} placeholder="Habilidades" />
-					<span>(Estos son las habilidades que poseerá los egresados del instituto.) debe darle click a "+" por cada perfil que agregue</span>
+					<InputText
+						type="text"
+						onChange={handleSkills}
+						placeholder="Habilidades"
+						value={skillsInput}
+					/>
+					<span>
+						(Estos son las habilidades que poseerá los egresados del instituto.)
+						debe darle click a "+" por cada perfil que agregue
+					</span>
 				</div>
-				<Button title="+" color="green" eventClick={addSkill} />
+				<Button
+					title="+"
+					color="green"
+					eventClick={(e) => {
+						addSkill(e);
+						handleSkills({target: {value: ""}});
+					}}
+				/>
 			</div>
-			{skills.map((el, key) => (
-				<div key={key} className={styles.lineInput}>
-					<span>{el.name}</span>
-					<Button title="-" eventClick={() => deleteSkill(key)} color="red" />
-				</div>
-			))}
+			{
+				skills.map((el, key) => (
+					<div key={key} className={styles.lineInput}>
+						<span>{el.name}</span>
+						<Button title="-" eventClick={() => deleteSkill(key)} color="red" />
+					</div>
+				))
+			}
 			<div className={styles.input}>
-				<Button color="black" title="Registrar Carrera" type="submit" />
+				<Button
+					color="black"
+					title="Registrar Carrera"
+					eventClick={handleSubmit}
+				/>
 			</div>
 		</>
 	);

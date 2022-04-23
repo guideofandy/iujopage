@@ -1,51 +1,43 @@
 import Button from "../../../Button";
-import {useState} from "react";
-import axios from "axios";
 import styles from "../../../../pages/admin/admin.module.css";
-import {useRouter} from "next/router";
 import InputText from "../../../InputText";
+import Message from "../../../Message";
+import useUsers from "../../../../hooks/useUsers";
 
-const CreateUser = () => {
-  const router = useRouter();
-
-  const [data, setData] = useState({name: "", password: "", email: ""});
-
-  const handleName = (e) => {
-    setData({...data, name: e.target.value});
-  };
-  const handleUsername = (e) => {
-    setData({...data, username: e.target.value});
-  };
-
-  const handlePassword = (e) => {
-    setData({...data, password: e.target.value});
-  };
-
-  const handleEmail = (e) => {
-    setData({...data, email: e.target.value});
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/users/", data)
-      .then((response) => console.log(response))
-      .catch();
-  };
+const CreateUser = ({updateList}) => {
+  const {
+    name,
+    username,
+    email,
+    password,
+    passwordCheck,
+    handleCreateUser,
+    handleName,
+    handleUsername,
+    handleEmail,
+    handlePassword,
+    handlePasswordCheck,
+    error,
+    success,
+  } = useUsers();
 
   return (
     <>
+      {error !== "" && <Message message={error} />}
+      {success !== "" && <Message message={success} type={"normal"} />}
       <div className={styles.input}>
         <InputText
           className={styles.inputForm}
           onChange={handleName}
           placeholder="Nombre"
+          value={name}
           type="text"
         />
         <span>(Este nombre aparecera como el autor en las publicaciones)</span>
       </div>
       <div className={styles.input}>
         <InputText
+          value={username}
           className={styles.inputForm}
           onChange={handleUsername}
           placeholder="Nombre de usuario"
@@ -54,7 +46,12 @@ const CreateUser = () => {
         <span>(Este es el usuario con el que se de iniciar sesión)</span>
       </div>
       <div className={styles.input}>
-        <InputText onChange={handleEmail} placeholder="Correo" type="email" />
+        <InputText
+          onChange={handleEmail}
+          value={email}
+          placeholder="Correo"
+          type="email"
+        />
         <span>
           (Este correo no será publico, sera utilizado como contacto.)
         </span>
@@ -62,18 +59,26 @@ const CreateUser = () => {
       <div className={styles.input}>
         <InputText
           className={styles.inputForm}
+          onChange={handlePasswordCheck}
+          value={passwordCheck}
           placeholder="Contraseña"
           type="password"
         />
         <InputText
           className={styles.inputForm}
+          value={password}
+          onChange={handlePassword}
           placeholder="Repetir Contraseña"
           type="password"
         />
         <span>(Esta contraseña será usada para iniciar sesión)</span>
       </div>
       <div className={styles.input}>
-        <Button color="black" title="Registrar Editor" type="submit" />
+        <Button
+          eventClick={() => handleCreateUser(updateList)}
+          color="black"
+          title="Registrar Editor"
+        />
       </div>
     </>
   );

@@ -1,0 +1,23 @@
+.iconsFlex{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.iconItem {
+	width: 100px;
+	padding: 0.5rem;
+	border: 3px solid transparent;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.selected {
+	border: 1px solid #212121;
+}

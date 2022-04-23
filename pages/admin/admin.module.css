@@ -67,10 +67,12 @@
 
 .itemTableData > p {
 	margin: 0;
+	word-wrap: break-word;
 }
 
 .itemTableData > p > span {
 	font-weight: bold;
+	word-wrap: break-word;
 }
 
 .itemTableButtons{

@@ -3,9 +3,20 @@ import Usuarios from "./Usuarios/index";
 import CreateUser from "./CreateUser";
 import {useState} from "react";
 import Button from "../../Button";
+import axios from "axios";
 
 const Users = ({data}) => {
   const [show, setShow] = useState(false);
+  const [dataList, setDataList] = useState(data);
+
+  const updateList = async () => {
+    axios
+      .get("/api/admin/users")
+      .then((res) => {
+        setDataList(res.data);
+      })
+      .catch((err) => {});
+  };
 
   return (
     <>
@@ -22,7 +33,7 @@ const Users = ({data}) => {
       {show ? (
         <div className={styles.boxBody}>
           <Button color="red" title="-" eventClick={() => setShow(false)} />
-          <CreateUser />
+          <CreateUser updateList={updateList} />
         </div>
       ) : (
         <div className={styles.boxBody}>
@@ -33,7 +44,7 @@ const Users = ({data}) => {
       <span>
         Puede editar los datos y habilitar o desabilitar usuarios creados.
       </span>
-      <Usuarios data={data} />
+      <Usuarios data={dataList} updateList={updateList} />
     </>
   );
 };

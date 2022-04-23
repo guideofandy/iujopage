@@ -9,7 +9,6 @@ import splitText from "../../helpers/splitText";
 const PostContainer = ({element, update, role = "standard"}) => {
   const {autor, title, updatedAt, content, id, tag, image} = element;
   const text = splitText(content);
-  console.log(image);
 
   const handleDelete = () => {
     axios.delete(`/api/posts/${id}`).then(() => {

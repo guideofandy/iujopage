@@ -21,6 +21,16 @@ export const getServiceByPath = async (path) => {
     }
 };
 
+export const getDataServices = async () => {
+    try {
+        const service = await Services.findAll({attributes: ["id", "name", "path", "description", "coordinator", "email"]});
+        const content = await JSON.parse(JSON.stringify(service));
+        return content;
+    } catch (err) {
+        return addMessage(err.message, 404);
+    }
+}
+
 export const getService = async (id) => {
     try {
         const service = await Services.findOne({where: {id}});

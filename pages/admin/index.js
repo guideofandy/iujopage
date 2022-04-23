@@ -1,9 +1,9 @@
 import styles from "./admin.module.css";
 import {useState} from "react";
 import Account from "../../components/Admin/Account";
-import {getUsers} from "../../db/Controllers/UserController";
+import {getAllUsers} from "../../db/Controllers/UserController";
 import {getDataCareers} from "../../db/Controllers/CareerController";
-import {getServices} from "../../db/Controllers/ServiceController";
+import {getDataServices} from "../../db/Controllers/ServiceController";
 import verify from "jsonwebtoken/verify";
 import verifyToken from "../../helpers/verifyToken";
 import Reports from "../../components/Admin/Reports";
@@ -11,22 +11,23 @@ import BackUp from "../../components/Admin/BackUp";
 import Users from "../../components/Admin/Users";
 import useAuth from "../../hooks/useAuth";
 import Careers from "../../components/Admin/Careers";
+import Services from "../../components/Admin/Services";
 
 const Admin = ({data}) => {
   const {user} = useAuth();
-  const {users, role, careers} = data;
+  const {users, role, careers, services, account} = data;
 
   const optionsList = [
-    {name: "Cuenta", Component: <Account />},
+    {name: "Cuenta", Component: <Account data={account} />},
     {name: "Usuarios", Component: <Users data={users} />},
     {name: "Carreras", Component: <Careers data={careers} />},
-    {name: "Servicios"},
+    {name: "Servicios", Component: <Services data={services} />},
     {name: "BackUp", Component: <BackUp />},
     {name: "Reportes", Component: <Reports />},
   ];
 
   const optionListEditor = [
-    {name: "Cuenta", Component: <Account />},
+    {name: "Cuenta", Component: <Account data={account} />},
     {name: "Reportes", Component: <Reports />},
   ];
   const [selected, setSelected] = useState("");
@@ -85,22 +86,35 @@ export default Admin;
 
 export async function getServerSideProps({req}) {
   const {sessionJWT} = req.cookies;
-  const users = await getUsers();
-  const services = await getServices();
-  const careers = await getDataCareers();
   if (verifyToken(sessionJWT, process.env.SECRET)) {
-    const {role} = verify(sessionJWT, process.env.SECRET);
-    return {
-      props: {
-        data: {
-          pre: process.env.PREINSCRIPCION,
-          role,
-          users,
-          services,
-          careers,
+    const {role, id, email} = verify(sessionJWT, process.env.SECRET);
+    if (role) {
+      const users = await getAllUsers();
+      const services = await getDataServices();
+      const careers = await getDataCareers();
+      return {
+        props: {
+          data: {
+            pre: process.env.PREINSCRIPCION,
+            role,
+            users,
+            services,
+            careers,
+            account: {userId: id, email},
+          },
         },
-      },
-    };
+      };
+    } else {
+      return {
+        props: {
+          data: {
+            pre: process.env.PREINSCRIPCION,
+            role,
+            account: {userId: id, email},
+          },
+        },
+      };
+    }
   }
   return {
     redirect: {

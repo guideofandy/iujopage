@@ -63,7 +63,7 @@ const Login = () => {
               placeholder={"Contraseña"}
               value={password}
               onChange={handlePassword}
-              type="text"
+              type="password"
             />
           </div>
           <Button type="submit" title="Iniciar Session" />
