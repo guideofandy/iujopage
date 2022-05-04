@@ -1,9 +1,10 @@
-import {getAllUsers} from "../../../../db/Controllers/UserController";
+import UserController from "../../../../db/Controllers/UserController";
 
 export default async function handler(req, res) {
+		const users = new UserController();
 	switch (req.method) {
 		case 'GET':
-			return res.status(200).json(await getAllUsers());
+			return res.status(200).json(await users.getAllUsers());
 		case 'POST':
 			return post(req, res);
 		case 'PUT':

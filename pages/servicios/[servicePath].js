@@ -1,6 +1,6 @@
 import styles from "./ServicesTemplete.module.css";
-import {getServiceByPath} from "../../db/Controllers/ServiceController";
-import {getPostFilters} from "../../db/Controllers/PostController";
+import ServicesController from "../../db/Controllers/ServiceController";
+import PostsController from "../../db/Controllers/PostController";
 import usePosts from "../../hooks/usePosts";
 
 const ServicesTemplete = ({data}) => {
@@ -30,9 +30,11 @@ const ServicesTemplete = ({data}) => {
 export default ServicesTemplete;
 
 export async function getServerSideProps({query}) {
-  const dataQuery = await getServiceByPath(query.servicePath);
+  const services = new ServicesController();
+  const dataQuery = await services.getServiceByPath(query.servicePath);
   if (!!dataQuery) {
-    const postsList = await getPostFilters({filters: [dataQuery.name]});
+    const posts = new PostsController();
+    const postsList = await posts.getPostFilters({filters: [dataQuery.name]});
     return {
       props: {data: {dataQuery, postsList}},
     };

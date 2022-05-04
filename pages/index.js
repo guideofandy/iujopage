@@ -5,9 +5,9 @@ import {BsFillArrowDownCircleFill, BsArrowRightShort} from 'react-icons/bs'
 import Services from "../components/Index/Services";
 import News from "../components/Index/News";
 import Button from "../components/Button";
-import {getTwoPosts} from '../db/Controllers/PostController'
+import PostsController from '../db/Controllers/PostController'
 import Map from "../components/Map";
-import {getServices} from "../db/Controllers/ServiceController";
+import ServicesController from "../db/Controllers/ServiceController";
 
 export default function Home({data}) {
   const {list, preInscripcion, services} = data;
@@ -40,8 +40,10 @@ export default function Home({data}) {
 }
 
 export async function getServerSideProps() {
-  const services = await getServices();
-  const list = await getTwoPosts();
+  const service = new ServicesController();
+  const posts = new PostsController();
+  const services = await service.getServices();
+  const list = await posts.getTwoPosts();
   return {props: {data: {list, services, preInscripcion: process.env.PREINSCRIPCION}}}
 }
 

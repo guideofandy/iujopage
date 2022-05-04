@@ -1,9 +1,9 @@
 import styles from "../../styles/Noticias.module.css";
-import {getPost} from "../../db/Controllers/PostController";
+import PostsController from "../../db/Controllers/PostController";
 import usePosts from "../../hooks/usePosts";
 
-const Noticias = ({data}) => {
-  const {renderPosts} = usePosts({
+const Noticias = ({ data }) => {
+  const { renderPosts } = usePosts({
     initialPosts: data,
     unique: true,
   });
@@ -21,11 +21,12 @@ const Noticias = ({data}) => {
 
 export default Noticias;
 
-export async function getServerSideProps({query}) {
-  const {postId} = query;
+export async function getServerSideProps({ query }) {
+  const { postId } = query;
   const parsedPostId = parseInt(postId);
   if (Number.isInteger(parsedPostId)) {
-    const data = await getPost(postId);
+    const posts = new PostsController();
+    const data = await posts.getPost(postId);
     if (data) {
       return {
         props: {
@@ -34,5 +35,5 @@ export async function getServerSideProps({query}) {
       };
     }
   }
-  return {notFound: true};
+  return { notFound: true };
 }

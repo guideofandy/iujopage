@@ -1,12 +1,13 @@
-import {CreateUser, getUsers} from "../../../db/Controllers/UserController";
+import UserController from "../../../db/Controllers/UserController";
 import {verify} from "jsonwebtoken";
 require("dotenv").config();
 
 export default async function hanlder(req, res) {
   const {authorization} = req.headers;
+  const user = new UserController();
   switch (req.method) {
     case "GET":
-      const dataFetchGetUsers = await getUsers();
+      const dataFetchGetUsers = await user.getUsers();
       if (dataFetchGetUsers.error === undefined) {
         return res.status(200).json(dataFetchGetUsers);
       } else {
@@ -23,7 +24,7 @@ export default async function hanlder(req, res) {
           );
           const {role} = userAuthorization;
           if (role) {
-            const dataFetchCreateUser = await CreateUser(req.body);
+            const dataFetchCreateUser = await user.CreateUser(req.body);
             if (dataFetchCreateUser.error === undefined) {
               return res
                 .status(200)

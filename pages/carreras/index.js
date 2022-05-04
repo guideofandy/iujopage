@@ -1,6 +1,6 @@
 import styles from './Carreras.module.css';
 import BoxCarrer from '../../components/BoxCarrer';
-import {getCareers} from '../../db/Controllers/CareerController';
+import CareerController from '../../db/Controllers/CareerController';
 
 const Carreras = ({data}) => {
   return (
@@ -15,7 +15,8 @@ const Carreras = ({data}) => {
 export default Carreras
 
 export async function getServerSideProps() {
-  const data = await getCareers();
+  const career = new CareerController();
+  const data = await career.getCareers();
   return {
     props: {data}
   }

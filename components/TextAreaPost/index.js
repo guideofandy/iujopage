@@ -59,7 +59,7 @@ const TextAreaPost = ({update}) => {
         })
         .catch((e) => console.log(e.response));
     } else {
-      setError("El titulo y el contenido no pueden estar vacios");
+      setError("El titulo y/o el contenido no pueden estar vacios");
     }
   };
 

@@ -1,5 +1,5 @@
 import Services from "../../components/Index/Services"
-import {getServices} from "../../db/Controllers/ServiceController"
+import ServicesController from "../../db/Controllers/ServiceController"
 
 const Servicios = ({data}) => {
   return (
@@ -10,6 +10,7 @@ const Servicios = ({data}) => {
 export default Servicios
 
 export async function getServerSideProps() {
-  const data = await getServices();
+  const services = new ServicesController();
+  const data = await services.getServices();
   return {props: {data}}
 }

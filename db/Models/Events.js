@@ -1,36 +1,27 @@
 import db from '../db';
 import {DataTypes, Model} from 'sequelize';
 
-class Careers extends Model {
+class Events extends Model {
 }
 
-Careers.init({
+Events.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  career: {
+  url: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  path: {
-    type: DataTypes.STRING,
+  description: {
+    type: DataTypes.TEXT,
     allowNull: false,
-    unique: true,
   },
-  color: {
+  message: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   icon: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  profile: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  pensumURL: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -39,4 +30,5 @@ Careers.init({
   timestamps: false,
 });
 
-export default Careers;
+export default Events;
+

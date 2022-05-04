@@ -1,10 +1,9 @@
 import Careers from "../../components/Careers";
-import {getCareerByPath} from "../../db/Controllers/CareerController";
+import CareerController from "../../db/Controllers/CareerController";
 import getColors from "../../helpers/getColors";
 
-const Carrera = ({data}) => {
-
-  const {career, color, profile, pensumURL, Profiles, Skills} = data;
+const Carrera = ({ data }) => {
+  const { career, color, profile, pensumURL, Profiles, Skills } = data;
 
   return (
     <Careers
@@ -24,11 +23,20 @@ const Carrera = ({data}) => {
 
 export default Carrera;
 
-export async function getServerSideProps({query}) {
-  const data = await getCareerByPath(query.careerPath);
+export async function getServerSideProps({ query }) {
+  const career = new CareerController();
+  const data = await career.getCareerByPath(query.careerPath);
+  if (data) {
+    return {
+      props: {
+        data,
+      },
+    };
+  }
   return {
-    props: {
-      data
+    redirect: {
+      permanent: false,
+      destination: "/carreras",
     },
   };
 }

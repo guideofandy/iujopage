@@ -1,11 +1,24 @@
 import styles from "../../../pages/admin/admin.module.css";
 import Button from "../../Button";
-import {useState} from "react";
+import { useState } from "react";
 import CreateCareer from "./CreateCareer";
 import ShowCareers from "./ShowCareer";
+import axios from "axios";
 
-const Careers = ({data}) => {
+const Careers = ({ data }) => {
 	const [show, setShow] = useState(false);
+	const [newData, setNewData] = useState(data);
+
+	const updateData = () => {
+		axios
+			.get("/api/admin/careers")
+			.then((res) => {
+				setNewData(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<>
@@ -28,8 +41,11 @@ const Careers = ({data}) => {
 				</div>
 			)}
 			<h4 className={styles.subtitle}>Administrar Carreras</h4>
-			<span>Puedes administrar los datos asi como el titulo, la descripcion, el pensum , las habilidades y el perfil del egresado de la carrera.</span>
-			<ShowCareers data={data} />
+			<span>
+				Puedes administrar los datos asi como el titulo, la descripcion, el
+				pensum , las habilidades y el perfil del egresado de la carrera.
+			</span>
+			<ShowCareers data={newData} callback={updateData} />
 		</>
 	);
 };

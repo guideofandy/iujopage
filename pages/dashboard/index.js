@@ -1,7 +1,7 @@
 import PostContainer from "../../components/PostContainer";
 import styles from "../../styles/Noticias.module.css";
 import TextAreaPost from "../../components/TextAreaPost";
-import {getPostsByAutor} from "../../db/Controllers/PostController";
+import PostsController from "../../db/Controllers/PostController";
 import {verify} from "jsonwebtoken";
 import usePosts from '../../hooks/usePosts';
 
@@ -33,8 +33,9 @@ export async function getServerSideProps(request) {
   const {sessionJWT} = req.cookies;
   if (sessionJWT !== undefined) {
     try {
-      const userAuthorization = verify(sessionJWT, process.env.SECRET)
-      const data = await getPostsByAutor(userAuthorization.id);
+      const userAuthorization = verify(sessionJWT, process.env.SECRET);
+      const posts = new PostsController();
+      const data = await posts.getPostsByAutor(userAuthorization.id);
       return {props: {data: {dataList: data, id: userAuthorization.id}}}
     } catch (err) {
       console.log(err)

@@ -1,15 +1,11 @@
-import {useState} from 'react';
+import {sync} from '../../db/relations';
 
 const Test = () => {
 
-  const [data, setData] = useState(["a", "b", "c"]);
-
   return (
     <div className="container">
-      {data && data.map((el, key) => <p>{el}</p>)}
-      <button>Agregar</button>
-      <button>Editar</button>
-      <button>Eliminar</button>
+      <h1>Base de Datos restablecida</h1>
+      
     </div>
   );
 };
@@ -17,5 +13,6 @@ const Test = () => {
 export default Test;
 
 export async function getServerSideProps() {
+  await sync();
   return {props: {data: null}};
 }

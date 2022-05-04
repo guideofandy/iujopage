@@ -2,8 +2,9 @@ import InputText from "../../../InputText";
 import Button from "../../../Button";
 import styles from "../../../../pages/admin/admin.module.css";
 import useCareers from "../../../../hooks/useCareers";
-import Colors from "../../../Colors"; import Icons from "../../../Icons";
-
+import Colors from "../../../Colors";
+import Icons from "../../../Icons";
+import Message from "../../../Message";
 
 const CreateCareer = () => {
 	const {
@@ -32,10 +33,14 @@ const CreateCareer = () => {
 		setColor,
 		icon,
 		setIcon,
+		success,
+		error,
 	} = useCareers();
 
 	return (
 		<>
+			{success !== "" && <Message type="normal" message={success} />}
+			{error !== "" && <Message message={error} />}
 			<div className={styles.input}>
 				<InputText
 					className={styles.inputForm}
@@ -60,18 +65,19 @@ const CreateCareer = () => {
 			</div>
 			<div className={styles.input}>
 				<Colors color={color} callback={setColor} />
-				<span>
-					(Este color sera el que aparecera en la lista de carreras)
-				</span>
+				<span>(Este color sera el que aparecera en la lista de carreras)</span>
 			</div>
 			<div className={styles.input}>
 				<Icons icon={icon} callback={setIcon} />
-				<span>
-					(Este icono sera el que aparecera en la lista de carreras)
-				</span>
+				<span>(Este icono sera el que aparecera en la lista de carreras)</span>
 			</div>
 			<div className={styles.input}>
-				<InputText placeholder="Ruta URL" type="text" onChange={handlePath} value={path} />
+				<InputText
+					placeholder="Ruta URL"
+					type="text"
+					onChange={handlePath}
+					value={path}
+				/>
 				<span>
 					(Esta sera la ruta posterior a carreras/[ruta url] ejemplo:
 					carreras/informatica), no agregar "/"
@@ -79,18 +85,24 @@ const CreateCareer = () => {
 			</div>
 			<div className={styles.input}>
 				<InputText
-					placeholder={'Pensum URL'}
+					placeholder={"Pensum URL"}
 					type="text"
 					onChange={handlePensumURL}
 					value={pensumURL}
 				/>
 				<span>
-					Este se mostrara debajo del titulo de la carrera, debe ser un URL para dirijir a el pensum
+					Este se mostrara debajo del titulo de la carrera, debe ser un URL para
+					dirijir a el pensum
 				</span>
 			</div>
 			<div className={styles.input}>
-				<InputText type="textarea" placeholder="Perfil del egresado" onChange={handleProfile} value={profile} />
-				<span>(Esta contraseña será usada para iniciar sesión)</span>
+				<InputText
+					type="textarea"
+					placeholder="Perfil del egresado"
+					onChange={handleProfile}
+					value={profile}
+				/>
+				<span>(El perfil aparecera debajo de el titulo, debe expresar el perfil del proximo egresado del iujo)</span>
 			</div>
 			<div className={styles.lineInput}>
 				<div className={styles.input}>
@@ -110,18 +122,16 @@ const CreateCareer = () => {
 					color="green"
 					eventClick={(e) => {
 						addProfile(e);
-						handleProfiles({target: {value: ""}});
+						handleProfiles({ target: { value: "" } });
 					}}
 				/>
 			</div>
-			{
-				profiles.map((el, key) => (
-					<div key={key} className={styles.lineInput}>
-						<span>{el.name}</span>
-						<Button title="-" color="red" eventClick={() => deleteProfile(key)} />
-					</div>
-				))
-			}
+			{profiles.map((el, key) => (
+				<div key={key} className={styles.lineInput}>
+					<span>{el.name}</span>
+					<Button title="-" color="red" eventClick={() => deleteProfile(key)} />
+				</div>
+			))}
 			<div className={styles.lineInput}>
 				<div className={styles.input}>
 					<InputText
@@ -140,18 +150,16 @@ const CreateCareer = () => {
 					color="green"
 					eventClick={(e) => {
 						addSkill(e);
-						handleSkills({target: {value: ""}});
+						handleSkills({ target: { value: "" } });
 					}}
 				/>
 			</div>
-			{
-				skills.map((el, key) => (
-					<div key={key} className={styles.lineInput}>
-						<span>{el.name}</span>
-						<Button title="-" eventClick={() => deleteSkill(key)} color="red" />
-					</div>
-				))
-			}
+			{skills.map((el, key) => (
+				<div key={key} className={styles.lineInput}>
+					<span>{el.name}</span>
+					<Button title="-" eventClick={() => deleteSkill(key)} color="red" />
+				</div>
+			))}
 			<div className={styles.input}>
 				<Button
 					color="black"
