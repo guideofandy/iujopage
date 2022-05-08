@@ -114,6 +114,7 @@ const ShowServices = ({ data }) => {
 									</div>
 									<div className={styles.input}>
 										<InputText
+											type="textarea"
 											placeholder={"Descripción"}
 											onChange={handleDescription}
 											value={description}

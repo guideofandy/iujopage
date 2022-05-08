@@ -1,22 +1,14 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PostContainer from "../components/PostContainer";
 import styles from "../styles/Noticias.module.css";
 
 const usePosts = (props) => {
-  const {initialPosts, unique} = props;
+  const { initialPosts, unique } = props;
   const [filtersTemp, setFiltersTemp] = useState([]);
-  const [posts, setPosts] = useState(initialPosts || null);
-
-  useEffect(() => {
-    if (unique !== true) {
-      if (filtersTemp.length > 0) {
-        searchFilters();
-      } else {
-        getPosts();
-      }
-    }
-  }, [filtersTemp]);
+  const [limit, setLimit] = useState(initialPosts.count || 0);
+  const [posts, setPosts] = useState(initialPosts.rows || null);
+  const [page, setPage] = useState(0);
 
   const getPost = (id) => {
     axios
@@ -26,16 +18,23 @@ const usePosts = (props) => {
   };
 
   const searchFilters = () => {
-    axios
-      .post("/api/posts/filters", {filters: filtersTemp})
-      .then((response) => setPosts(response.data))
-      .catch();
+    if (filtersTemp.length > 0) {
+      axios
+        .post("/api/posts/filters", { filters: filtersTemp })
+        .then((response) => setPosts(response.data))
+        .catch();
+    } else {
+      setPosts(initialPosts.rows);
+    }
   };
 
-  const getPosts = () => {
+  const getPosts = (page) => {
     axios
-      .get("/api/posts/")
-      .then((response) => setPosts(response.data))
+      .get(`/api/posts?page=${page}`)
+      .then((response) => {
+        setPosts([...posts, ...response.data.rows]);
+        setLimit(response.data.count);
+      })
       .catch();
   };
 
@@ -43,7 +42,8 @@ const usePosts = (props) => {
     axios
       .get(`/api/posts/filters/${autorId}`)
       .then((response) => {
-        setPosts(response.data);
+        setPosts(response.data.rows);
+        setLimit(response.data.count);
       })
       .catch();
   };
@@ -67,9 +67,45 @@ const usePosts = (props) => {
     }
   };
 
+  const handlePagination = () => {
+    setPage(page + 1);
+    getPosts(page + 1);
+  };
+
   const renderPosts = () => {
     return !!posts && posts.length > 0 ? (
-      posts.map((element, key) => <PostContainer key={key} element={element} />)
+      <>
+        {posts.map((element, key) => (
+          <PostContainer key={key} element={element} />
+        ))}
+        {limit - (page * 5) > 5 && (
+          <div className={styles.infinity} onClick={handlePagination}>
+            Cargar más
+          </div>
+        )}
+      </>
+    ) : (
+      <div className={styles.noPosts}>No hay noticias disponibles</div>
+    );
+  };
+
+  const renderByAutor = (id) => {
+    return !!posts && posts.length > 0 ? (
+      <>
+        {posts.map((element, key) => (
+          <PostContainer
+            key={key}
+            update={() => getPostsByAutor(id)}
+            element={element}
+            role="admin"
+          />
+        ))}
+        {limit - (page * 5) > 5 && (
+          <div className={styles.infinity} onClick={handlePagination}>
+            Cargar más
+          </div>
+        )}
+      </>
     ) : (
       <div className={styles.noPosts}>No hay noticias disponibles</div>
     );
@@ -79,6 +115,7 @@ const usePosts = (props) => {
     posts,
     getPost,
     renderPosts,
+    renderByAutor,
     filtersTemp,
     getPostsByAutor,
     getPosts,

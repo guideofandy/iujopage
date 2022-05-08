@@ -5,14 +5,16 @@ import Tags from "../Models/Tags";
 require("../relations");
 
 class PostsController {
-  static async getPosts() {
+  static async getPosts( limit = 10, offset = 0 ) {
     try {
-      const posts = await Posts.findAll({
+      const posts = await Posts.findAndCountAll({
         include: [
           { model: Users, as: "autor", attributes: ["name"] },
           { model: Tags, as: "tag", attributes: ["name"] },
         ],
         order: [["createdAt", "DESC"]],
+        limit,
+        offset,
       });
       const content = await JSON.parse(JSON.stringify(posts));
       return content;
@@ -53,16 +55,18 @@ class PostsController {
       return addMessage(error.message, 404);
     }
   }
-  
-  static async getPostsByAutor(id) {
+
+  static async getPostsByAutor(id , limit = 5, offset = 0) {
     try {
-      const posts = await Posts.findAll({
+      const posts = await Posts.findAndCountAll({
         include: [
           { model: Users, as: "autor", attributes: ["name"] },
           { model: Tags, as: "tag", attributes: ["name"] },
         ],
         order: [["createdAt", "DESC"]],
         where: { autorId: id },
+        limit,
+        offset,
       });
       const content = await JSON.parse(JSON.stringify(posts));
       return content;
@@ -70,7 +74,7 @@ class PostsController {
       return addMessage(error.message, 404);
     }
   }
-  
+
   static async CreatePost(data) {
     const { title, image, content, autorId, type, tag } = data;
     let tags = tag;

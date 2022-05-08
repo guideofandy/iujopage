@@ -48,7 +48,7 @@ const CreateService = () => {
         <span>(Nombre del Coordinador del servicio)</span>
       </div>
       <div className={styles.input}>
-        <InputText placeholder={"Descripción"} onChange={handleDescription} value={description}/>
+        <InputText type={'textarea'} placeholder={"Descripción"} onChange={handleDescription} value={description}/>
         <span>(Descripción del servicio)</span>
       </div>
       <div className={styles.input}>

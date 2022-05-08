@@ -16,6 +16,11 @@ const headerData = () => {
       externalLink: false
     },
     {
+      title: "Servicios",
+      path: "/servicios",
+      externalLink: false
+    },
+    {
       title: "Aula virtual",
       path: "https://aulabqto.iujoac.org.ve/",
       externalLink: true

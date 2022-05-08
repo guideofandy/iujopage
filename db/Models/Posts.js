@@ -1,5 +1,6 @@
 import {DataTypes, Model} from 'sequelize';
 import db from "../db";
+
 class Posts extends Model {
 }
 
@@ -17,7 +18,6 @@ Posts.init({
     allowNull: true
   }
 }, {
-
   sequelize: db,
 });
 

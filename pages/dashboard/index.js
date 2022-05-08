@@ -8,7 +8,7 @@ import usePosts from '../../hooks/usePosts';
 const Dashboard = ({data}) => {
 
   const {dataList, id} = data;
-  const {posts, getPostsByAutor} = usePosts(dataList);
+  const {renderByAutor , getPostsByAutor} = usePosts({initialPosts: dataList});
 
   return (
     <div className="container">
@@ -17,7 +17,7 @@ const Dashboard = ({data}) => {
         </div>
         <div className={styles.posts}>
           <TextAreaPost update={() => getPostsByAutor(id)} />
-          {(!!posts && posts.length > 0) && posts.map((element, key) => <PostContainer key={key} update={() => getPostsByAutor(id)} role="admin" element={element} />)}
+          {renderByAutor(id)}
         </div>
         <div className={styles.none}>
         </div>
@@ -35,6 +35,7 @@ export async function getServerSideProps(request) {
     try {
       const userAuthorization = verify(sessionJWT, process.env.SECRET);
       const data = await PostsController.getPostsByAutor(userAuthorization.id);
+      console.log(data)
       return {props: {data: {dataList: data, id: userAuthorization.id}}}
     } catch (err) {
       console.log(err)

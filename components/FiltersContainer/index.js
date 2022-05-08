@@ -23,6 +23,7 @@ const FiltersContainer = ({action, autors, careers}) => {
       <div className={styles.filterAutor}>
         {careers.map((element, key) => <FilterButton key={key} action={action} element={element} />)}
       </div>
+      <Button color="black" title="Buscar" eventClick={action.updateFilters} />
     </div>
     <div className={styles.filtersResponsive}>
       <select className={styles.select}>

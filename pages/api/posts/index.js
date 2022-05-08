@@ -4,9 +4,12 @@ require('dotenv')
 
 export default async function hanlder(req, res) {
   const authorization = req.headers.authorization;
+  const calcPage = () => {
+    return req.query.page * 5 || 0;
+  }
   switch (req.method) {
     case "GET":
-      return res.status(200).json(await PostsController.getPosts());
+      return res.status(200).json(await PostsController.getPosts(5, calcPage()));
     case "POST":
       if (authorization && authorization.toLowerCase().startsWith("bareer")) {
         try {

@@ -7,7 +7,7 @@ import UserController from "../../db/Controllers/UserController";
 
 const Noticias = ({data}) => {
   const {postsList, autors, careers} = data;
-  const {addFilter, deleteFilter, renderPosts} = usePosts({
+  const {addFilter, deleteFilter, renderPosts, searchFilters : updateFilters} = usePosts({
     initialPosts: postsList,
   });
 
@@ -17,9 +17,11 @@ const Noticias = ({data}) => {
         <FiltersContainer
           autors={autors}
           careers={careers}
-          action={{addFilter, deleteFilter}}
+          action={{addFilter, deleteFilter, updateFilters}}
         />
-        <div className={styles.posts}>{renderPosts()}</div>
+        <div className={styles.posts}>
+          {renderPosts()}
+        </div>
         <div className={styles.none}></div>
       </div>
     </div>
@@ -28,9 +30,9 @@ const Noticias = ({data}) => {
 
 export default Noticias;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(req) {
   const careers = await CareerController.getCareers();
   const autors = await UserController.getUsers();
-  const postsList = await PostsController.getPosts();
+  const postsList = await PostsController.getPosts(5,0);
   return {props: {data: {postsList, autors, careers}}};
 }
