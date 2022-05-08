@@ -87,12 +87,9 @@ export async function getServerSideProps({ req }) {
   const { sessionJWT } = req.cookies;
   const { role, id, email } = verify(sessionJWT, process.env.SECRET);
   if (role) {
-    const userObj = new UserController();
-    const users = await userObj.getAllUsers();
-    const servicesObj = new ServicesController();
-    const services = await servicesObj.getDataServices();
-    const careerObj = new CareerController();
-    const careers = await careerObj.getDataCareers();
+    const users = await UserController.getAllUsers();
+    const services = await ServicesController.getDataServices();
+    const careers = await CareerController.getDataCareers();
     return {
       props: {
         data: {

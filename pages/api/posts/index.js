@@ -4,17 +4,16 @@ require('dotenv')
 
 export default async function hanlder(req, res) {
   const authorization = req.headers.authorization;
-  const posts = new PostsController();
   switch (req.method) {
     case "GET":
-      return res.status(200).json(await posts.getPosts());
+      return res.status(200).json(await PostsController.getPosts());
     case "POST":
       if (authorization && authorization.toLowerCase().startsWith("bareer")) {
         try {
           const userAuthorization = verify(authorization.slice(7), process.env.SECRET);
           const {id} = userAuthorization;
           const data = {...req.body, autorId: id}
-          const response = await posts.CreatePost(data);
+          const response = await PostsController.CreatePost(data);
           if (response.error === undefined) {
             return res.status(200).json({message: "Post created successfully"});
           } else {

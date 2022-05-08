@@ -25,8 +25,7 @@ export async function getServerSideProps({ query }) {
   const { postId } = query;
   const parsedPostId = parseInt(postId);
   if (Number.isInteger(parsedPostId)) {
-    const posts = new PostsController();
-    const data = await posts.getPost(postId);
+    const data = await PostsController.getPost(postId);
     if (data) {
       return {
         props: {

@@ -30,11 +30,9 @@ const ServicesTemplete = ({data}) => {
 export default ServicesTemplete;
 
 export async function getServerSideProps({query}) {
-  const services = new ServicesController();
-  const dataQuery = await services.getServiceByPath(query.servicePath);
+  const dataQuery = await ServicesController.getServiceByPath(query.servicePath);
   if (!!dataQuery) {
-    const posts = new PostsController();
-    const postsList = await posts.getPostFilters({filters: [dataQuery.name]});
+    const postsList = await PostsController.getPostFilters({filters: [dataQuery.name]});
     return {
       props: {data: {dataQuery, postsList}},
     };

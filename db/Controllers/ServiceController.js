@@ -1,8 +1,17 @@
 import Services from "../Models/Services";
 import addMessage from "../../helpers/addMessage";
+import parseFetch from "../../helpers/parseFetch";
 
 class ServicesController {
-    async getServices() {
+    static async createService({data, filename}) {
+        try {
+            const service = await Services.create({...data, image: filename});
+            return await parseFetch(service);
+        } catch (error) {
+            return addMessage(error.message, 403);
+        }
+    }
+    static async getServices() {
         try {
             const service = await Services.findAll({
                 attributes: ["id", "name", "path", "image"],
@@ -14,7 +23,7 @@ class ServicesController {
         }
     }
 
-    async getServiceByPath(path) {
+    static async getServiceByPath(path) {
         try {
             const service = await Services.findOne({ where: { path } });
             const content = await JSON.parse(JSON.stringify(service));
@@ -24,7 +33,7 @@ class ServicesController {
         }
     }
 
-    async getDataServices() {
+    static async getDataServices() {
         try {
             const service = await Services.findAll({
                 attributes: [
@@ -43,7 +52,7 @@ class ServicesController {
         }
     }
 
-    async getService(id) {
+    static async getService(id) {
         try {
             const service = await Services.findOne({ where: { id } });
             const content = await JSON.parse(JSON.stringify(service));

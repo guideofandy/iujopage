@@ -29,11 +29,8 @@ const Noticias = ({data}) => {
 export default Noticias;
 
 export async function getServerSideProps() {
-  const career = new CareerController();
-  const users = new UserController();
-  const posts = new PostsController();
-  const careers = await career.getCareers();
-  const autors = await users.getUsers();
-  const postsList = await posts.getPosts();
+  const careers = await CareerController.getCareers();
+  const autors = await UserController.getUsers();
+  const postsList = await PostsController.getPosts();
   return {props: {data: {postsList, autors, careers}}};
 }

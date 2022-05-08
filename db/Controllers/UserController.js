@@ -8,7 +8,7 @@ require("../relations");
 require("dotenv").config();
 
 class UserController {
-  async getUsers() {
+  static async getUsers() {
     try {
       const users = await Users.findAll({
         attributes: ["id", "name", "email", "username", "status"],
@@ -23,7 +23,7 @@ class UserController {
     }
   }
 
-  async getAllUsers() {
+  static async getAllUsers() {
     try {
       const users = await Users.findAll({
         attributes: ["id", "name", "email", "username", "status"],
@@ -34,7 +34,7 @@ class UserController {
       return addMessage(e.message, 404);
     }
   }
-  async CreateUser(data) {
+  static async CreateUser(data) {
     try {
       const { name, username, password, email } = data;
       const passwordHash = await bcryptjs.hash(password.trim(), 8);
@@ -54,7 +54,7 @@ class UserController {
     }
   }
 
-  async Login(data) {
+  static async Login(data) {
     try {
       const { username, password } = data;
       const User = await Users.findOne({ where: { username: username } });
@@ -80,7 +80,7 @@ class UserController {
       return addMessage(error.message, 404);
     }
   }
-  async getUsersPostsReports() {
+  static async getUsersPostsReports() {
     try {
       const response = await Users.findAll({
         attributes: ["id", "name", "email"],
@@ -93,7 +93,7 @@ class UserController {
     }
   }
 
-  async getUsersCount() {
+  static async getUsersCount() {
     try {
       const posts = await Users.count();
       const content = await JSON.parse(JSON.stringify(posts));
@@ -103,7 +103,7 @@ class UserController {
     }
   }
 
-  async updateName(data) {
+  static async updateName(data) {
     try {
       const { id, name } = data;
       const User = await Users.update({ name }, { where: { id: id } });
@@ -113,7 +113,8 @@ class UserController {
       return addMessage(error.message, 404);
     }
   }
-  async updateEmail(data) {
+
+  static async updateEmail(data) {
     try {
       const { id, email } = data;
       const User = await Users.update({ email }, { where: { id: id } });
@@ -124,7 +125,7 @@ class UserController {
     }
   }
 
-  async updatePassword(data) {
+  static async updatePassword(data) {
     try {
       const { id, password } = data;
       const passwordHash = await bcryptjs.hash(password.trim(), 8);
@@ -138,7 +139,7 @@ class UserController {
       return addMessage(error.message, 404);
     }
   }
-  async updateUser(data) {
+  static async updateUser(data) {
     const { userId, email, name, password, status } = data;
     let newData = {};
     try {

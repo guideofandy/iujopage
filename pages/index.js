@@ -40,10 +40,8 @@ export default function Home({data}) {
 }
 
 export async function getServerSideProps() {
-  const service = new ServicesController();
-  const posts = new PostsController();
-  const services = await service.getServices();
-  const list = await posts.getTwoPosts();
+  const services = await ServicesController.getServices();
+  const list = await PostsController.getTwoPosts();
   return {props: {data: {list, services, preInscripcion: process.env.PREINSCRIPCION}}}
 }
 

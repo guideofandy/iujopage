@@ -6,7 +6,7 @@ import parseFetch from "../../helpers/parseFetch";
 require("../relations");
 
 class CareerController {
-    async getCareers() {
+    static async getCareers() {
         try {
             const careers = await Careers.findAll({
                 attributes: ["id", "name", "icon", "color", "path"],
@@ -18,7 +18,7 @@ class CareerController {
         }
     }
 
-    async CreateCareer(data) {
+    static async CreateCareer(data) {
         try {
             await Careers.create(data, { include: [Skills, Profiles] });
             const content = `${data.name} has been added to the careers`;
@@ -27,7 +27,7 @@ class CareerController {
             return addMessage(error.message, "error");
         }
     }
-    async UpdateCareer(id, data) {
+    static async UpdateCareer(id, data) {
         try {
             await Careers.update(data, { where: { id } });
             const content = `has been updated`;
@@ -36,7 +36,7 @@ class CareerController {
             return addMessage(error.message, 400);
         }
     }
-    async getCareers() {
+    static async getCareers() {
         try {
             const careers = await Careers.findAll({
                 attributes: ["id", "name", "icon", "color", "path"],
@@ -47,7 +47,7 @@ class CareerController {
             return addMessage(err.message, 404);
         }
     }
-    async getDataCareers() {
+    static async getDataCareers() {
         try {
             const careers = await Careers.findAll({
                 include: [Skills, Profiles],
@@ -59,7 +59,7 @@ class CareerController {
         }
     }
 
-    async getCareer(id) {
+    static async getCareer(id) {
         try {
             const career = await Careers.findOne({
                 where: { id },
@@ -75,7 +75,7 @@ class CareerController {
         }
     }
 
-    async getCareerByPath(path) {
+    static async getCareerByPath(path) {
         try {
             const career = await Careers.findOne({
                 where: { path },
@@ -91,7 +91,7 @@ class CareerController {
         }
     }
 
-    async addSkill(careerId, data) {
+    static async addSkill(careerId, data) {
         console.log(data)
         if (data.length === 1) {
             try {
@@ -123,7 +123,7 @@ class CareerController {
         }
     }
 
-    async addProfile(careerId, data) {
+    static async addProfile(careerId, data) {
         if (data.length === 1) {
             try {
                 await Profiles.create({
@@ -154,7 +154,7 @@ class CareerController {
         }
     }
 
-    async deleteSkills(list) {
+    static async deleteSkills(list) {
         if(list.length === 1) {
             try {
                 await Skills.destroy({
@@ -184,7 +184,7 @@ class CareerController {
         }
     }
 
-    async deleteProfiles(list) {
+    static async deleteProfiles(list) {
         console.log("HOLA")
         if(list.length === 1) {
             try {

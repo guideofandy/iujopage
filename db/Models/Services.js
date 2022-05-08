@@ -14,7 +14,7 @@ Services.init({
     allowNull: false,
   },
   image: {
-    type: DataTypes.TEXT('long'),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {

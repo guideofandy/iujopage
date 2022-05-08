@@ -10,7 +10,6 @@ const Servicios = ({data}) => {
 export default Servicios
 
 export async function getServerSideProps() {
-  const services = new ServicesController();
-  const data = await services.getServices();
+  const data = await ServicesController.getServices();
   return {props: {data}}
 }

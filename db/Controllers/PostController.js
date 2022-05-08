@@ -5,7 +5,7 @@ import Tags from "../Models/Tags";
 require("../relations");
 
 class PostsController {
-  async getPosts() {
+  static async getPosts() {
     try {
       const posts = await Posts.findAll({
         include: [
@@ -21,7 +21,7 @@ class PostsController {
     }
   }
 
-  async getPost(id) {
+  static async getPost(id) {
     try {
       const post = await Posts.findOne({
         where: { id },
@@ -37,7 +37,7 @@ class PostsController {
     }
   }
 
-  async getTwoPosts() {
+  static async getTwoPosts() {
     try {
       const posts = await Posts.findAll({
         include: [
@@ -54,7 +54,7 @@ class PostsController {
     }
   }
   
-  async getPostsByAutor(id) {
+  static async getPostsByAutor(id) {
     try {
       const posts = await Posts.findAll({
         include: [
@@ -71,7 +71,7 @@ class PostsController {
     }
   }
   
-  async CreatePost(data) {
+  static async CreatePost(data) {
     const { title, image, content, autorId, type, tag } = data;
     let tags = tag;
     if (tag.length === 1) {
@@ -105,7 +105,7 @@ class PostsController {
     }
   }
 
-  async DeletePost(id) {
+  static async DeletePost(id) {
     try {
       const post = await Posts.destroy({ where: { id: id } });
       const parse = await JSON.parse(JSON.stringify(post));
@@ -115,7 +115,7 @@ class PostsController {
     }
   }
 
-  async getPostCount() {
+  static async getPostCount() {
     try {
       const posts = await Posts.count();
       const content = await JSON.parse(JSON.stringify(posts));
@@ -125,7 +125,7 @@ class PostsController {
     }
   }
 
-  async getPostFilters(data) {
+  static async getPostFilters(data) {
     const { filters } = data;
     try {
       const posts = await Posts.findAll({

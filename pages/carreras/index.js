@@ -15,8 +15,7 @@ const Carreras = ({data}) => {
 export default Carreras
 
 export async function getServerSideProps() {
-  const career = new CareerController();
-  const data = await career.getCareers();
+  const data = await CareerController.getCareers();
   return {
     props: {data}
   }

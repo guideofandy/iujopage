@@ -1,12 +1,11 @@
 import CareerController from "../../../db/Controllers/CareerController";
 
 export default async function handler(req, res) {
-  const careers = new CareerController();
   switch (req.method) {
     case "GET":
-      return res.status(200).json(await careers.getCareers());
+      return res.status(200).json(await CareerController.getCareers());
     case "POST":
-      const response = await careers.CreateCareer(req.body);
+      const response = await CareerController.CreateCareer(req.body);
       if (response.error === undefined) {
         return res.status(200).json(response);
       } else {
