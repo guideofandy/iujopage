@@ -75,12 +75,12 @@ const usePosts = (props) => {
     }
   };
 
-  const getPosts = (page) => {
+  const getPosts = (page = 0, lastPage = 0) => {
     setLoader(true);
     axios
       .get(`/api/posts?page=${page}`)
       .then((response) => {
-        if (mode.type !== "normal") {
+        if (mode.type !== "normal" || page === lastPage) {
           setPosts(response.data.rows);
           setPage(0);
         } else {
@@ -88,7 +88,7 @@ const usePosts = (props) => {
         }
         setLoader(false);
         setLimit(response.data.count);
-        setMode({ type: "normal", value: false });
+        setMode({ type: "normal", value: false , lastPage: page});
       })
       .catch();
   };
@@ -132,7 +132,7 @@ const usePosts = (props) => {
 
   const handlePagination = () => {
     if (mode.type === "normal") {
-      getPosts(page + 1);
+      getPosts(page + 1, mode.lastPage);
     } else if (mode.type === "title") {
       searchByTitle(mode.value, page + 1, mode.lastPage);
     } else if (mode.type === "autor") {

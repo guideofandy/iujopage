@@ -1,15 +1,15 @@
 .inputBox {
 	width: 100%;
 	position: relative;
-	overflow: hidden;
 }
 .buttonSearch{
 	width: 4rem;
 	height: 2rem;
-	background-color: #00a8ff;
+	background-color: #A93226;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: #fff;
 }
 
 .InputContainer {
