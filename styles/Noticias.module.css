@@ -1,10 +1,30 @@
 .content {
   position: relative;
   display: grid;
-  width: 90%;
-  max-width:90%;
+  width: 100%;
+  max-width:98%;
   margin-top: 1rem;
+  gap: 2rem;
   grid-template-columns: 1fr 3fr 1fr;
+}
+
+.construct{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #626567EE; 
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2.5px;
+  z-index: 2;
+  border-radius: 0.5rem;
 }
 
 .infinity{
@@ -21,6 +41,7 @@
 .filters {
   position: relative;
   width: 100%;
+  height: calc(100vh - 9rem);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -48,8 +69,12 @@
   display: none;
 }
 
-.none {
-  display: none;
+.search {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .select {
@@ -75,13 +100,17 @@
     display: none;
   }
 
+  .search{
+    display: none;
+  }
+
   .filtersResponsive {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     background-color: #212121;
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 10px;
     gap: 0.3rem;
   }

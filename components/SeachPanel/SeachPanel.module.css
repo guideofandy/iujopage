@@ -1,0 +1,97 @@
+.inputBox {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.buttonSearch{
+	width: 4rem;
+	height: 2rem;
+	background-color: #00a8ff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.InputContainer {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	height: 2rem;
+	border: 1px solid #ccc;
+	border-radius: 25px;
+	border: 1px solid #212121cc;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem;
+	padding-right: 0;
+	z-index: 10;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.input {
+	background: transparent;
+	font-size: 1rem;
+	outline: transparent;
+	border: 1px solid transparent;
+}
+
+.inputModal {
+	position: absolute;
+	top: -1.5rem;
+	opacity: 0;
+	transition: opacity 0.3s;
+	color: #212121aa;
+}
+
+.InputContainer:focus-within > .inputModal {
+	opacity: 1;
+}
+
+.autocomplete {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	top: 1rem;
+	padding-top: 1.1rem;
+	left: 0;
+	z-index:9;
+	width: 100%;
+	min-height: 0;
+	background: #e6b0aa;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.autocompleteElement:hover {
+	background: #f2f3f422;
+	color: #212121;
+	cursor: pointer;
+}
+
+.autocompleteElement:last-child {
+	border-bottom: 1px solid transparent;
+}
+
+.autocompleteElement {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	padding: 0.5rem;
+	border-bottom: 1px solid #cd6155;
+}
+
+.name {
+	font-size: 1rem;
+	font-weight: bold;
+	word-break: break-word;
+}
+
+.type {
+	font-size: 0.8rem;
+	font-weight: normal;
+}

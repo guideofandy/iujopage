@@ -34,7 +34,6 @@ export default function Home({data}) {
       </section>
       <News list={list} />
       <Services data={services} />
-      <Map />
     </>
   )
 }

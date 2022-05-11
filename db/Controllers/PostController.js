@@ -2,10 +2,11 @@ import Posts from "../Models/Posts";
 import addMessage from "../../helpers/addMessage";
 import Users from "../Models/Users";
 import Tags from "../Models/Tags";
+import { Op } from "sequelize";
 require("../relations");
 
 class PostsController {
-  static async getPosts( limit = 10, offset = 0 ) {
+  static async getPosts(limit = 10, offset = 0) {
     try {
       const posts = await Posts.findAndCountAll({
         include: [
@@ -39,6 +40,28 @@ class PostsController {
     }
   }
 
+  static async getPostByTitle(title, limit = 5, offset = 0) {
+    try {
+      const posts = await Posts.findAndCountAll({
+        include: [
+          { model: Users, as: "autor", attributes: ["name"] },
+          { model: Tags, as: "tag", attributes: ["name"] },
+        ],
+        where: {
+          title: {
+            [Op.like]: `%${title}%`,
+          },
+        },
+        limit,
+        offset,
+      });
+      const content = await JSON.parse(JSON.stringify(posts));
+      return content;
+    } catch (error) {
+      return addMessage(error.message, 404);
+    }
+  }
+
   static async getTwoPosts() {
     try {
       const posts = await Posts.findAll({
@@ -56,7 +79,7 @@ class PostsController {
     }
   }
 
-  static async getPostsByAutor(id , limit = 5, offset = 0) {
+  static async getPostsByAutor(id, limit = 5, offset = 0) {
     try {
       const posts = await Posts.findAndCountAll({
         include: [
@@ -129,10 +152,10 @@ class PostsController {
     }
   }
 
-  static async getPostFilters(data) {
+  static async getPostFilters(data, limit = 5, offset = 0) {
     const { filters } = data;
     try {
-      const posts = await Posts.findAll({
+      const posts = await Posts.findAndCountAll({
         include: [
           { model: Users, as: "autor", attributes: ["name"] },
           {
@@ -143,14 +166,16 @@ class PostsController {
           },
         ],
         order: [["createdAt", "DESC"]],
+        limit,
+        offset,
       });
       const content = await JSON.parse(JSON.stringify(posts));
-      const newContent = content.sort((a, b) => {
+      const newContent = content.rows.sort((a, b) => {
         if (a.tag.length > b.tag.length) return -1;
         if (a.tag.length < b.tag.length) return 1;
         return 0;
       });
-      return newContent;
+      return { rows : newContent, count: content.count };
     } catch (error) {
       return addMessage(error.message, 404);
     }

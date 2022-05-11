@@ -16,7 +16,7 @@ const PostContainer = ({element, update, role = "standard"}) => {
     });
   };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {}
 
   return (
     <div className={styles.post}>
@@ -26,7 +26,7 @@ const PostContainer = ({element, update, role = "standard"}) => {
         </div>
         <div className={styles.headerText}>
           <h5>{autor.name}</h5>
-          <span>{updatedAt.slice(0, 10)}</span>
+          <span>{updatedAt.slice(0, 10)} {updatedAt.slice(11,16)}</span>
         </div>
       </header>
       <section className={styles.body}>
