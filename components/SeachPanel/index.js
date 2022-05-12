@@ -1,27 +1,25 @@
 import styles from "./SeachPanel.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import removeAccent from "../../helpers/removeAccents";
 
-const SeachPanel = ({ search, getPosts, data, getPostsByAutor, handleTag }) => {
-  const router = useRouter();
+const SeachPanel = ({ search, getPosts, data, searchWithTags ,getPostsByAutor, handleTag }) => {
   const { autors, careers } = data;
   const [text, setText] = useState("");
+  const [textNotFiltered, setTextNotFiltered] = useState('');
   const [textFiltered, setTextFiltered] = useState([]);
   const [autocomplete, setAutocomplete] = useState([]);
+  const [notFiltered, setNotFiltered] = useState(0);
 
   const handleChange = ({ target }) => {
-    if (target.value.length > 2) {
-      AnalizeText(target.value);
-    } else if (target.value.length === 0) {
-      getPosts();
-    }
+    AnalizeText(target.value);
   };
 
   const SearchFunction = () => {
-    if (search && text.length > 3) {
-      if (textFiltered.length > 0) {
+    if (text.trim().length > 2) {
+      if (textFiltered.length > 0 && notFiltered > 0) {
+        searchWithTags(textNotFiltered, textFiltered, 0);
+      } else if(textFiltered.length > 0 && notFiltered === 0){
         handleTag(textFiltered);
       } else {
         search(text);
@@ -38,17 +36,21 @@ const SeachPanel = ({ search, getPosts, data, getPostsByAutor, handleTag }) => {
     }
   };
 
-
   const AnalizeText = (value) => {
     setAutocomplete([]);
     let arrayWords = value.toLowerCase().split(" ");
     let tags = [];
+    let textWithOutFilters = [];
+    let wordsNotFiltered = 0;
     let autocompleteTemp = [];
     for (let i = 0; i < arrayWords.length; i++) {
       let word = arrayWords[i].split("");
       if (word[0] === "#") {
         tags.push(word.join("").slice(1));
         arrayWords[i] = word.join("").slice(1);
+      } else {
+        wordsNotFiltered++;
+        textWithOutFilters.push(arrayWords[i]);
       }
       autors.forEach((autor) => {
         if (
@@ -77,13 +79,15 @@ const SeachPanel = ({ search, getPosts, data, getPostsByAutor, handleTag }) => {
       });
     }
 
+    setTextNotFiltered(textWithOutFilters.join(" "))
+    setNotFiltered(wordsNotFiltered);
     setAutocomplete(autocompleteTemp);
     setText(value);
     setTextFiltered(tags);
   };
-
-  const onClickOption = (id) => {
-    getPostsByAutor(id);
+  
+  const onClickOption = (id, name) => {
+    getPostsByAutor(id, name);
     setAutocomplete([]);
   };
 
@@ -91,7 +95,7 @@ const SeachPanel = ({ search, getPosts, data, getPostsByAutor, handleTag }) => {
     const { name, type, id } = element;
 
     return (
-      <div onClick={() => onClick(id)} className={styles.autocompleteElement}>
+      <div onClick={() => onClick(id, name)} className={styles.autocompleteElement}>
         <span className={styles.name}>{name}</span>
         <span className={styles.type}>{type}</span>
       </div>
@@ -111,7 +115,9 @@ const SeachPanel = ({ search, getPosts, data, getPostsByAutor, handleTag }) => {
             className={styles.input}
             placeholder={"Buscar titulos o autores"}
           />
-          <div className={styles.buttonSearch} onClick={SearchFunction}>Buscar</div>
+          <div className={styles.buttonSearch} onClick={SearchFunction}>
+            Buscar
+          </div>
         </div>
         {autocomplete.length > 0 && (
           <div className={styles.autocomplete}>

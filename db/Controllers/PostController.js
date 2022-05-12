@@ -40,6 +40,34 @@ class PostsController {
     }
   }
 
+  static async getPostByTitleAndTags(title, filters, limit = 5, offset = 0) {
+    try {
+      const posts = await Posts.findAndCountAll({
+        include: [
+          { model: Users, as: "autor", attributes: ["name"] },
+          {
+            model: Tags,
+            as: "tag",
+            attributes: ["name"],
+            where: { name: filters },
+          },
+        ],
+        where: {
+          title: {
+            [Op.like]: `%${title}%`,
+          },
+        },
+        limit,
+        offset,
+        order: [["updatedAt", "DESC"]],
+      });
+      const content = await JSON.parse(JSON.stringify(posts));
+      return content;
+    } catch (error) {
+      return addMessage(error.message, 404);
+    }
+  }
+
   static async getPostByTitle(title, limit = 5, offset = 0) {
     try {
       const posts = await Posts.findAndCountAll({
@@ -175,7 +203,7 @@ class PostsController {
         if (a.tag.length < b.tag.length) return 1;
         return 0;
       });
-      return { rows : newContent, count: content.count };
+      return { rows: newContent, count: content.count };
     } catch (error) {
       return addMessage(error.message, 404);
     }

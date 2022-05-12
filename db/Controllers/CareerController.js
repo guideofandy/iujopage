@@ -6,6 +6,7 @@ import parseFetch from "../../helpers/parseFetch";
 require("../relations");
 
 class CareerController {
+
     static async getCareers() {
         try {
             const careers = await Careers.findAll({

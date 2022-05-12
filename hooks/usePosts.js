@@ -20,6 +20,40 @@ const usePosts = (props) => {
       .catch();
   };
 
+  const getPostByTitleAndTags = (title, tags, page = 0, lastPage = 0) => {
+    let newTags = "";
+    if (typeof tags !== "string") {
+      newTags = tags.join("-");
+    } else {
+      newTags = tags;
+    }
+    setLoader(true);
+    axios
+      .get(
+        `/api/posts?title=${title.trim()}&tags=${newTags
+          .toLowerCase()
+          .trim()}&page=${page}`
+      )
+      .then((response) => {
+        if (
+          mode.type !== "titleAndTags" ||
+          mode.value !== newTags ||
+          page === lastPage
+        ) {
+          setPosts(response.data.rows);
+        } else {
+          setPosts([...posts, response.data.rows]);
+        }
+        setLimit(response.data.count);
+        setLoader(false);
+        setMode({
+          type: "titleAndTags",
+          value: { title, newTags },
+          lastPage: page,
+        });
+      });
+  };
+
   const handleTag = (tag, page = 0, lastPage = 0) => {
     let newTags = "";
     if (typeof tag !== "string") {
@@ -29,9 +63,13 @@ const usePosts = (props) => {
     }
     setLoader(true);
     axios
-      .get(`/api/posts?tags=${newTags.toLowerCase()}&page=${page}`)
+      .get(`/api/posts?tags=${newTags.toLowerCase().trim()}&page=${page}`)
       .then((res) => {
-        if (mode.type !== "tags" || mode.value !== newTags || page === lastPage) {
+        if (
+          mode.type !== "tags" ||
+          mode.value !== newTags ||
+          page === lastPage
+        ) {
           setPosts(res.data.rows);
           setPage(0);
         } else {
@@ -59,9 +97,13 @@ const usePosts = (props) => {
     if (title.length > 0) {
       setLoader(true);
       axios
-        .get(`/api/posts?title=${title}&page=${page}`)
+        .get(`/api/posts?title=${title.trim()}&page=${page}`)
         .then((res) => {
-          if (mode.type !== "title" || mode.value !== title || page === lastPage) {
+          if (
+            mode.type !== "title" ||
+            mode.value !== title ||
+            page === lastPage
+          ) {
             setPosts([...res.data.rows]);
             setPage(0);
           } else {
@@ -69,7 +111,7 @@ const usePosts = (props) => {
           }
           setLoader(false);
           setLimit(res.data.count);
-          setMode({ type: "title", value: title , lastPage: page});
+          setMode({ type: "title", value: title, lastPage: page });
         })
         .catch();
     }
@@ -88,17 +130,21 @@ const usePosts = (props) => {
         }
         setLoader(false);
         setLimit(response.data.count);
-        setMode({ type: "normal", value: false , lastPage: page});
+        setMode({ type: "normal", value: false, lastPage: page });
       })
       .catch();
   };
 
-  const getPostsByAutor = (autorId, page = 0, lastPage = 0) => {
+  const getPostsByAutor = (autorId, name, page = 0, lastPage = 0) => {
     setLoader(true);
     axios
-      .get(`/api/posts?autor=${autorId}&page=${page}`)
+      .get(`/api/posts?autor=${autorId.toString().trim()}&page=${page}`)
       .then((response) => {
-        if (mode.type !== "autor" || mode.value !== autorId || page === lastPage) {
+        if (
+          mode.type !== "autor" ||
+          mode.value !== autorId ||
+          page === lastPage
+        ) {
           setPosts([...response.data.rows]);
           setPage(0);
         } else {
@@ -106,7 +152,7 @@ const usePosts = (props) => {
         }
         setLoader(false);
         setLimit(response.data.count);
-        setMode({ type: "autor", value: autorId, lastPage: page });
+        setMode({ type: "autor", value: { autorId, name }, lastPage: page });
       })
       .catch();
   };
@@ -136,15 +182,70 @@ const usePosts = (props) => {
     } else if (mode.type === "title") {
       searchByTitle(mode.value, page + 1, mode.lastPage);
     } else if (mode.type === "autor") {
-      getPostsByAutor(mode.value, page + 1, mode.lastPage);
+      getPostsByAutor(mode.value.autorId, mode.value.name, page + 1, mode.lastPage);
     } else if (mode.type === "tags") {
       handleTag(mode.value, page + 1, mode.lastPage);
+    } else if (mode.type === "titleAndTags") {
+      getPostByTitleAndTags(
+        mode.value.title,
+        mode.value.newTags,
+        page + 1,
+        mode.lastPage
+      );
     }
     setPage(page + 1);
   };
 
+  const renderSearch = () => {
+    let render;
+    if (mode.type !== "normal") {
+      if (mode.type === "title") {
+        render = (
+          <>
+            <b>Busquedas con: </b>
+            <span className={styles.searchDataValues}>{mode.value}</span>
+            <span className={styles.resultsOpacity}>{limit} Resultados</span>
+          </>
+        );
+      }
+      if (mode.type === "autor") {
+        render = (
+          <>
+            <b>Publicaciones de: </b>
+            <span className={styles.searchDataValues}>{mode.value.name}</span>
+            <span className={styles.resultsOpacity}>{limit} Resultados</span>
+          </>
+        );
+      }
+      if (mode.type === "tags") {
+        render = (
+          <>
+            <b>Busquedas con: </b>
+            <span className={styles.searchDataValues}>
+              {mode.value.split("-").map((el) => ` #${el.toUpperCase()}`)}
+            </span>
+            <span className={styles.resultsOpacity}>{limit} Resultados</span>
+          </>
+        );
+      }
+      if (mode.type === "titleAndTags") {
+        render = (
+          <>
+            <b>Busquedas con: </b>
+            <span className={styles.searchDataValues}>{mode.value.title}</span>
+            <span className={styles.searchDataValues}>{mode.value.newTags.split("-").map(el => ` #${el.toUpperCase()}`)}</span>
+            <span className={styles.resultsOpacity}>{limit} Resultados</span>
+          </>
+        );
+      }
+
+      return <div className={styles.searchData}>{render}</div>;
+    }
+    return null;
+  };
+
   const renderPosts = () => {
-    return loader || posts.length > 0 ? (
+    let render =  loader || posts.length > 0 ? (
       <>
         {posts.map((element, key) => (
           <PostContainer key={key} element={element} />
@@ -159,6 +260,7 @@ const usePosts = (props) => {
     ) : (
       <div className={styles.noPosts}>No hay noticias disponibles</div>
     );
+    return (<>{renderSearch()}{render}</>);
   };
 
   const renderByAutor = (id) => {
@@ -198,6 +300,7 @@ const usePosts = (props) => {
     deleteFilter,
     searchByTitle,
     handleTag,
+    getPostByTitleAndTags,
   };
 };
 

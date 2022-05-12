@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   width: 100%;
-  max-width:98%;
+  max-width:96%;
   margin-top: 1rem;
   gap: 2rem;
   grid-template-columns: 1fr 3fr 1fr;
@@ -25,6 +25,29 @@
   letter-spacing: 2.5px;
   z-index: 2;
   border-radius: 0.5rem;
+}
+
+.searchData{
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #626567EE;
+  border-radius: 0.5rem;
+  gap: 0.3rem;
+}
+.searchData > b{
+  font-size: 1.2rem;
+}
+.searchDataValues{
+  font-size: 1.2rem;
+}
+.resultsOpacity{
+  opacity: 0.8;
+  font-size: 0.8rem;
 }
 
 .infinity{
@@ -92,7 +115,7 @@
 .noPosts {
   font-size: 2rem;
   word-wrap: break-word;
-
+  margin-top: 1rem;
 }
 
 @media only screen and (max-width: 900px) {

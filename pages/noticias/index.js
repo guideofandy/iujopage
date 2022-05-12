@@ -19,6 +19,7 @@ const Noticias = ({ data }) => {
     getPosts,
     handleTag,
     searchFilters: updateFilters,
+    getPostByTitleAndTags,
   } = usePosts({
     initialPosts: postsList,
   });
@@ -33,17 +34,18 @@ const Noticias = ({ data }) => {
         />
         <div className={styles.filtersResponsive}>
           <SeachPanel
+            searchWithTags={getPostByTitleAndTags}
             search={searchByTitle}
             getPosts={getPosts}
             getPostsByAutor={getPostsByAutor}
             data={{ autors, careers }}
             handleTag={handleTag}
           />
-          <TagSearch data={tags} handleTag={handleTag} />
         </div>
         <div className={styles.posts}>{renderPosts()}</div>
         <div className={styles.search}>
           <SeachPanel
+            searchWithTags={getPostByTitleAndTags}
             search={searchByTitle}
             getPosts={getPosts}
             getPostsByAutor={getPostsByAutor}

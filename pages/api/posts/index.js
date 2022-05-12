@@ -10,6 +10,13 @@ export default async function hanlder(req, res) {
   };
   switch (req.method) {
     case "GET":
+      if(req.query.title !== undefined && req.query.tags !== undefined){
+        console.log("EN TITULO Y AUTOR")
+        const tags = req.query.tags.split("-");
+        return res
+          .status(200)
+          .json(await PostsController.getPostByTitleAndTags(req.query.title, tags, 5 ,calcPage()));
+      }
       if (req.query.title !== undefined) {
         console.log("EN TITLE");
         return res

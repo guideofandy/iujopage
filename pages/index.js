@@ -6,7 +6,6 @@ import Services from "../components/Index/Services";
 import News from "../components/Index/News";
 import Button from "../components/Button";
 import PostsController from '../db/Controllers/PostController'
-import Map from "../components/Map";
 import ServicesController from "../db/Controllers/ServiceController";
 
 export default function Home({data}) {
