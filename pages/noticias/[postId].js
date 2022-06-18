@@ -1,18 +1,16 @@
 import styles from "../../styles/Noticias.module.css";
 import PostsController from "../../db/Controllers/PostController";
 import usePosts from "../../hooks/usePosts";
+import PostContainer from "../../components/PostContainer";
 
 const Noticias = ({ data }) => {
-  const { renderPosts } = usePosts({
-    initialPosts: data,
-    unique: true,
-  });
-
   return (
     <div className="container">
       <div className={styles.content}>
         <div></div>
-        <div className={styles.posts}>{renderPosts()}</div>
+        <div className={styles.posts}>
+          <PostContainer element={data[0]} />
+        </div>
         <div className={styles.none}></div>
       </div>
     </div>

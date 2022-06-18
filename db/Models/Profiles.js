@@ -6,7 +6,7 @@ class Profiles extends Model {
 
 Profiles.init({
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
 }, {

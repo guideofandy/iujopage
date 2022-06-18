@@ -3,7 +3,9 @@ import styles from "./TagSearch.module.css";
 const TagSearch = ({ data, handleTag }) => {
   return (
     <ol className={styles.container}>
-      
+      <li className={styles.tag}>
+        <b>Etiquetas mas usadas</b>
+      </li>
       {data.map(({name,countTags}, index) => (
         <li
           onClick={() => handleTag(name)}

@@ -1,53 +1,31 @@
 import styles from "./admin.module.css";
-import { useState } from "react";
-import Account from "../../components/Admin/Account";
-import UserController from "../../db/Controllers/UserController";
-import CareerController from "../../db/Controllers/CareerController";
-import ServicesController from "../../db/Controllers/ServiceController";
-import verify from "jsonwebtoken/verify";
-import Reports from "../../components/Admin/Reports";
-import BackUp from "../../components/Admin/BackUp";
-import Users from "../../components/Admin/Users";
 import useAuth from "../../hooks/useAuth";
-import Careers from "../../components/Admin/Careers";
-import Services from "../../components/Admin/Services";
+import useOptionsList from "../../hooks/useOptionsList";
+import QueryReports from "../../components/QueryReports";
+import { useState, useEffect } from "react";
+import { verify } from "jsonwebtoken";
+
+import axios from "axios";
 
 const Admin = ({ data }) => {
   const { user } = useAuth();
-  const { users, role, careers, services, account } = data;
+  const { role, id } = data;
+  const [dataPosts, setDataPosts] = useState("");
+  const [time, setTime] = useState("1");
 
-  const optionsList = [
-    { name: "Cuenta", Component: <Account data={account} /> },
-    { name: "Usuarios", Component: <Users data={users} /> },
-    { name: "Carreras", Component: <Careers data={careers} /> },
-    { name: "Servicios", Component: <Services data={services} /> },
-    { name: "BackUp", Component: <BackUp /> },
-    { name: "Reportes", Component: <Reports /> },
-  ];
-
-  const optionListEditor = [
-    { name: "Cuenta", Component: <Account data={account} /> },
-    { name: "Reportes", Component: <Reports /> },
-  ];
-  const [selected, setSelected] = useState("");
-
-  const mapList = (element, key) => {
-    return (
-      <li
-        key={key}
-        onClick={() =>
-          setSelected(selected.name !== element.name ? element : "")
-        }
-        className={
-          element.name === selected.name
-            ? `${styles.itemList} ${styles.activeOption}`
-            : styles.itemList
-        }
-      >
-        {element.name}
-      </li>
-    );
-  };
+  const { optionsList, optionListEditor, mapList } = useOptionsList({
+    name: "",
+  });
+  useEffect(() => {
+    axios
+      .get(`/api/posts?autor=${id}`)
+      .then((res) => {
+        setDataPosts(res.data.count);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
   return (
     <div className="container">
@@ -58,23 +36,24 @@ const Admin = ({ data }) => {
           </ul>
         </div>
         <div className={styles.body}>
-          {selected !== "" ? (
-            selected.Component
-          ) : (
-            <header className={styles.headerBody}>
-              <h2>
-                Bienvenido{" "}
-                <span className={styles.autorHeader}>
-                  {!!user && user.name}
-                </span>
-              </h2>
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                euismod, nisl eget consectetur consectetur, nisi nisl tincidunt
-                nisi, eu consectetur nisl nisi vitae nisl.
-              </span>
-            </header>
-          )}
+          <header className={styles.headerBody}>
+            <h2>
+              Bienvenido{" "}
+              <span className={styles.autorHeader}>{!!user && user.name}</span>
+            </h2>
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              euismod, nisl eget consectetur consectetur, nisi nisl tincidunt
+              nisi, eu consectetur nisl nisi vitae nisl.
+            </span>
+          </header>
+          <div className={styles.bodyContent}>
+            <div className={styles.cards}>
+              <QueryReports
+                element={{ title: "POSTS", data: dataPosts,}}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -85,32 +64,13 @@ export default Admin;
 
 export async function getServerSideProps({ req }) {
   const { sessionJWT } = req.cookies;
-  const { role, id, email } = verify(sessionJWT, process.env.SECRET);
-  if (role) {
-    const users = await UserController.getAllUsers();
-    const services = await ServicesController.getDataServices();
-    const careers = await CareerController.getDataCareers();
-    return {
-      props: {
-        data: {
-          pre: process.env.PREINSCRIPCION,
-          role,
-          users,
-          services,
-          careers,
-          account: { userId: id, email },
-        },
+  const { role, id } = verify(sessionJWT, process.env.SECRET);
+  return {
+    props: {
+      data: {
+        role,
+        id,
       },
-    };
-  } else {
-    return {
-      props: {
-        data: {
-          pre: process.env.PREINSCRIPCION,
-          role,
-          account: { userId: id, email },
-        },
-      },
-    };
-  }
+    },
+  };
 }

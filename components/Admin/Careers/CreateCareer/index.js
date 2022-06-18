@@ -79,8 +79,7 @@ const CreateCareer = () => {
 					value={path}
 				/>
 				<span>
-					(Esta sera la ruta posterior a carreras/[ruta url] ejemplo:
-					carreras/informatica), no agregar "/"
+					(Esta sera la ruta posterior a carreras/[ruta url] ejemplo: carreras/informatica), no agregar /
 				</span>
 			</div>
 			<div className={styles.input}>
@@ -114,7 +113,7 @@ const CreateCareer = () => {
 					/>
 					<span>
 						(Esta lista aparecera debajo de el perfil del egresado) debe darle
-						click a "+" por cada perfil que agregue
+						click a + por cada perfil que agregue
 					</span>
 				</div>
 				<Button
@@ -142,7 +141,7 @@ const CreateCareer = () => {
 					/>
 					<span>
 						(Estos son las habilidades que poseerá los egresados del instituto.)
-						debe darle click a "+" por cada perfil que agregue
+						debe darle click a + por cada perfil que agregue
 					</span>
 				</div>
 				<Button

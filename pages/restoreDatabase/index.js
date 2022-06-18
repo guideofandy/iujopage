@@ -1,4 +1,4 @@
-import {sync} from "../../../db/relations";
+import {sync} from "../../db/relations";
 
 const RestoreDatabase = () => {
   return (

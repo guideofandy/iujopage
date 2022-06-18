@@ -202,6 +202,71 @@
 	margin-top:1rem
 }
 
+.cards{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	width: 100%;
+	margin-top:1rem;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.select {
+	height: 2rem;
+	border-radius: 20px;
+	padding: 0 0.5rem;
+}
+
+.table{
+	width: 100%;
+}
+
+.table > thead {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 10px;
+	background-color: #212121;
+	color: white;
+	letter-spacing: 1px;
+	word-wrap: break-word;
+}
+
+.table > tbody {
+	width: 100%;
+}
+
+.table > thead > tr {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.table > thead > tr > th {
+	width: 100%;
+}
+.table > tbody > tr > td {
+	width: 100%;
+	text-align: center;
+}
+
+.table > tbody > tr {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.id{
+	max-width: 8%;
+}
 
 @media screen and (max-width: 800px) {
 	.content {

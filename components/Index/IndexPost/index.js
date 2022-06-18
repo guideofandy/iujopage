@@ -1,8 +1,12 @@
 import styles from "../../../styles/Index.module.css";
 import Button from "../../Button"
 import Image from 'next/image'
+import {useRouter} from 'next/router'
 
 const IndexPost = () => {
+
+  const router = useRouter();
+
   return (
     <div className={styles.post}>
       <div className={styles.postFlex}>
@@ -12,7 +16,7 @@ const IndexPost = () => {
         <div className={styles.postText}>
           <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum, vitae</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, deserunt qui. Porro blanditiis explicabo nam eum nesciunt? Cumque, rerum amet?</p>
-          <Button title={"Saber más"} />
+          <Button eventClick={() => router.push('/nosotros')} title={"Saber más"} />
         </div>
       </div>
     </div>

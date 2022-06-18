@@ -1,7 +1,12 @@
 import styles from "../TextAreaPost/TextAreaPost.module.css";
+import { useState } from "react";
 
-const AutocompleteInput = ({ setTags, inputTags }) => {
+const AutocompleteInput = ({initialState, setTags, inputTags }) => {
+
+  const [value, setValue] = useState(initialState);
+ 
   const handleTags = async () => {
+    setValue(inputTags.current.value.trim());
     const Tags = inputTags.current.value.split(",");
     const TagsClean = await Tags.map((el) => {
       if (el.includes(" ")) {
@@ -32,6 +37,7 @@ const AutocompleteInput = ({ setTags, inputTags }) => {
         ref={inputTags}
         placeholder="Etiquetas"
         className={styles.inputTag}
+        value={value}
         type="text"
       />
     </div>

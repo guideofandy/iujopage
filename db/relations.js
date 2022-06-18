@@ -7,26 +7,34 @@ import Services from "./Models/Services";
 import Skills from "./Models/Skills";
 import Profiles from "./Models/Profiles";
 import setSeed from "./seeds/index";
+import Logs from "./Models/Logs";
 
 Users.hasMany(Posts, {
   as: "post",
-  foreignKey: {name: "autorId", allowNull: false},
+  foreignKey: { name: "autorId", allowNull: false },
 });
-Posts.belongsTo(Users, {as: "autor"});
+Users.hasMany(Logs, {
+  as: "log",
+  foreignKey: { name: "userId", allowNull: false },
+});
+Logs.belongsTo(Users, {
+  as: "user",
+});
+Posts.belongsTo(Users, { as: "autor" });
 Posts.hasMany(Tags, {
   as: "tag",
-  foreignKey: {name: "postId", allowNull: false},
+  foreignKey: { name: "postId", allowNull: false },
 });
-Tags.belongsTo(Posts, {as: "post", onDelete: "cascade"});
+Tags.belongsTo(Posts, { as: "post", onDelete: "cascade" });
 Careers.hasMany(Profiles, {
-  foreignKey: {name: "careerId", allowNull: false},
+  foreignKey: { name: "careerId", allowNull: false },
 });
 Careers.hasMany(Skills, {
-  foreignKey: {name: "careerId", allowNull: false},
+  foreignKey: { name: "careerId", allowNull: false },
 });
 
 export const sync = () => {
-  db.sync({force: true})
+  db.sync({ force: true })
     .then(() => {
       setSeed();
       return {
@@ -35,6 +43,6 @@ export const sync = () => {
       };
     })
     .catch((error) => {
-      return {status: false, message: "Unable to connect to the database."};
+      return { status: false, message: "Unable to connect to the database." };
     });
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-
+import Cookies from "js-cookie";
 const useCareers = () => {
 	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
@@ -19,6 +19,13 @@ const useCareers = () => {
 	const [deleteProfilesList, setDeleteProfilesList] = useState([]);
 	const [skillsOldList, setSkillsOldList] = useState([]);
 	const [profilesOldList, setProfilesOldList] = useState([]);
+	console.log(Cookies.get("sessionJWT"));
+
+	const config = {
+		headers: {
+			Authorization: `Bareer ${Cookies.get("sessionJWT")}`,
+		},
+	};
 
 	const handleName = ({ target }) => {
 		if (/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/.test(target.value) || target.value === "") {
@@ -111,14 +118,12 @@ const useCareers = () => {
 		if (setDeleteProfilesList)
 			dataToUpdate.deleteProfilesList = deleteProfilesList;
 		await axios
-			.patch(`/api/admin/careers/${id}`, dataToUpdate)
+			.patch(`/api/admin/careers/${id}`, dataToUpdate, config)
 			.then((res) => {
-				console.log(res);
 				setSuccess("Se ha actualizado la carrera");
 				setError("");
 				callback();
 				setSkills([]);
-
 				setProfiles([]);
 				setSelected("");
 			})
@@ -142,17 +147,21 @@ const useCareers = () => {
 			pensumURL !== ""
 		) {
 			axios
-				.post("/api/careers", {
-					name,
-					career: title.toUpperCase(),
-					pensumURL,
-					path: path.toLowerCase(),
-					profile,
-					Skills: skills,
-					Profiles: profiles,
-					icon,
-					color,
-				})
+				.post(
+					"/api/careers",
+					{
+						name,
+						career: title.toUpperCase(),
+						pensumURL,
+						path: path.toLowerCase(),
+						profile,
+						Skills: skills,
+						Profiles: profiles,
+						icon,
+						color,
+					},
+					config
+				)
 				.then(() => {
 					setSuccess("Se ha agregado correctamente");
 					setError("");

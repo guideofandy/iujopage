@@ -145,7 +145,7 @@ const usePosts = (props) => {
           mode.value !== autorId ||
           page === lastPage
         ) {
-          setPosts([...response.data.rows]);
+          setPosts(response.data.rows);
           setPage(0);
         } else {
           setPosts([...posts, ...response.data.rows]);
@@ -182,7 +182,12 @@ const usePosts = (props) => {
     } else if (mode.type === "title") {
       searchByTitle(mode.value, page + 1, mode.lastPage);
     } else if (mode.type === "autor") {
-      getPostsByAutor(mode.value.autorId, mode.value.name, page + 1, mode.lastPage);
+      getPostsByAutor(
+        mode.value.autorId,
+        mode.value.name,
+        page + 1,
+        mode.lastPage
+      );
     } else if (mode.type === "tags") {
       handleTag(mode.value, page + 1, mode.lastPage);
     } else if (mode.type === "titleAndTags") {
@@ -233,7 +238,11 @@ const usePosts = (props) => {
           <>
             <b>Busquedas con: </b>
             <span className={styles.searchDataValues}>{mode.value.title}</span>
-            <span className={styles.searchDataValues}>{mode.value.newTags.split("-").map(el => ` #${el.toUpperCase()}`)}</span>
+            <span className={styles.searchDataValues}>
+              {mode.value.newTags
+                .split("-")
+                .map((el) => ` #${el.toUpperCase()}`)}
+            </span>
             <span className={styles.resultsOpacity}>{limit} Resultados</span>
           </>
         );
@@ -245,22 +254,28 @@ const usePosts = (props) => {
   };
 
   const renderPosts = () => {
-    let render =  loader || posts.length > 0 ? (
+    let render =
+      loader || posts.length > 0 ? (
+        <>
+          {loader && <Spinner />}
+          {posts.map((element, key) => (
+            <PostContainer key={key} element={element} />
+          ))}
+          {limit - page * 5 > 5 && (
+            <div className={styles.infinity} onClick={handlePagination}>
+              Cargar más
+            </div>
+          )}
+        </>
+      ) : (
+        <div className={styles.noPosts}>No hay noticias disponibles</div>
+      );
+    return (
       <>
-        {posts.map((element, key) => (
-          <PostContainer key={key} element={element} />
-        ))}
-        {loader && <Spinner />}
-        {limit - page * 5 > 5 && (
-          <div className={styles.infinity} onClick={handlePagination}>
-            Cargar más
-          </div>
-        )}
+        {renderSearch()}
+        {render}
       </>
-    ) : (
-      <div className={styles.noPosts}>No hay noticias disponibles</div>
     );
-    return (<>{renderSearch()}{render}</>);
   };
 
   const renderByAutor = (id) => {
@@ -274,7 +289,6 @@ const usePosts = (props) => {
             role="admin"
           />
         ))}
-        {loader && <Spinner />}
         {limit - page * 5 > 5 && (
           <div className={styles.infinity} onClick={handlePagination}>
             Cargar más

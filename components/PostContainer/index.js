@@ -1,24 +1,38 @@
 import styles from "./Post.module.css";
 import Image from "next/image";
-import {MdDelete} from "react-icons/md";
-import {BiShare} from "react-icons/bi";
-import {AiFillEdit} from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
+import { BiShare } from "react-icons/bi";
+import { AiFillEdit } from "react-icons/ai";
+import { useState } from "react";
 import axios from "axios";
 import splitText from "../../helpers/splitText";
+import TextAreaPost from "../TextAreaPost";
+import Spinner from "../Spinner";
+import Cookie from "js-cookie";
 
-const PostContainer = ({element, update, role = "standard"}) => {
-  const {autor, title, updatedAt, content, id, tag, image} = element;
+const PostContainer = ({ element, update, role = "standard" }) => {
+  const { autor, title, updatedAt, content, id, tag, image } = element;
   const text = splitText(content);
+  const [edit, setEdit] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const Token = Cookie.get("sessionJWT")
 
   const handleDelete = () => {
-    axios.delete(`/api/posts/${id}`).then(() => {
+    setLoader(true);
+    const config = {
+      headers: { Authorization: `Bareer ${Token}` },
+    };
+    axios.delete(`/api/posts/${id}`, config).then(() => {
       update();
+      setLoader(false);
     });
   };
 
-  const handleEdit = () => {}
+  const handleEdit = () => {
+    setEdit(!edit);
+  };
 
-  return (
+  return !edit ? (
     <div className={styles.post}>
       <header className={styles.header}>
         <div className={styles.headerImg}>
@@ -26,7 +40,9 @@ const PostContainer = ({element, update, role = "standard"}) => {
         </div>
         <div className={styles.headerText}>
           <h5>{autor.name}</h5>
-          <span>{updatedAt.slice(0, 10)} {updatedAt.slice(11,16)}</span>
+          <span>
+            {updatedAt.slice(0, 10)} {updatedAt.slice(11, 16)}
+          </span>
         </div>
       </header>
       <section className={styles.body}>
@@ -61,10 +77,18 @@ const PostContainer = ({element, update, role = "standard"}) => {
           )}
         </div>
         <div className={styles.tags}>
-          {!!tag && tag.map(({name}, key) => <p key={key}>{name}</p>)}
+          {!!tag && tag.map(({ name }, key) => <p key={key}>{name}</p>)}
         </div>
+        {loader && <Spinner />}
       </footer>
     </div>
+  ) : (
+    <TextAreaPost
+      edit={edit}
+      initialData={element}
+      update={update}
+      handleEdit={handleEdit}
+    />
   );
 };
 

@@ -35,7 +35,6 @@ export async function getServerSideProps(request) {
     try {
       const userAuthorization = verify(sessionJWT, process.env.SECRET);
       const data = await PostsController.getPostsByAutor(userAuthorization.id);
-      console.log(data)
       return {props: {data: {dataList: data, id: userAuthorization.id}}}
     } catch (err) {
       console.log(err)

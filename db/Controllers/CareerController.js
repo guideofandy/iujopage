@@ -6,7 +6,6 @@ import parseFetch from "../../helpers/parseFetch";
 require("../relations");
 
 class CareerController {
-
     static async getCareers() {
         try {
             const careers = await Careers.findAll({
@@ -93,7 +92,6 @@ class CareerController {
     }
 
     static async addSkill(careerId, data) {
-        console.log(data)
         if (data.length === 1) {
             try {
                 await Skills.create({
@@ -113,7 +111,7 @@ class CareerController {
                         careerId: parseInt(careerId),
                     };
                 });
-                for(let i = 0; i < newSkills.length; i++) {
+                for (let i = 0; i < newSkills.length; i++) {
                     await Skills.create(newSkills[i]);
                 }
                 const content = `added to the career`;
@@ -144,7 +142,7 @@ class CareerController {
                         careerId: parseInt(careerId),
                     };
                 });
-                for(let i = 0; i < newProfiles.length; i++) {
+                for (let i = 0; i < newProfiles.length; i++) {
                     await Profiles.create(newProfiles[i]);
                 }
                 const content = `added to the career`;
@@ -156,7 +154,7 @@ class CareerController {
     }
 
     static async deleteSkills(list) {
-        if(list.length === 1) {
+        if (list.length === 1) {
             try {
                 await Skills.destroy({
                     where: {
@@ -170,7 +168,7 @@ class CareerController {
             }
         } else {
             try {
-                for(let i = 0; i < list.length; i++) {
+                for (let i = 0; i < list.length; i++) {
                     await Skills.destroy({
                         where: {
                             id: list[i].id,
@@ -186,8 +184,7 @@ class CareerController {
     }
 
     static async deleteProfiles(list) {
-        console.log("HOLA")
-        if(list.length === 1) {
+        if (list.length === 1) {
             try {
                 await Profiles.destroy({
                     where: {
@@ -201,7 +198,7 @@ class CareerController {
             }
         } else {
             try {
-                for(let i = 0; i < list.length; i++) {
+                for (let i = 0; i < list.length; i++) {
                     await Profiles.destroy({
                         where: {
                             id: list[i].id,

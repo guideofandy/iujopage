@@ -103,7 +103,7 @@
   border: 1px solid transparent;
   border-bottom: 1px solid #212121;
   font-size: 16px;
-  width: 17rem;
+  width: 12rem;
 }
 .error {
   border-bottom: 2px solid #CB4335;
@@ -113,9 +113,15 @@
   outline: 0;
 }
 
+.send{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
 
 @media only screen and (max-width: 800px) {
   .inputTag {
-    width: 10rem;
+    width: 7rem;
   }
 }

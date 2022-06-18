@@ -1,14 +1,12 @@
 import styles from "../../../pages/admin/admin.module.css";
 import Button from "../../Button";
 import InputText from "../../InputText";
-import useAuth from "../../../hooks/useAuth";
 import {useState} from "react";
 import axios from "axios";
 import Message from "../../Message";
 
 const Account = ({data}) => {
-  const {email: userEmail, userId} = data;
-  const {user, updateNameAccount} = useAuth();
+  const {email: userEmail, userId, user, updateNameAccount} = data;
   const [emailPlaceholder, setEmailPlaceholder] = useState(userEmail);
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
@@ -117,7 +115,7 @@ const Account = ({data}) => {
     <>
       <header className={styles.headerBody}>
         <h2>
-          Cuenta <span className={styles.autorHeader}>{user.name}</span>
+          Cuenta <span className={styles.autorHeader}>{user && user.name}</span>
         </h2>
         <span>(Configuracion de datos)</span>
       </header>
@@ -133,7 +131,7 @@ const Account = ({data}) => {
         <InputText
           type={"text"}
           onChange={handleName}
-          placeholder={user.name}
+          placeholder={user && user.name}
           value={name}
           onEnter={updateName}
         />

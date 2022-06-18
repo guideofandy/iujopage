@@ -3,6 +3,7 @@ import addMessage from "../../helpers/addMessage";
 import Users from "../Models/Users";
 import Tags from "../Models/Tags";
 import { Op } from "sequelize";
+import Logs from "../Models/Logs";
 require("../relations");
 
 class PostsController {
@@ -154,15 +155,74 @@ class PostsController {
         }
       );
       const parse = await JSON.parse(JSON.stringify(post));
+      await Logs.create({
+        userId: autorId,
+        event: "CREATE",
+        module: "POSTS",
+      });
       return parse;
     } catch (error) {
       return addMessage(error.message, 404);
     }
   }
 
-  static async DeletePost(id) {
+  static async UpdatePost(id, data) {
+    const { title, image, content, autorId, type, tag } = data;
+    let tags = tag;
+    if (tag.length === 1) {
+      tags = tag[0];
+    }
+
+    try {
+      Tags.destroy({ where: { postId: id } });
+      const post = await Posts.update(
+        {
+          title,
+          content,
+          autorId,
+          type,
+          image,
+          updatedAt: new Date(),
+          tag: tags,
+        },
+        {
+          where: { id },
+        }
+      );
+      if (tag.length === 1) {
+        Tags.create({
+          name: tags.name,
+          postId: id,
+        });
+      }
+      if (tag.length > 1) {
+        for (let i = 0; i < tags.length; i++) {
+          await Tags.create({
+            postId: id,
+            name: tags[i].name,
+          });
+        }
+      }
+      await Logs.create({
+        userId: autorId,
+        event: "UPDATE",
+        module: "POSTS",
+      });
+      const parse = await JSON.parse(JSON.stringify(post));
+      return parse;
+    } catch (error) {
+      return addMessage(error.message, 404);
+    }
+  }
+
+  static async DeletePost(id, userId) {
     try {
       const post = await Posts.destroy({ where: { id: id } });
+      await Logs.create({
+        userId: userId,
+        event: "DELETE",
+        module: "POSTS",
+      });
       const parse = await JSON.parse(JSON.stringify(post));
       return parse;
     } catch (error) {
@@ -204,6 +264,25 @@ class PostsController {
         return 0;
       });
       return { rows: newContent, count: content.count };
+    } catch (error) {
+      return addMessage(error.message, 404);
+    }
+  }
+
+  static async getCountPostLastMonth(time = 1) {
+    let timeToSearch = new Date(
+      new Date().setMonth(new Date().getMonth() - time)
+    );
+    try {
+      const posts = await Posts.count({
+        where: {
+          createdAt: {
+            [Op.between]: [timeToSearch, new Date()],
+          },
+        },
+      });
+      const content = await JSON.parse(JSON.stringify(posts));
+      return content;
     } catch (error) {
       return addMessage(error.message, 404);
     }

@@ -1,4 +1,13 @@
 .input{
+	left: 0;
+	top: 0;
+	position: absolute;
 	max-width: 100px;
-	color: rgba(0, 0, 0, 0);
+	opacity: 0;
+}
+
+.imageButtom{
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
 }
